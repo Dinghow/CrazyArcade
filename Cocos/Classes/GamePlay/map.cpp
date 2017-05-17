@@ -1,14 +1,12 @@
-#include "LoginScene.h"
-#include "MenuScene.h"
-#include "../GamePlay/map.h"
+#include "map.h"
 
-Scene* Login::createScene()
+Scene* MapOfGame::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = Login::create();
+	auto layer = MapOfGame::create();
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -18,7 +16,7 @@ Scene* Login::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool Login::init()
+bool MapOfGame::init()
 {
 	/**  you can create scene with following comment code instead of using csb file.
 	// 1. super init first
@@ -38,7 +36,7 @@ bool Login::init()
 	auto closeItem = MenuItemImage::create(
 	"CloseNormal.png",
 	"CloseSelected.png",
-	CC_CALLBACK_1(Login::menuCloseCallback, this));
+	CC_CALLBACK_1(MapOfGame::menuCloseCallback, this));
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
 	origin.y + closeItem->getContentSize().height/2));
@@ -63,8 +61,8 @@ bool Login::init()
 	// add the label as a child to this layer
 	this->addChild(label, 1);
 
-	// add "Login" splash screen"
-	auto sprite = Sprite::create("Login.png");
+	// add "MapOfGame" splash screen"
+	auto sprite = Sprite::create("MapOfGame.png");
 
 	// position the sprite on the center of the screen
 	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -80,39 +78,11 @@ bool Login::init()
 		return false;
 	}
 
-	auto rootNode = CSLoader::createNode("LoginScene/LoginScene.csb");
-	Layout* background = (Layout*)rootNode->getChildByName("background");
-	Button* btnMenu = (Button*)Helper::seekWidgetByName(background, "menubutton");
-	Button* btnStartGame = (Button*)Helper::seekWidgetByName(background, "playbutton");
+	CCTMXTiledMap *map = CCTMXTiledMap::create("Maps/map1.tmx");
+	//map->setAnchorPoint(ccp(0.5f, 0.5f));
+	//map->setPosition(ccp(960, 640));
 
-	btnMenu->addTouchEventListener(CC_CALLBACK_2(Login::MenuTouch, this));
-	btnStartGame->addTouchEventListener(CC_CALLBACK_2(Login::StartGameTouch, this));
-
-	addChild(rootNode);
+	addChild(map, 0);
 
 	return true;
-}
-
-void Login::MenuTouch(Ref* pSender, Widget::TouchEventType type) {
-	switch (type) {
-	case Widget::TouchEventType::ENDED:
-		auto director = Director::getInstance();
-		auto scene = MenuTable::createScene();
-		auto transition = TransitionMoveInR::create(1.0f, scene);
-		director->replaceScene(transition);
-
-		break;
-	}
-}
-
-void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
-	switch (type) {
-	case Widget::TouchEventType::ENDED:
-		auto director = Director::getInstance();
-		auto scene = MapOfGame::createScene();
-		auto transition = TransitionCrossFade::create(1.0f, scene);
-		director->replaceScene(transition);
-
-		break;
-	}
 }

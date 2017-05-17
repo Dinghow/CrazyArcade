@@ -1,5 +1,5 @@
-#ifndef __LOGIN_SCENE_H__
-#define __LOGIN_SCENE_H__
+#ifndef _MENU_SCENE_H_
+#define _MENU_SCENE_H_
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
@@ -9,7 +9,7 @@ USING_NS_CC;
 using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
 
-class Login : public cocos2d::Layer
+class MenuTable : public cocos2d::Layer
 {
 public:
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -19,12 +19,10 @@ public:
 	virtual bool init();
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(Login);
+	CREATE_FUNC(MenuTable);
 
 private:
-	void MenuTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
-	void StartGameTouch(Ref* pSender, Widget::TouchEventType type);
+	void ReturnMainTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 };
 
-#endif // __LOGIN_SCENE_H__
-#pragma once
+#endif // _MENU_SCENE_H_

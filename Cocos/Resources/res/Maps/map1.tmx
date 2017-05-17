@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="13" tilewidth="40" tileheight="40" nextobjectid="1">
+ <tileset firstgid="1" name="map_flopy_tile2" tilewidth="40" tileheight="40" tilecount="3" columns="3">
+  <image source="map_flopy_tile2.png" width="120" height="40"/>
+ </tileset>
+ <tileset firstgid="4" name="map_village_tile2" tilewidth="40" tileheight="40" tilecount="7" columns="7">
+  <image source="map_village_tile2.png" width="280" height="40"/>
+ </tileset>
+ <tileset firstgid="11" name="map_village_object1" tilewidth="40" tileheight="60" tilecount="6" columns="6">
+  <image source="map_village_object1.png" width="247" height="61"/>
+ </tileset>
+ <tileset firstgid="17" name="map_camp_object2" tilewidth="40" tileheight="74" tilecount="2" columns="2">
+  <image source="map_camp_object2.png" width="83" height="74"/>
+ </tileset>
+ <tileset firstgid="19" name="map_village_object3" tilewidth="41" tileheight="62" tilecount="2" columns="2">
+  <image source="map_village_object3.png" width="83" height="62"/>
+ </tileset>
+ <layer name="地面层" width="15" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NnYGBgR8MsQMyGRqOrwYVJ0cuBQy8rje2lhV5S3cxBgb2U6B1p4UyKvQBvQeZkDAMAAA==
+  </data>
+ </layer>
+ <layer name="建筑层" width="15" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC32SWw7FIAhE+a8XC979r7U1ZdIpESchlYccq4g8OuTVkK+m38NWQrzd9k85+EYMv03Jtw1XY63E8fieEfeCC6ZFbaO9TrkVtxFvUL2m2hUX/Xr0QQ/4OHP1v5bOCqFXL7jIsbTgZB+suR/3IvJ9K9twp87EPRKrmqs8FyN6/SK2myuPOp5f3B+/X+aihnUBUatxHQwDAAA=
+  </data>
+ </layer>
+</map>
