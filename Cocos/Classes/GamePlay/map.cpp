@@ -18,71 +18,29 @@ Scene* MapOfGame::createScene()
 // on "init" you need to initialize your instance
 bool MapOfGame::init()
 {
-	/**  you can create scene with following comment code instead of using csb file.
-	// 1. super init first
-	if ( !Layer::init() )
-	{
-	return false;
-	}
-
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	/////////////////////////////
-	// 2. add a menu item with "X" image, which is clicked to quit the program
-	//    you may modify it.
-
-	// add a "close" icon to exit the progress. it's an autorelease object
-	auto closeItem = MenuItemImage::create(
-	"CloseNormal.png",
-	"CloseSelected.png",
-	CC_CALLBACK_1(MapOfGame::menuCloseCallback, this));
-
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-	origin.y + closeItem->getContentSize().height/2));
-
-	// create menu, it's an autorelease object
-	auto menu = Menu::create(closeItem, NULL);
-	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu, 1);
-
-	/////////////////////////////
-	// 3. add your codes below...
-
-	// add a label shows "Hello World"
-	// create and initialize a label
-
-	auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-
-	// position the label on the center of the screen
-	label->setPosition(Vec2(origin.x + visibleSize.width/2,
-	origin.y + visibleSize.height - label->getContentSize().height));
-
-	// add the label as a child to this layer
-	this->addChild(label, 1);
-
-	// add "MapOfGame" splash screen"
-	auto sprite = Sprite::create("MapOfGame.png");
-
-	// position the sprite on the center of the screen
-	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-	// add the sprite as a child to this layer
-	this->addChild(sprite, 0);
-	**/
-
-	//////////////////////////////
-	// 1. super init first
 	if (!Layer::init())
 	{
 		return false;
 	}
+	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
+	//get map from the csb
+	CCTMXTiledMap *map = (CCTMXTiledMap *)rootNode->getChildByName("map");
+	//get objects layer
+	CCTMXObjectGroup *objects = map->objectGroupNamed("objects");
+	CCAssert(objects != NULL, "ObjectLayer not found");
+	//set first spawn point
+	auto spawnPoint1 = objects->objectNamed("spawnpoint1");
+	int x = spawnPoint1.at("x").asInt();
+	int y = spawnPoint1.at("y").asInt();
 
-	CCTMXTiledMap *map = CCTMXTiledMap::create("Maps/map1.tmx");
-	//map->setAnchorPoint(ccp(0.5f, 0.5f));
-	//map->setPosition(ccp(960, 640));
+	CCTexture2D* playerTexture = CCTextureCache::sharedTextureCache()->addImage("rolePosition.png");
+	CCSprite* player1 = CCSprite::createWithTexture(playerTexture);
+	player1->retain();
+	player1->setPosition(ccp(x, y));
 
-	addChild(map, 0);
+	map->addChild(player1);
+
+	addChild(rootNode);
 
 	return true;
 }

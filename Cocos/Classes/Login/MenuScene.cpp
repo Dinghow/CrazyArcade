@@ -79,10 +79,11 @@ bool MenuTable::init()
 		return false;
 	}
 
+	//*****ATTENTION******the name of button must use lower case
 	auto rootNode = CSLoader::createNode("MenuScene/MenuScene.csb");
 	Layout* background = (Layout*)rootNode->getChildByName("background");
 	Button* btnReturnMainMenu = (Button*)Helper::seekWidgetByName(background, "returnbutton");
-	//按钮名称只能用小写，我艹艹艹艹艹艹!!
+	
 
 	btnReturnMainMenu->addTouchEventListener(CC_CALLBACK_2(MenuTable::ReturnMainTouch, this));
 
