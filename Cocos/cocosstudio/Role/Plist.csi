@@ -1,0 +1,34 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Name="Plist" Type="Plist" ID="8d0ea574-ad91-4c46-96b6-b09df8f55ccf" Version="3.10.0.0" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="False" AllowTrim="False" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="Role/move_down_1.png" />
+      <FilePathData Path="Role/move_down_2.png" />
+      <FilePathData Path="Role/move_down_3.png" />
+      <FilePathData Path="Role/move_down_4.png" />
+      <FilePathData Path="Role/move_left_1.png" />
+      <FilePathData Path="Role/move_left_2.png" />
+      <FilePathData Path="Role/move_left_3.png" />
+      <FilePathData Path="Role/move_left_4.png" />
+      <FilePathData Path="Role/move_right_1.png" />
+      <FilePathData Path="Role/move_right_2.png" />
+      <FilePathData Path="Role/move_right_3.png" />
+      <FilePathData Path="Role/move_right_4.png" />
+      <FilePathData Path="Role/move_up_1.png" />
+      <FilePathData Path="Role/move_up_2.png" />
+      <FilePathData Path="Role/move_up_3.png" />
+      <FilePathData Path="Role/move_up_4.png" />
+      <FilePathData Path="Role/stop_down.png" />
+      <FilePathData Path="Role/stop_left.png" />
+      <FilePathData Path="Role/stop_right.png" />
+      <FilePathData Path="Role/stop_up.png" />
+      <FilePathData Path="Role/wrapped_1.png" />
+      <FilePathData Path="Role/wrapped_2.png" />
+      <FilePathData Path="Role/wrapped_3.png" />
+      <FilePathData Path="Role/wrapped_4.png" />
+      <FilePathData Path="Role/wrapped_5.png" />
+      <FilePathData Path="Role/wrapped_6.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

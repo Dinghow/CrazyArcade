@@ -4,9 +4,9 @@
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Scene" Tag="3" ctype="GameNodeObjectData">
-        <Size X="960.0000" Y="640.0000" />
+        <Size X="800.0000" Y="600.0000" />
         <Children>
-          <AbstractNodeData Name="background" ActionTag="-1242784989" Tag="4" IconVisible="False" VerticalEdge="BottomEdge" LeftMargin="0.0000" BottomMargin="0.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" LeftEage="52" RightEage="52" TopEage="39" BottomEage="39" Scale9OriginX="52" Scale9OriginY="39" Scale9Width="920" Scale9Height="690" ctype="PanelObjectData">
+          <AbstractNodeData Name="background" ActionTag="-1242784989" Tag="4" IconVisible="False" VerticalEdge="BottomEdge" RightMargin="-160.0000" TopMargin="-40.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" LeftEage="52" RightEage="52" TopEage="39" BottomEage="39" Scale9OriginX="52" Scale9OriginY="39" Scale9Width="920" Scale9Height="690" ctype="PanelObjectData">
             <Size X="960.0000" Y="640.0000" />
             <Children>
               <AbstractNodeData Name="playbutton" ActionTag="-1808226001" Tag="3" IconVisible="False" LeftMargin="54.9799" RightMargin="780.0201" TopMargin="29.2631" BottomMargin="485.7369" TouchEnable="True" FontSize="18" ButtonText="Play" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
@@ -89,11 +89,11 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="0.0000" Y="0.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <Position />
+            <Scale ScaleX="0.8340" ScaleY="0.9378" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.0000" Y="0.0000" />
-            <PreSize X="1.0000" Y="1.0000" />
+            <PrePosition />
+            <PreSize X="1.2000" Y="1.0667" />
             <FileData Type="Normal" Path="LoginScene/timg.jpg" Plist="" />
             <SingleColor A="255" R="150" G="200" B="255" />
             <FirstColor A="255" R="150" G="200" B="255" />
