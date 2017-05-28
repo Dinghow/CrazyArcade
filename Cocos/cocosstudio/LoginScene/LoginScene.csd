@@ -71,7 +71,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="menubutton_0" ActionTag="2132633050" Tag="9" IconVisible="False" LeftMargin="477.5963" RightMargin="357.4037" TopMargin="29.2630" BottomMargin="485.7370" TouchEnable="True" FontSize="18" ButtonText="Exit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="exitbutton" ActionTag="2132633050" Tag="9" IconVisible="False" LeftMargin="477.5963" RightMargin="357.4037" TopMargin="29.2630" BottomMargin="485.7370" TouchEnable="True" FontSize="18" ButtonText="Exit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="125.0000" Y="125.0000" />
                 <AnchorPoint ScaleX="0.5021" ScaleY="0.5176" />
                 <Position X="540.3588" Y="550.4370" />

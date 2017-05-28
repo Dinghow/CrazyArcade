@@ -24,6 +24,7 @@ public:
 private:
 	void MenuTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void StartGameTouch(Ref* pSender, Widget::TouchEventType type);
+	void ExitTouch(Ref* pSender, Widget::TouchEventType type);
 };
 
 #endif // __LOGIN_SCENE_H__

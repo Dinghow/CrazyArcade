@@ -97,7 +97,7 @@ void MenuTable::ReturnMainTouch(Ref* pSender, Widget::TouchEventType type) {
 	case Widget::TouchEventType::ENDED:
 		auto director = Director::getInstance();
 		auto scene = Login::createScene();
-		auto transition = TransitionMoveInL::create(1.0f, scene);
+		auto transition = TransitionCrossFade::create(1.0f, scene);
 		director->replaceScene(transition);
 
 		break;

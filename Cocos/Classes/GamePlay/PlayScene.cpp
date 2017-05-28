@@ -23,10 +23,13 @@ bool MapOfGame::init()
 		return false;
 	}
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
+	this->addChild(rootNode);
 	//get map from the csb
 	map = (CCTMXTiledMap *)rootNode->getChildByName("map");
 	//get objects layer
 	CCTMXObjectGroup *objects = map->objectGroupNamed("objects");
+	CCTMXLayer *architecture = map->layerNamed("architecture");
+	architecture->setZOrder(1);
 	CCAssert(objects != NULL, "ObjectLayer not found");
 	//set first spawn point
 	auto spawnPoint1 = objects->objectNamed("spawnpoint1");
@@ -34,54 +37,92 @@ bool MapOfGame::init()
 	int startY = spawnPoint1.at("y").asInt();
 
 	//load the plist file
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Role/bazzi.plist");
-	//creat the animation of four direction
-	for (int i = 0; i < kTotal; i++) {
+	auto cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+	//create the animation of four direction
+	/*for (int i = 0; i < kTotal; i++) {
 		walkAnimations[i] = creatAnimationByDirecton((RoleDirection)i);
-	}
+	}*/
 
 	//create the role and set the first frame as the static condition
-	role1 = CCSprite::createWithSpriteFrame(((CCAnimationFrame*)(walkAnimations[kDown]->getFrames()->objectAtIndex(0)))->getSpriteFrame());
-	role1->setAnchorPoint(CCPointZero);
-	role1->setPosition(startX, startY);
-	this->addChild(role1);
+	role1 = Sprite::createWithSpriteFrameName("role/stop_down.png");
+	role1->setAnchorPoint(Vec2(0, 0));
+	role1->setPosition(ccp(startX,startY));
+	map->addChild(role1,1);
 
-	//add the control menu of four direction
-	CCMenuItem* up = CCMenuItemFont::create("up", this, menu_selector(MapOfGame::menuCallbackMove));
-	CCMenuItem* down = CCMenuItemFont::create("down", this, menu_selector(MapOfGame::menuCallbackMove));
-	CCMenuItem* left = CCMenuItemFont::create("left", this, menu_selector(MapOfGame::menuCallbackMove));
-	CCMenuItem* right = CCMenuItemFont::create("right", this, menu_selector(MapOfGame::menuCallbackMove));
-	CCMenu* menu = CCMenu::create(up, down, left, right, NULL);
-
-	//add tag for the menu item to help search
-	up->setTag(kUp);
-	down->setTag(kDown);
-	left->setTag(kLeft);
-	right->setTag(kRight);
+	//add keyboard listener
+	auto listener = EventListenerKeyboard::create();
+	//set the corresponding key map to bool value
+	listener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event *event) {
+		keys[keyCode] = true;
+	};	
 	
-	menu->alignItemsHorizontallyWithPadding(30);
-	this->addChild(menu);
+	listener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event *event) {
+		keys[keyCode] = false;
+	};
 
-	this->isRoleWalking = false;
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	this->addChild(rootNode);
+	//call the schedule
+	this->scheduleUpdate();
 
 	return true;
 }
 
-void MapOfGame::menuCallbackMove(CCObject *pSender) {
+//set close menu
+/*void MapOfGame::menuCloseCallback(CCObject *pSender) {
 	//"close" menu item clicked
 	CCDirector::sharedDirector()->end();
-}
+}*/
 
 
 //create animation frames
 CCAnimation* MapOfGame::creatAnimationByDirecton(RoleDirection direction) {
-
+	CCAnimation *animation = Animation::create();
+	auto cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+	switch (direction)
+	{
+	case kUp:
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_up.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_1.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_2.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_3.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_4.png"));
+		animation->setDelayPerUnit(0.1f);
+		animation->setRestoreOriginalFrame(false);
+	case kDown:
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_down.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_1.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_2.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_3.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_4.png"));
+		animation->setDelayPerUnit(0.1f);
+		animation->setRestoreOriginalFrame(true);
+	case kLeft:
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_left.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_1.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_2.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_3.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_4.png"));
+		animation->setDelayPerUnit(0.1f);
+		animation->setRestoreOriginalFrame(true);
+	case kRight:
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_right.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_1.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_2.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_3.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_4.png"));
+		animation->setDelayPerUnit(0.2f);
+		animation->setRestoreOriginalFrame(true);
+	default:
+		break;
+	}
+	return animation;
 }
 
 //set the call back function 
-void MapOfGame::menuCallbackMove(CCObject *pSender) {
+/*void MapOfGame::menuCallbackMove(CCObject *pSender) {
 	if (this->isRoleWalking)
 		return;
 	CCNode* node = (CCNode*)pSender;
@@ -104,23 +145,32 @@ void MapOfGame::menuCallbackMove(CCObject *pSender) {
 		setFaceDirection(tag);
 		return;
 	}
-	CCAction *action = CCSequence::create(
+	/*CCAction *action = CCSequence::create(
 		CCSpawn::create(
 			CCAnimate::create(walkAnimations[tag]),
 			CCMoveBy::create(0.28f, moveByPosition), NULL),								    
 		CCCallFuncND::create(this, callfuncND_selector(MapOfGame::onWalkDone), (void*)(tag)), NULL);
+	
 	role1->runAction(action);
-	this->isRoleWalking = true;
-}
+}*/
 
 //set face direciton
-void MapOfGame::setFaceDirection(RoleDirection) {
-
+void MapOfGame::setFaceDirection(RoleDirection direction) {
+	switch (direction) {
+	case kUp:
+		role1->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_up.png"));
+	case kDown:
+		role1->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_down.png"));
+	case kLeft:
+		role1->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_down.png"));
+	case kRight:
+		role1->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_down.png"));
+		break;
+	}
 }
 
 //the call back function of finished walk
 void MapOfGame::onWalkDone(CCNode *pTarget, void *data) {
-	this->isRoleWalking = false;
 	RoleDirection direction = (RoleDirection)(int)data;
 	this->setFaceDirection(direction);
 }
@@ -159,4 +209,74 @@ MapOfGame::~MapOfGame() {
 		CC_SAFE_RELEASE(walkAnimations[i]);
 	}
 	this->unscheduleAllSelectors();
+}
+
+//transfer keyboardevent in update 
+void MapOfGame::update(float delta) {
+	Node::update(delta);
+	auto upArrow = EventKeyboard::KeyCode::KEY_UP_ARROW,
+		downArrow = EventKeyboard::KeyCode::KEY_DOWN_ARROW,
+		leftArrow = EventKeyboard::KeyCode::KEY_LEFT_ARROW,
+		rightArrow = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;
+	if (isKeyPressed(upArrow)) {
+		keyPressedEvent(upArrow);
+	}
+	else if (isKeyPressed(downArrow)) {
+		keyPressedEvent(downArrow);
+	}
+	else if (isKeyPressed(leftArrow)) {
+		keyPressedEvent(leftArrow);
+	}
+	else if (isKeyPressed(rightArrow)) {
+		keyPressedEvent(rightArrow);
+	}
+}
+
+//check whether the key is pressed
+bool MapOfGame::isKeyPressed(EventKeyboard::KeyCode keyCode) {
+	if (keys[keyCode]) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+//the event during key pressed
+void MapOfGame::keyPressedEvent(EventKeyboard::KeyCode keyCode) {
+	CCPoint moveByPosition;
+	RoleDirection tag;
+	//you can set move speed here
+	switch (keyCode) {
+	case EventKeyboard::KeyCode::KEY_UP_ARROW:
+		moveByPosition = ccp(0, 2);
+		tag = kUp;
+		break;
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		moveByPosition = ccp(0, -2);
+		tag = kDown;
+		break;
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		moveByPosition = ccp(-2, 0);
+		tag = kLeft;
+		break;
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		moveByPosition = ccp(2, 0);
+		tag = kRight;
+		break;
+	default:
+		moveByPosition = ccp(0, 0);
+		break;
+	}
+	CCPoint targetPosition = ccpAdd(role1->getPosition(), moveByPosition);
+	
+	//create a action combined move action and related animation
+	/*CCAction *action = CCSequence::create(
+		CCSpawn::create(
+			CCAnimate::create(walkAnimations[tag]),
+			CCMoveBy::create(0.28f, moveByPosition), NULL),
+		CCCallFuncND::create(this, callfuncND_selector(MapOfGame::onWalkDone), (void*)(tag)), NULL);*/
+	auto move = CCMoveBy::create(0.28f, moveByPosition);
+
+	role1->runAction(move);
 }
