@@ -8,6 +8,7 @@ USING_NS_CC;
 
 using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
+//the role class include basic role properties
 class Role {
 private:
 	CCPoint position;
@@ -17,11 +18,14 @@ private:
 public:
 	CCSprite* role;
 	Role();
+	//speed property
 	int getSpeed() { return speed; }
 	void addspeed() { speed++; }
+	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
 	void setPosition(CCPoint& r) { position = r;}
+	//bomb property
 	void addBombRange() { bombRange++; }
 };
 
