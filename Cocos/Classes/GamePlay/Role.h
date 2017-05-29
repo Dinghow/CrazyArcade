@@ -14,9 +14,10 @@ private:
 	CCPoint position;
 	int bombQuantity;
 	float bombRange;
-	int speed;
+	float speed;
 public:
 	CCSprite* role;
+	CCPoint startPosition;
 	Role();
 	//speed property
 	int getSpeed() { return speed; }

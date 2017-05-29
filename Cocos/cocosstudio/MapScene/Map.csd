@@ -16,13 +16,13 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="MapScene/BG.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="map" ActionTag="-943244029" Tag="11" IconVisible="False" LeftMargin="22.3536" RightMargin="177.6464" TopMargin="37.2313" BottomMargin="42.7687" ctype="GameMapObjectData">
+          <AbstractNodeData Name="map" ActionTag="-943244029" Tag="11" IconVisible="False" LeftMargin="20.3534" RightMargin="179.6466" TopMargin="40.1315" BottomMargin="39.8686" ctype="GameMapObjectData">
             <Size X="600.0000" Y="520.0000" />
             <AnchorPoint />
-            <Position X="22.3536" Y="42.7687" />
+            <Position X="20.3534" Y="39.8686" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.0279" Y="0.0713" />
+            <PrePosition X="0.0254" Y="0.0664" />
             <PreSize X="0.7500" Y="0.8667" />
             <FileData Type="Normal" Path="MapScene/map1/map1.tmx" Plist="" />
           </AbstractNodeData>

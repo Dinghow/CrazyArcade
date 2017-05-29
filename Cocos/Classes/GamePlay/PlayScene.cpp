@@ -35,7 +35,7 @@ bool MapOfGame::init()
 	auto spawnPoint1 = objects->objectNamed("spawnpoint1");
 	int startX = spawnPoint1.at("x").asInt();
 	int startY = spawnPoint1.at("y").asInt();
-
+	role1.startPosition = positionForTileCoord(CCPoint(startX, startY));
 	//load the plist file
 	cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
@@ -55,32 +55,43 @@ bool MapOfGame::init()
 	//call responding animation when realted key is pressed
 	listener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event *event) {
 		keys[keyCode] = true;
-		if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW ||
-			keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW ||
-			keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW ||
-			keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+		switch (keyCode){
+		case EventKeyboard::KeyCode::KEY_UP_ARROW:
 			keyPressedAnimation(keyCode);
-	};	
+			break;
+		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			keyPressedAnimation(keyCode);
+			break;
+		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			keyPressedAnimation(keyCode);
+			break;
+		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			keyPressedAnimation(keyCode);
+			break;
+		default:
+			break;
+	}
+};	
 	//call stop event when related key is released
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event *event) {
 		keys[keyCode] = false;
 		switch (keyCode)
 		{
 		case EventKeyboard::KeyCode::KEY_UP_ARROW :
+			role1.role->stopAction(animations[kUp]);
 			onWalkDone(kUp);
-			role1.role->stopAllActions();
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			role1.role->stopAction(animations[kDown]);
 			onWalkDone(kDown);
-			role1.role->stopAllActions();
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			role1.role->stopAction(animations[kLeft]);
 			onWalkDone(kLeft);
-			role1.role->stopAllActions();
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			role1.role->stopAction(animations[kRight]);
 			onWalkDone(kRight);
-			role1.role->stopAllActions();
 			break;
 		default:
 			break;
@@ -218,16 +229,17 @@ void MapOfGame::onWalkDone(RoleDirection direction) {
 	this->setFaceDirection(direction);
 }
 
-//coord transfer
+//transfer position coord to tile coord
 CCPoint MapOfGame::tilecoordForPosition(CCPoint position) {
 	int x = int(position.x / map->getTileSize().width);
-	int y = int(position.y / map->getTileSize().height);
+	int y = int((map->getMapSize().height * map->getTileSize().height) - position.y) / map->getTileSize().height;
 	return ccp(x, y);
 }
 
+//transfer tile coord to postion coord
 CCPoint MapOfGame::positionForTileCoord(CCPoint position) {
 	float x = float(position.x*map->getTileSize().width);
-	float y = float(position.y*map->getTileSize().height);
+	float y = float((map->getMapSize().height*map->getTileSize().height)-position.y*map->getTileSize().height);
 	return ccp(x, y);
 }
 
@@ -239,9 +251,9 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 	if (tileCoord.x<0 || tileCoord.x>map->getMapSize().width - 1 || tileCoord.y<0 || tileCoord.y>map->getMapSize().height - 1) {
 		return kWall;
 	}
-	if (map->layerNamed("wall")->tileGIDAt(tileCoord)) {
+	/*if (map->layerNamed("wall")->tileGIDAt(tileCoord)) {
 		return kWall;
-	}
+	}*/
 	else {
 		return kNone;
 	}
@@ -306,8 +318,9 @@ void MapOfGame::keyPressedAnimation(EventKeyboard::KeyCode keyCode) {
 	default:
 		break;
 	}
-	auto animation = CCAnimate::create(walkAnimations[tag]);
-	role1.role->runAction(RepeatForever::create(animation));
+	animations[tag] = RepeatForever::create(CCAnimate::create(walkAnimations[tag]));
+	//animations[tag] = CCAnimate::create(walkAnimations[tag]);
+	role1.role->runAction(animations[tag]);
 }
 
 void MapOfGame::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
@@ -335,7 +348,12 @@ void MapOfGame::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 		moveByPosition = ccp(0, 0);
 		break;
 	}
+	//collision check
 	CCPoint targetPosition = ccpAdd(role1.role->getPosition(), moveByPosition);
+	if (checkCollision(targetPosition) == kWall) {
+		setFaceDirection(tag);
+		return;
+	}
 	//create a action combined move action and related animation
 	/*CCAction *action = CCSequence::create(
 		CCSpawn::create(

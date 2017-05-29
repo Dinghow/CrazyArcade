@@ -33,6 +33,7 @@ public:
 		kRight,
 		kTotal,
 	}RoleDirection;
+	cocos2d::RepeatForever* animations[4];
 	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
 
 	void menuCallbackMove(CCObject *pSender);
