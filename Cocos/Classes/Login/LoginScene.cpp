@@ -1,6 +1,6 @@
 #include "LoginScene.h"
 #include "MenuScene.h"
-#include "../GamePlay/map.h"
+#include "../GamePlay/PlayScene.h"
 
 Scene* Login::createScene()
 {
@@ -30,30 +30,33 @@ bool Login::init()
 	Layout* background = (Layout*)rootNode->getChildByName("background");
 	Button* btnMenu = (Button*)Helper::seekWidgetByName(background, "menubutton");
 	Button* btnStartGame = (Button*)Helper::seekWidgetByName(background, "playbutton");
+	Button* btnExit = (Button*)Helper::seekWidgetByName(background, "exitbutton");
 
 	//set touch event listener on the buttons 
 	btnMenu->addTouchEventListener(CC_CALLBACK_2(Login::MenuTouch, this));
 	btnStartGame->addTouchEventListener(CC_CALLBACK_2(Login::StartGameTouch, this));
+	btnExit->addTouchEventListener(CC_CALLBACK_2(Login::ExitTouch, this));
 
 	addChild(rootNode);
 
 	return true;
 }
 
-//set the touch event
+//set the touch event after click menubutton
 void Login::MenuTouch(Ref* pSender, Widget::TouchEventType type) {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//transfer to MenuScene
 		auto director = Director::getInstance();
 		auto scene = MenuTable::createScene();
-		auto transition = TransitionMoveInR::create(1.0f, scene);
+		auto transition = TransitionCrossFade::create(1.0f, scene);
 		director->replaceScene(transition);
 
 		break;
 	}
 }
 
+//set the touch event after click playbutton
 void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
@@ -65,4 +68,14 @@ void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
 
 		break;
 	}
+}
+
+//set the touch event after click exitbutton
+void Login::ExitTouch(Ref* pSender, Widget::TouchEventType type) {
+	//Close the cocos2d-x game scene and quit the application
+	Director::getInstance()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	exit(0);
+	#endif
 }

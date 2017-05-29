@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "Role.h"
 USING_NS_CC;
 
 using namespace cocostudio::timeline;
@@ -21,9 +22,10 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(MapOfGame);
 	virtual ~MapOfGame();
-	cocos2d::CCTMXTiledMap *map;
+	cocos2d::CCTMXTiledMap* map;
+	cocos2d::SpriteFrameCache* cache;
 	cocos2d::CCAnimation* walkAnimations[4];
-	Sprite* role1;
+	Role role1;
 	typedef enum {
 		kUp,
 		kDown,
@@ -31,14 +33,15 @@ public:
 		kRight,
 		kTotal,
 	}RoleDirection;
-	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton);
+	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
 
 	void menuCallbackMove(CCObject *pSender);
 	void setFaceDirection(RoleDirection direction);
-	void onWalkDone(CCNode *pTarget, void *data);
+	void onWalkDone(RoleDirection direction);
 	void update(float delta);
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
-	void keyPressedEvent(EventKeyboard::KeyCode keyCode);
+	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
+	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	cocos2d::CCPoint positionForTileCoord(cocos2d::CCPoint tileCoord);
 	cocos2d::CCPoint tilecoordForPosition(cocos2d::CCPoint position);
 	//void update(float dt);
