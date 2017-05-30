@@ -45,13 +45,13 @@ public:
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	cocos2d::CCPoint positionForTileCoord(cocos2d::CCPoint tileCoord);
 	cocos2d::CCPoint tilecoordForPosition(cocos2d::CCPoint position);
-	//void update(float dt);
+	void anchorPointMove(RoleDirection direction);
 	typedef enum {
 		kNone,
 		kWall,
 	}CollisionType;
 
-	CollisionType checkCollision(cocos2d::CCPoint rolePosition);
+	CollisionType checkCollision(cocos2d::CCPoint targetPosition,RoleDirection direction);
 private:
 	std::map<cocos2d::EventKeyboard::KeyCode, bool> keys;
 };

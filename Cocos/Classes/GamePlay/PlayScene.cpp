@@ -24,21 +24,28 @@ bool MapOfGame::init()
 	}
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
 	this->addChild(rootNode);
+
 	//get map from the csb
 	map = (CCTMXTiledMap *)rootNode->getChildByName("map");
+
 	//get objects layer
 	CCTMXObjectGroup *objects = map->objectGroupNamed("objects");
-	CCTMXLayer *architecture = map->layerNamed("architecture");
+	CCTMXLayer *architecture = map->layerNamed("architecture-real");
 	architecture->setZOrder(1);
+	CCTMXLayer *floatlayer = map->layerNamed("architecture-float");
+	floatlayer->setZOrder(888);
 	CCAssert(objects != NULL, "ObjectLayer not found");
+
 	//set first spawn point
 	auto spawnPoint1 = objects->objectNamed("spawnpoint1");
 	int startX = spawnPoint1.at("x").asInt();
 	int startY = spawnPoint1.at("y").asInt();
-	role1.startPosition = positionForTileCoord(CCPoint(startX, startY));
+	role1.startPosition = tilecoordForPosition(CCPoint(startX, startY));
+
 	//load the plist file
 	cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
 		walkAnimations[i] = creatAnimationByDirecton((RoleDirection)i,cache);
@@ -46,9 +53,14 @@ bool MapOfGame::init()
 
 	//create the role and set the first frame as the static condition
 	role1.role = Sprite::createWithSpriteFrameName("role/stop_down.png");
-	role1.role->setAnchorPoint(Vec2(0, 0));
-	role1.role->setPosition(ccp(startX,startY));
-	map->addChild(role1.role,1);
+	role1.shadow = Sprite::create("Role/shadow.png");
+	role1.role->setAnchorPoint(Vec2(0.5,0.5));
+	role1.role->setPosition(ccp(startX+20,startY+28));
+	role1.shadow->setAnchorPoint(Vec2(0.45, 0.7));
+	role1.shadow->setPosition(role1.role->getPosition());
+	role1.role->addChild(role1.shadow);
+	map->addChild(role1.role,2);
+	role1.shadow->setLocalZOrder(-1);
 
 	//add keyboard listener
 	auto listener = EventListenerKeyboard::create();
@@ -101,7 +113,8 @@ bool MapOfGame::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//call the schedule
-	this->scheduleUpdate();
+//*******ATTENTION:the duration of schedule must large than that of move action,if not there'll be collision check bug***********//
+	this->schedule(schedule_selector(MapOfGame::update), 0.05f);
 
 	return true;
 }
@@ -231,37 +244,84 @@ void MapOfGame::onWalkDone(RoleDirection direction) {
 
 //transfer position coord to tile coord
 CCPoint MapOfGame::tilecoordForPosition(CCPoint position) {
-	int x = int(position.x / map->getTileSize().width);
-	int y = int((map->getMapSize().height * map->getTileSize().height) - position.y) / map->getTileSize().height;
+	int x = 0;
+	int y = 0;
+	if (position.x > 0)
+		x = int(position.x / map->getTileSize().width);
+	else if (position.x < 0)
+		x = -1;
+	if (position.y > 0)
+		y = map->getMapSize().height - 1 - int(position.y / map->getTileSize().height);
+	else if (position.y < 0)
+		y = -1;
 	return ccp(x, y);
 }
 
 //transfer tile coord to postion coord
 CCPoint MapOfGame::positionForTileCoord(CCPoint position) {
 	float x = float(position.x*map->getTileSize().width);
-	float y = float((map->getMapSize().height*map->getTileSize().height)-position.y*map->getTileSize().height);
+	float y = float(((map->getMapSize().height-1)*map->getTileSize().height)-position.y*map->getTileSize().height);
 	return ccp(x, y);
 }
 
 //collision check according to the role's position
-MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition) {
+MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPosition,RoleDirection direction) {
+	CCPoint searchRange = ccp(0, 0);
+	//set search range for four directioin
+	switch (direction)
+	{
+	case kUp:
+		searchRange = ccp(0, 5);
+		break;
+	case kDown:
+		searchRange = ccp(0, -28);
+		break;
+	case kLeft:
+		searchRange = ccp(-20, 0);
+		break;
+	case kRight:
+		searchRange = ccp(15, 0);
+		break;
+	default:
+		break;
+	}
+	targetPosition += searchRange;
 	//transfer the coord
-	CCPoint tileCoord = tilecoordForPosition(rolePosition);
+	CCPoint tileCoord;
 	//check the border of map
-	if (tileCoord.x<0 || tileCoord.x>map->getMapSize().width - 1 || tileCoord.y<0 || tileCoord.y>map->getMapSize().height - 1) {
+	if (targetPosition.x<0 || targetPosition.x>map->getMapSize().width*map->getTileSize().width
+		|| targetPosition.y<0 || targetPosition.y>map->getMapSize().height*map->getTileSize().height) {
 		return kWall;
 	}
-	/*if (map->layerNamed("wall")->tileGIDAt(tileCoord)) {
-		return kWall;
-	}*/
-	else {
-		return kNone;
+	//check the obstacles
+	if (direction == kUp || direction == kDown) {
+		for (int i = 0,j = -1; i < 2; i++,j *= -1) {
+			searchRange = ccp(20*j, 0);
+			targetPosition += searchRange;
+			tileCoord = tilecoordForPosition(targetPosition);
+			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+				return kWall;
+			}
+		}
 	}
+	else if (direction == kLeft || direction == kRight) {
+		for (int i = 0, j = -1; i < 2; i++, j *= -1) {
+			searchRange = ccp(0, 28*j);
+			targetPosition += searchRange;
+			tileCoord = tilecoordForPosition(targetPosition);
+			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+				return kWall;
+			}
+		}
+	}
+	
+	return kNone;
 }
 
 MapOfGame::~MapOfGame() {
 	for (int i = 0; i < 4; i++) {
 		CC_SAFE_RELEASE(walkAnimations[i]);
+		CC_SAFE_RELEASE(animations[i]);
 	}
 	this->unscheduleAllSelectors();
 }
@@ -350,10 +410,11 @@ void MapOfGame::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 	}
 	//collision check
 	CCPoint targetPosition = ccpAdd(role1.role->getPosition(), moveByPosition);
-	if (checkCollision(targetPosition) == kWall) {
+	if (checkCollision(targetPosition,tag) == kWall) {
 		setFaceDirection(tag);
 		return;
 	}
+
 	//create a action combined move action and related animation
 	/*CCAction *action = CCSequence::create(
 		CCSpawn::create(
@@ -362,6 +423,26 @@ void MapOfGame::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 		,CCCallFuncND::create(this, callfuncND_selector(MapOfGame::onWalkDone), (void*)(tag))
 		, NULL);*/
 	//auto spaw = CCSpawn::create(CCAnimate::create(walkAnimations[tag]), CCMoveBy::create(0.01f, moveByPosition), NULL);
-	auto move = CCMoveBy::create(0.28f, moveByPosition);
+	auto move = CCMoveBy::create(0.01f, moveByPosition);
 	role1.role->runAction(move);
+}
+
+void MapOfGame::anchorPointMove(RoleDirection direction) {
+	switch (direction)
+	{
+	case kUp:
+		role1.role->setAnchorPoint(Vec2(0.5, 0.8));
+		break;
+	case kDown:
+		role1.role->setAnchorPoint(Vec2(0.5, 0));
+		break;
+	case kLeft:
+		role1.role->setAnchorPoint(Vec2(0, 0));
+		break;
+	case kRight:
+		role1.role->setAnchorPoint(Vec2(1, 0));
+		break;
+	default:
+		break;
+	}
 }

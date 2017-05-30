@@ -2,7 +2,7 @@
 Role::Role() {
 	bombQuantity = 1;
 	bombRange = 1;
-	speed = 2.5;
+	speed = 6.5;
 }
 
 void Role::loadPositon() {

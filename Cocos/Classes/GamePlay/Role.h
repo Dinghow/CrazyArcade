@@ -17,6 +17,7 @@ private:
 	float speed;
 public:
 	CCSprite* role;
+	CCSprite* shadow;
 	CCPoint startPosition;
 	Role();
 	//speed property
