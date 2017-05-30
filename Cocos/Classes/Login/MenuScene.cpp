@@ -78,7 +78,7 @@ bool MenuTable::init()
 	{
 		return false;
 	}
-
+	
 	//*****ATTENTION******the name of button must use lower case
 	auto rootNode = CSLoader::createNode("MenuScene/MenuScene.csb");
 	Layout* background = (Layout*)rootNode->getChildByName("background");
@@ -102,4 +102,25 @@ void MenuTable::ReturnMainTouch(Ref* pSender, Widget::TouchEventType type) {
 
 		break;
 	}
+}
+
+void MenuTable::onEnter() {
+	Layer::onEnter();
+}
+
+void MenuTable::onEnterTransitionDidFinish() {
+	Layer::onEnterTransitionDidFinish();
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Xmas.mp3", true);
+}
+
+void MenuTable::onExit() {
+	Layer::onExit();
+}
+
+void MenuTable::onExitTransitionDidStart() {
+	Layer::onExitTransitionDidStart();
+}
+
+void MenuTable::cleanup() {
+	Layer::cleanup();
 }

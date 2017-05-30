@@ -31,8 +31,8 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 	}
 	//check the obstacles
 	if (direction == kUp || direction == kDown) {
-		for (int i = 0, j = -1; i < 2; i++, j *= -1) {
-			searchRange = ccp(20 * j, 0);
+		for (int i = 1, j = -1; i <= 2; i++, j *= -1) {
+			searchRange = ccp(13.5* j*i, 0);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
@@ -41,14 +41,12 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 		}
 	}
 	else if (direction == kLeft || direction == kRight) {
-		for (int i = 0, j = -1; i < 2; i++, j *= -1) {
-			searchRange = ccp(0, 28 * j);
+			searchRange = ccp(0, -25);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
-		}
 	}
 
 	return kNone;

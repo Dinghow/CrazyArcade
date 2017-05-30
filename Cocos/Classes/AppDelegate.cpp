@@ -1,5 +1,7 @@
 #include "AppDelegate.h"
-#include "Login\LoginScene.h"
+#include "Login/LoginScene.h"
+#include "Login/VideoPlayer.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -43,8 +45,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = Login::createScene();
-
-    // run
+	//auto scene = VideoPlayer::createScene();
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("MusicSource/bg/Prepare.mp3");
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("MusicSource/bg/Village.mp3");
+	SimpleAudioEngine::getInstance()->preloadEffect("MusicSource/appear.wav");
+	// run
     director->runWithScene(scene);
 
     return true;

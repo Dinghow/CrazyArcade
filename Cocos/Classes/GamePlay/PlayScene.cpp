@@ -25,7 +25,7 @@ bool MapOfGame::init()
 	}
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
 	this->addChild(rootNode);
-
+	
 	//get map from the csb
 	map = (CCTMXTiledMap *)rootNode->getChildByName("map");
 
@@ -121,8 +121,10 @@ bool MapOfGame::init()
 	btnBackMain->addTouchEventListener(CC_CALLBACK_2(MapOfGame::BackTouch, this));
 	//call the schedule
 //*******ATTENTION:the duration of schedule must large than that of move action,if not there'll be collision check bug***********//
+	//this->scheduleOnce(schedule_selector(MapOfGame)
 	this->schedule(schedule_selector(MapOfGame::update), 0.05f);
-
+	//play background music via the schedule
+	//this->scheduleOnce(schedule_selector(MapOfGame::playMusic), 0.5f);
 	return true;
 }
 
@@ -195,4 +197,31 @@ void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
 		director->replaceScene(transition);
 		break;
 	}
+}
+
+void MapOfGame::playMusic(float dt) {
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
+}
+
+void MapOfGame::onEnter() {
+	Layer::onEnter();
+}
+
+void MapOfGame::onEnterTransitionDidFinish() {
+	Layer::onEnterTransitionDidFinish();
+	//play music
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
+	SimpleAudioEngine::getInstance()->playEffect("MusicSource/appear.wav");
+}
+
+void MapOfGame::onExit() {
+	Layer::onExit();
+}
+
+void MapOfGame::onExitTransitionDidStart() {
+	Layer::onExitTransitionDidStart();
+}
+
+void MapOfGame::cleanup() {
+	Layer::cleanup();
 }

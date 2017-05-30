@@ -54,6 +54,12 @@ public:
 	CollisionType checkCollision(cocos2d::CCPoint targetPosition,RoleDirection direction);
 
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
+	void playMusic(float dt);
+	void onEnter();
+	void onExit();
+	void cleanup();
+	void onEnterTransitionDidFinish();
+	void onExitTransitionDidStart();
 private:
 	std::map<cocos2d::EventKeyboard::KeyCode, bool> keys;
 };

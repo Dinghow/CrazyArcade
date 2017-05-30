@@ -1,5 +1,5 @@
-#ifndef _ROLE_H_
-#define _ROLE_H_
+#ifndef __ROLE_H__
+#define __ROLE_H__
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"

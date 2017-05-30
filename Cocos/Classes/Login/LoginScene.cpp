@@ -38,6 +38,8 @@ bool Login::init()
 	btnExit->addTouchEventListener(CC_CALLBACK_2(Login::ExitTouch, this));
 
 	addChild(rootNode);
+	//play background music after start
+	this->scheduleOnce(schedule_selector(Login::playMusic),0.5f);
 
 	return true;
 }
@@ -50,7 +52,7 @@ void Login::MenuTouch(Ref* pSender, Widget::TouchEventType type) {
 		auto director = Director::getInstance();
 		auto scene = MenuTable::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
-		director->replaceScene(transition);
+		director->pushScene(transition);
 
 		break;
 	}
@@ -64,7 +66,8 @@ void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
 		//transfer to MapScene
 		auto scene = MapOfGame::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
-		director->replaceScene(transition);
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		director->pushScene(transition);
 
 		break;
 	}
@@ -74,8 +77,29 @@ void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
 void Login::ExitTouch(Ref* pSender, Widget::TouchEventType type) {
 	//Close the cocos2d-x game scene and quit the application
 	Director::getInstance()->end();
+}
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-	#endif
+void Login::playMusic(float dt) {
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Prepare.mp3", true);
+}
+
+void Login::onEnter() {
+	Layer::onEnter();
+}
+
+void Login::onEnterTransitionDidFinish() {
+	Layer::onEnterTransitionDidFinish();
+	//SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Prepare.mp3", true);
+}
+
+void Login::onExit() {
+	Layer::onExit();
+}
+
+void Login::onExitTransitionDidStart() {
+	Layer::onExitTransitionDidStart();
+}
+
+void Login::cleanup() {
+	Layer::cleanup();
 }

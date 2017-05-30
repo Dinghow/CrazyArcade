@@ -5,7 +5,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 USING_NS_CC;
-
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
 using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
 
@@ -20,6 +21,11 @@ public:
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(MenuTable);
+	void onEnter();
+	void onExit();
+	void cleanup();
+	void onEnterTransitionDidFinish();
+	void onExitTransitionDidStart();
 
 private:
 	void ReturnMainTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
