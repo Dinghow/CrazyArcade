@@ -1,0 +1,88 @@
+<Solution>
+  <PropertyGroup Name="FinalProject" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="Font">
+          <TTF Name="CornDog.ttf" />
+          <TTF Name="font1.ttf" />
+        </Folder>
+        <Folder Name="LoginScene">
+          <Image Name="16sucai_201405010936.png" />
+          <Image Name="button4.png" />
+          <Image Name="button5.png" />
+          <Image Name="button6.png" />
+          <Project Name="LoginScene.csd" Type="Scene" />
+          <Image Name="minusbutton1.png" />
+          <Image Name="minusbutton2.png" />
+          <Image Name="plusbutton1.png" />
+          <Image Name="plusbutton2.png" />
+          <Image Name="timg.jpg" />
+        </Folder>
+        <Folder Name="MapScene">
+          <Folder Name="map1">
+            <TmxFile Name="map1.tmx" />
+          </Folder>
+          <Image Name="BG.png" />
+          <Image Name="buttonPressed.png" />
+          <Image Name="buttonReleased.png" />
+          <Project Name="Map.csd" Type="Scene" />
+        </Folder>
+        <Folder Name="MenuScene">
+          <Image Name="button1.png" />
+          <Image Name="button2.png" />
+          <Image Name="leftarrow.png" />
+          <Image Name="leftarrow2.png" />
+          <Image Name="menu.png" />
+          <Project Name="MenuScene.csd" Type="Scene" />
+        </Folder>
+        <Folder Name="MusicSource">
+          <Folder Name="bg">
+            <Audio Name="Prepare.mp3" />
+            <Audio Name="Village.mp3" />
+            <Audio Name="Xmas.mp3" />
+          </Folder>
+          <Audio Name="appear.wav" />
+          <Audio Name="die.wav" />
+          <Audio Name="draw.wav" />
+          <Audio Name="explode.wav" />
+          <Audio Name="get.wav" />
+          <Audio Name="lay.wav" />
+          <Audio Name="save.wav" />
+          <Audio Name="start.wav" />
+          <Audio Name="win.wav" />
+        </Folder>
+        <Folder Name="role">
+          <Image Name="move_down_1.png" />
+          <Image Name="move_down_2.png" />
+          <Image Name="move_down_3.png" />
+          <Image Name="move_down_4.png" />
+          <Image Name="move_left_1.png" />
+          <Image Name="move_left_2.png" />
+          <Image Name="move_left_3.png" />
+          <Image Name="move_left_4.png" />
+          <Image Name="move_right_1.png" />
+          <Image Name="move_right_2.png" />
+          <Image Name="move_right_3.png" />
+          <Image Name="move_right_4.png" />
+          <Image Name="move_up_1.png" />
+          <Image Name="move_up_2.png" />
+          <Image Name="move_up_3.png" />
+          <Image Name="move_up_4.png" />
+          <PlistInfo Name="Plist.csi" Type="Plist" />
+          <Image Name="shadow.png" />
+          <Image Name="stop_down.png" />
+          <Image Name="stop_left.png" />
+          <Image Name="stop_right.png" />
+          <Image Name="stop_up.png" />
+          <Image Name="wrapped_1.png" />
+          <Image Name="wrapped_2.png" />
+          <Image Name="wrapped_3.png" />
+          <Image Name="wrapped_4.png" />
+          <Image Name="wrapped_5.png" />
+          <Image Name="wrapped_6.png" />
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
