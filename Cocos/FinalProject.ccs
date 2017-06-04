@@ -52,36 +52,6 @@
           <Audio Name="start.wav" />
           <Audio Name="win.wav" />
         </Folder>
-        <Folder Name="role">
-          <Image Name="move_down_1.png" />
-          <Image Name="move_down_2.png" />
-          <Image Name="move_down_3.png" />
-          <Image Name="move_down_4.png" />
-          <Image Name="move_left_1.png" />
-          <Image Name="move_left_2.png" />
-          <Image Name="move_left_3.png" />
-          <Image Name="move_left_4.png" />
-          <Image Name="move_right_1.png" />
-          <Image Name="move_right_2.png" />
-          <Image Name="move_right_3.png" />
-          <Image Name="move_right_4.png" />
-          <Image Name="move_up_1.png" />
-          <Image Name="move_up_2.png" />
-          <Image Name="move_up_3.png" />
-          <Image Name="move_up_4.png" />
-          <PlistInfo Name="Plist.csi" Type="Plist" />
-          <Image Name="shadow.png" />
-          <Image Name="stop_down.png" />
-          <Image Name="stop_left.png" />
-          <Image Name="stop_right.png" />
-          <Image Name="stop_up.png" />
-          <Image Name="wrapped_1.png" />
-          <Image Name="wrapped_2.png" />
-          <Image Name="wrapped_3.png" />
-          <Image Name="wrapped_4.png" />
-          <Image Name="wrapped_5.png" />
-          <Image Name="wrapped_6.png" />
-        </Folder>
       </RootFolder>
     </Group>
   </SolutionFolder>
