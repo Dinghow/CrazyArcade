@@ -1,6 +1,6 @@
 #include "LoginScene.h"
 #include "MenuScene.h"
-#include "../GamePlay/PlayScene.h"
+#include "../GamePlay/RoomScene.h"
 
 Scene* Login::createScene()
 {
@@ -64,9 +64,8 @@ void Login::StartGameTouch(Ref* pSender, Widget::TouchEventType type) {
 	case Widget::TouchEventType::ENDED:
 		auto director = Director::getInstance();
 		//transfer to MapScene
-		auto scene = MapOfGame::createScene();
+		auto scene = Room::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		director->pushScene(transition);
 
 		break;

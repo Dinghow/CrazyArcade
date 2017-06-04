@@ -22,8 +22,8 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(MapOfGame);
 	virtual ~MapOfGame();
-	cocos2d::CCTMXTiledMap* map;
 	cocos2d::SpriteFrameCache* cache;
+	cocos2d::CCTMXTiledMap* gameMap;
 	cocos2d::CCAnimation* walkAnimations[4];
 	Role role1;
 	typedef enum {

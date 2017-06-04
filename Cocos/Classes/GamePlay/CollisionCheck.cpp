@@ -25,8 +25,8 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 	//transfer the coord
 	CCPoint tileCoord;
 	//check the border of map
-	if (targetPosition.x<0 || targetPosition.x>map->getMapSize().width*map->getTileSize().width
-		|| targetPosition.y<0 || targetPosition.y>map->getMapSize().height*map->getTileSize().height) {
+	if (targetPosition.x<0 || targetPosition.x>gameMap->getMapSize().width*gameMap->getTileSize().width
+		|| targetPosition.y<0 || targetPosition.y>gameMap->getMapSize().height*gameMap->getTileSize().height) {
 		return kWall;
 	}
 	//check the obstacles
@@ -35,7 +35,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 			searchRange = ccp(13.5* j*i, 0);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
-			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
 		}
@@ -44,7 +44,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 			searchRange = ccp(0, -25);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
-			if (map->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
 	}

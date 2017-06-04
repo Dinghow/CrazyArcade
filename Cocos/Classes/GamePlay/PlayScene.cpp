@@ -1,5 +1,6 @@
 #include "PlayScene.h"
 #include "../Login/LoginScene.h"
+#include "Data.h"
 
 Scene* MapOfGame::createScene()
 {
@@ -24,16 +25,28 @@ bool MapOfGame::init()
 		return false;
 	}
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
+	Layout* map_vehicle = (Layout*)rootNode->getChildByName("map_vehicle");
 	this->addChild(rootNode);
 	
-	//get map from the csb
-	map = (CCTMXTiledMap *)rootNode->getChildByName("map");
-
+	//select map
+	switch (map_tag)
+	{
+	case 1:
+		gameMap = CCTMXTiledMap::create("MapScene/map1/map1.tmx");
+		break;
+	case 2:
+		gameMap = CCTMXTiledMap::create("MapScene/map2/map2.tmx");
+		break;
+	default:
+		break;
+	}
+	gameMap->setAnchorPoint(Vec2(0, 0));
+	map_vehicle->addChild(gameMap);
 	//get objects layer
-	CCTMXObjectGroup *objects = map->objectGroupNamed("objects");
-	CCTMXLayer *architecture = map->layerNamed("architecture-real");
+	CCTMXObjectGroup *objects = gameMap->objectGroupNamed("objects");
+	CCTMXLayer *architecture = gameMap->layerNamed("architecture-real");
 	architecture->setZOrder(1);
-	CCTMXLayer *floatlayer = map->layerNamed("architecture-float");
+	CCTMXLayer *floatlayer = gameMap->layerNamed("architecture-float");
 	floatlayer->setZOrder(888);
 	CCAssert(objects != NULL, "ObjectLayer not found");
 
@@ -58,12 +71,12 @@ bool MapOfGame::init()
 	role1.role->setPosition(ccp(startX+20,startY+28));
 	//add shadow for the role
 	role1.shadow = Sprite::create("Role/shadow.png");
-	role1.shadow->setAnchorPoint(Vec2(0.45, 0.6));
-	role1.shadow->setPosition(role1.role->getPosition());
+	role1.shadow->setAnchorPoint(Vec2(0,0));
+	role1.shadow->setPosition(ccp(0,0));
 	role1.role->addChild(role1.shadow);
 	role1.shadow->setLocalZOrder(-1);
 	
-	map->addChild(role1.role,2);
+	gameMap->addChild(role1.role,2);
 
 
 	//add keyboard listener
@@ -139,11 +152,11 @@ CCPoint MapOfGame::tilecoordForPosition(CCPoint position) {
 	int x = 0;
 	int y = 0;
 	if (position.x > 0)
-		x = int(position.x / map->getTileSize().width);
+		x = int(position.x / gameMap->getTileSize().width);
 	else if (position.x < 0)
 		x = -1;
 	if (position.y > 0)
-		y = map->getMapSize().height - 1 - int(position.y / map->getTileSize().height);
+		y = gameMap->getMapSize().height - 1 - int(position.y / gameMap->getTileSize().height);
 	else if (position.y < 0)
 		y = -1;
 	return ccp(x, y);
@@ -151,8 +164,8 @@ CCPoint MapOfGame::tilecoordForPosition(CCPoint position) {
 
 //transfer tile coord to postion coord
 CCPoint MapOfGame::positionForTileCoord(CCPoint position) {
-	float x = float(position.x*map->getTileSize().width);
-	float y = float(((map->getMapSize().height-1)*map->getTileSize().height)-position.y*map->getTileSize().height);
+	float x = float(position.x*gameMap->getTileSize().width);
+	float y = float(((gameMap->getMapSize().height-1)*gameMap->getTileSize().height)-position.y*gameMap->getTileSize().height);
 	return ccp(x, y);
 }
 

@@ -52,6 +52,21 @@
           <Audio Name="start.wav" />
           <Audio Name="win.wav" />
         </Folder>
+        <Folder Name="RoomScene">
+          <Image Name="background.png" />
+          <Image Name="blank.png" />
+          <Image Name="checkbox_selectedSkin.png" />
+          <Image Name="checkbox_upSkin.png" />
+          <Image Name="confirm_pressed.png" />
+          <Image Name="confirm_released.png" />
+          <Image Name="exit_pressed.png" />
+          <Image Name="exit_released.png" />
+          <Image Name="item_14.png" />
+          <Image Name="map1.png" />
+          <Image Name="map2.png" />
+          <Project Name="RoomScene.csd" Type="Scene" />
+        </Folder>
+        <Project Name="MapItem1.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
