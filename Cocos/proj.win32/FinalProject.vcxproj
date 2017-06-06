@@ -157,6 +157,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\GamePlay\RoleMove.cpp" />
     <ClCompile Include="..\Classes\GamePlay\RoomScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Login\AboutScene.cpp" />
     <ClCompile Include="..\Classes\Login\LoginScene.cpp" />
     <ClCompile Include="..\Classes\Login\MenuScene.cpp" />
     <ClCompile Include="..\Classes\Login\VideoPlayer.cpp" />
@@ -169,6 +170,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\GamePlay\Role.h" />
     <ClInclude Include="..\Classes\GamePlay\RoomScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Login\AboutScene.h" />
     <ClInclude Include="..\Classes\Login\MenuScene.h" />
     <ClInclude Include="..\Classes\Login\LoginScene.h" />
     <ClInclude Include="..\Classes\Login\VideoPlayer.h" />

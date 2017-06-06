@@ -35,6 +35,10 @@
           <Image Name="leftarrow2.png" />
           <Image Name="menu.png" />
           <Project Name="MenuScene.csd" Type="Scene" />
+          <Image Name="minusbutton1.png" />
+          <Image Name="minusbutton2.png" />
+          <Image Name="plusbutton1.png" />
+          <Image Name="plusbutton2.png" />
         </Folder>
         <Folder Name="MusicSource">
           <Folder Name="bg">
@@ -66,6 +70,10 @@
           <Image Name="map1.png" />
           <Image Name="map2.png" />
           <Project Name="RoomScene.csd" Type="Scene" />
+        </Folder>
+        <Folder Name="AboutUsScene">
+          <Image Name="about_menu.png" />
+          <Project Name="AboutScene.csd" Type="Scene" />
         </Folder>
       </RootFolder>
     </Group>

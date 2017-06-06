@@ -54,6 +54,9 @@
     <ClCompile Include="..\Classes\GamePlay\Data.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Login\AboutScene.cpp">
+      <Filter>src\Login</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\Data.h">
       <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Login\AboutScene.h">
+      <Filter>src\Login</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
