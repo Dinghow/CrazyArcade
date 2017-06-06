@@ -54,6 +54,7 @@
         </Folder>
         <Folder Name="RoomScene">
           <Image Name="background.png" />
+          <Image Name="background1.png" />
           <Image Name="blank.png" />
           <Image Name="checkbox_selectedSkin.png" />
           <Image Name="checkbox_upSkin.png" />
@@ -66,7 +67,6 @@
           <Image Name="map2.png" />
           <Project Name="RoomScene.csd" Type="Scene" />
         </Folder>
-        <Project Name="MapItem1.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

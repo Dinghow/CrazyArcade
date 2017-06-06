@@ -22,15 +22,23 @@ public:
 
 	// implement the "statiac create()" method manually
 	CREATE_FUNC(Room);
-	CheckBox* checkbox1;
-	CheckBox* checkbox2;
-	ImageView* thumbnail;
-	ImageView* blank;
+	CheckBox* m_checkbox1;
+	CheckBox* m_checkbox2;
+	CheckBox* m_checkbox3;
+	CheckBox* r_checkbox1;
+	CheckBox* r_checkbox2;
+	ImageView* m_thumbnail;
+	ImageView* r_thumbnail;
+	ImageView* m_blank;
+	ImageView* r_blank;
 private:
 	void PlayTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void BackTouch(Ref* pSender, Widget::TouchEventType type);
-	void checkBoxCallback1(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
-	void checkBoxCallback2(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void m_checkBoxCallback1(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void m_checkBoxCallback2(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void m_checkBoxCallback3(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void r_checkBoxCallback1(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void r_checkBoxCallback2(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 };
 
 #endif // __ROOM_SCENE_H__

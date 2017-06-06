@@ -37,6 +37,9 @@ bool MapOfGame::init()
 	case 2:
 		gameMap = CCTMXTiledMap::create("MapScene/map2/map2.tmx");
 		break;
+	case 3:
+		gameMap = CCTMXTiledMap::create("MapScene/map3/map3.tmx");
+		break;
 	default:
 		break;
 	}
@@ -56,9 +59,24 @@ bool MapOfGame::init()
 	int startY = spawnPoint1.at("y").asInt();
 	role1.startPosition = tilecoordForPosition(CCPoint(startX, startY));
 
-	//load the plist file
+	//create different roles with load different plist files and different role properties
 	cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+	switch (role_tag)
+	{
+	case 1:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+		role1.setProperties(6.5, 1, 1);
+		break;
+	case 2:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
+		role1.setProperties(6.0, 1.2, 1);
+		break;
+	default:
+		break;
+	}
+
 
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
