@@ -37,12 +37,10 @@ bool MapOfGame::init()
 	case 2:
 		gameMap = CCTMXTiledMap::create("MapScene/map2/map2.tmx");
 		break;
-	case 3:
-		gameMap = CCTMXTiledMap::create("MapScene/map3/map3.tmx");
-		break;
 	default:
 		break;
 	}
+
 	gameMap->setAnchorPoint(Vec2(0, 0));
 	map_vehicle->addChild(gameMap);
 	//get objects layer
@@ -59,24 +57,9 @@ bool MapOfGame::init()
 	int startY = spawnPoint1.at("y").asInt();
 	role1.startPosition = tilecoordForPosition(CCPoint(startX, startY));
 
-	//create different roles with load different plist files and different role properties
+	//load the plist file
 	cache = SpriteFrameCache::getInstance();
-	switch (role_tag)
-	{
-	case 1:
-		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		role1.setProperties(6.5, 1, 1);
-		break;
-	case 2:
-		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
-		role1.setProperties(6.0, 1.2, 1);
-		break;
-	default:
-		break;
-	}
-
+	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
 
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
@@ -95,6 +78,14 @@ bool MapOfGame::init()
 	role1.shadow->setLocalZOrder(-1);
 	
 	gameMap->addChild(role1.role,2);
+	
+	//bomb init
+	for (auto it : role1.m_Bombs)
+	{
+		it->getMap(gameMap);
+		it->getRole(role1.role);
+	}
+
 
 
 	//add keyboard listener
@@ -114,6 +105,9 @@ bool MapOfGame::init()
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
 			keyPressedAnimation(keyCode);
+			break;
+		case EventKeyboard::KeyCode::KEY_SPACE:
+			role1.dropBomb();
 			break;
 		default:
 			break;

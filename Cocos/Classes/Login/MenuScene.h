@@ -1,5 +1,5 @@
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#ifndef _MENU_SCENE_H_
+#define _MENU_SCENE_H_
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
@@ -29,9 +29,6 @@ public:
 
 private:
 	void ReturnMainTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
-	void AboutTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
-	void PlusTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
-	void MinusTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 };
 
-#endif // __MENU_SCENE_H__
+#endif // _MENU_SCENE_H_

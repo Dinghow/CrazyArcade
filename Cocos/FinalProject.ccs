@@ -35,10 +35,6 @@
           <Image Name="leftarrow2.png" />
           <Image Name="menu.png" />
           <Project Name="MenuScene.csd" Type="Scene" />
-          <Image Name="minusbutton1.png" />
-          <Image Name="minusbutton2.png" />
-          <Image Name="plusbutton1.png" />
-          <Image Name="plusbutton2.png" />
         </Folder>
         <Folder Name="MusicSource">
           <Folder Name="bg">
@@ -58,7 +54,6 @@
         </Folder>
         <Folder Name="RoomScene">
           <Image Name="background.png" />
-          <Image Name="background1.png" />
           <Image Name="blank.png" />
           <Image Name="checkbox_selectedSkin.png" />
           <Image Name="checkbox_upSkin.png" />
@@ -71,10 +66,7 @@
           <Image Name="map2.png" />
           <Project Name="RoomScene.csd" Type="Scene" />
         </Folder>
-        <Folder Name="AboutUsScene">
-          <Image Name="about_menu.png" />
-          <Project Name="AboutScene.csd" Type="Scene" />
-        </Folder>
+        <Project Name="MapItem1.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

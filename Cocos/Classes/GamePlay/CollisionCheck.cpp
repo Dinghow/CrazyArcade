@@ -41,7 +41,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 		}
 	}
 	else if (direction == kLeft || direction == kRight) {
-			searchRange = ccp(0, -25);
+			searchRange = ccp(0, -28);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {

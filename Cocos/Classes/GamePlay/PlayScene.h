@@ -5,10 +5,12 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "Role.h"
+#include "Bomb.h"
 USING_NS_CC;
-
+class cBomb;
 using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
+using namespace std;
 
 class MapOfGame : public cocos2d::Layer
 {
@@ -26,6 +28,7 @@ public:
 	cocos2d::CCTMXTiledMap* gameMap;
 	cocos2d::CCAnimation* walkAnimations[4];
 	Role role1;
+	cBomb* bomb1;
 	typedef enum {
 		kUp,
 		kDown,
