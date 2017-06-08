@@ -95,19 +95,24 @@ bool MapOfGame::init()
 		keys[keyCode] = true;
 		switch (keyCode){
 		case EventKeyboard::KeyCode::KEY_UP_ARROW:
-			keyPressedAnimation(keyCode);
+			if (!role1.killedOrNot())
+				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			keyPressedAnimation(keyCode);
+			if (!role1.killedOrNot())
+				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			keyPressedAnimation(keyCode);
+			if (!role1.killedOrNot())
+				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			keyPressedAnimation(keyCode);
+			if (!role1.killedOrNot())
+				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_SPACE:
-			role1.dropBomb();
+			if (!role1.killedOrNot())
+				role1.dropBomb();
 			break;
 		default:
 			break;
@@ -119,20 +124,32 @@ bool MapOfGame::init()
 		switch (keyCode)
 		{
 		case EventKeyboard::KeyCode::KEY_UP_ARROW :
-			role1.role->stopAction(animations[kUp]);
-			onWalkDone(kUp);
+			if (!role1.killedOrNot())
+			{
+				role1.role->stopAction(animations[kUp]);
+				onWalkDone(kUp);
+			}
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			role1.role->stopAction(animations[kDown]);
-			onWalkDone(kDown);
+			if (!role1.killedOrNot()) 
+			{
+				role1.role->stopAction(animations[kDown]);
+				onWalkDone(kDown);
+			}
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			role1.role->stopAction(animations[kLeft]);
-			onWalkDone(kLeft);
+			if (!role1.killedOrNot()) 
+			{
+				role1.role->stopAction(animations[kLeft]);
+				onWalkDone(kLeft);
+			}
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			role1.role->stopAction(animations[kRight]);
-			onWalkDone(kRight);
+			if (!role1.killedOrNot())
+			{
+				role1.role->stopAction(animations[kRight]);
+				onWalkDone(kRight);
+			}
 			break;
 		default:
 			break;
@@ -198,17 +215,24 @@ void MapOfGame::update(float delta) {
 		downArrow = EventKeyboard::KeyCode::KEY_DOWN_ARROW,
 		leftArrow = EventKeyboard::KeyCode::KEY_LEFT_ARROW,
 		rightArrow = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;
-	if (isKeyPressed(upArrow)) {
-		keyPressedMovement(upArrow);
-	}
-	else if (isKeyPressed(downArrow)) {
-		keyPressedMovement(downArrow);
-	}
-	else if (isKeyPressed(leftArrow)) {
-		keyPressedMovement(leftArrow);
-	}
-	else if (isKeyPressed(rightArrow)) {
-		keyPressedMovement(rightArrow);
+
+	bombKillCheck(&role1, role1.m_Bombs);
+	killRole(&role1);
+
+	if (!role1.deletedOrNot())
+	{
+		if (isKeyPressed(upArrow)) {
+			keyPressedMovement(upArrow);
+		}
+		else if (isKeyPressed(downArrow)) {
+			keyPressedMovement(downArrow);
+		}
+		else if (isKeyPressed(leftArrow)) {
+			keyPressedMovement(leftArrow);
+		}
+		else if (isKeyPressed(rightArrow)) {
+			keyPressedMovement(rightArrow);
+		}
 	}
 }
 
@@ -249,4 +273,76 @@ void MapOfGame::onExitTransitionDidStart() {
 
 void MapOfGame::cleanup() {
 	Layer::cleanup();
+}
+
+
+/***************************************
+*admitted by hpc                       *
+*                                      *
+*                                      *
+*                                      *
+*                                      *
+*                                      *
+****************************************/
+void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
+{
+	
+	CCPoint rolePosition = tilecoordForPosition(role->role->getPosition());
+	for (auto it : vcBombs)
+	{
+		if (!it->explodedOrNot())
+			continue;
+		CCPoint bombPosition = tilecoordForPosition(it->showBombPosition());
+		if (bombPosition == rolePosition)
+		{
+			role->getKilled();
+		}
+		for (int i = 1; i <= role->showBombRange(); i++)
+		{
+			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i)))
+			{
+				role->getKilled();
+				break;
+			}
+			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)))
+			{
+				role->getKilled();
+				break;
+			}
+			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)))
+			{
+				role->getKilled();
+				break;
+			}
+			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)))
+			{
+				role->getKilled();
+				break;
+			}
+		}
+	}
+}
+
+void MapOfGame :: killRole(Role* role)
+{
+
+	if (role->killedOrNot())
+	{
+		if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
+			role->role->stopAction(animations[kUp]);
+		if (keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW])
+			role->role->stopAction(animations[kDown]);
+		if (keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW])
+			role->role->stopAction(animations[kLeft]);
+		if (keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])
+			role->role->stopAction(animations[kRight]);
+		if (!role->deletedOrNot())
+		{
+			if (!role->dyingOrNot())
+			{
+				role->setDying();
+				role->setRoleDead();
+			}
+		}
+	}
 }

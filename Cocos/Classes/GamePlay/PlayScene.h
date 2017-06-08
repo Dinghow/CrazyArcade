@@ -46,6 +46,8 @@ public:
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
 	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
+	void bombKillCheck(Role* role,vector<cBomb*>& vcBombs);
+	void killRole(Role* role);
 
 	cocos2d::CCPoint positionForTileCoord(cocos2d::CCPoint tileCoord);
 	cocos2d::CCPoint tilecoordForPosition(cocos2d::CCPoint position);

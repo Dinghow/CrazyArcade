@@ -33,26 +33,27 @@ Animation* cBomb::creatBombAnimation()
 	return animation;
 }
 
-//放置炸弹，idle time is 4.0s
+//drop the bomb, idle time is 4.0s
 void cBomb::dropBomb()
 {
 	if (m_Dropped)
 		return;
 
 	m_Dropped = true;
-	auto bombAnimation = creatBombAnimation();
 	m_BombPosition = getBombPosition();
 	m_TBombPosition = getGrid();
 	//获取对象数组
 	TMXObjectGroup* objG = m_Map->getObjectGroup("objects");
 	auto object = objG->getObject("object");
 
-	//add Shadow
+	//create Shadow
 	CCSprite* shadow = CCSprite::create("Bomb/bomb4.png");
 	shadow->setAnchorPoint(Vec2(0, 0));
 	shadow->setPosition(ccp(0, 0));
 	m_AllSprites.pushBack(shadow);
 
+	//create the bomb sprite and run the animation
+	auto bombAnimation = creatBombAnimation();
 	auto layer = m_Map->layerNamed("architecture-real");
 	CCSprite* bomb = CCSprite::create("Bomb/bomb1.png");
 	m_AllSprites.pushBack(bomb);
@@ -67,7 +68,6 @@ void cBomb::dropBomb()
  	this->schedule(schedule_selector(cBomb::idleUpdate),0.2f);
 }
 
-//爆炸水柱边缘动画 0.6s
 Animation* cBomb::creatExplodeAnimation(dire direction)
 {
 	auto explodeFrameCache = SpriteFrameCache::getInstance();
@@ -85,7 +85,6 @@ Animation* cBomb::creatExplodeAnimation(dire direction)
 	return animation;
 }
 
-//爆炸中心动画0.6s
 Animation* cBomb::creatCenterAnimation()
 {
 	auto explodeFrameCache = SpriteFrameCache::getInstance();
@@ -107,6 +106,8 @@ void cBomb::explosion(dire direction)
 	int iLen = 0;
 	auto* layer = m_Map->layerNamed("architecture-real");
 	auto tposition = m_TBombPosition;
+
+	//get boundary the explosion could reach in specified direction
 	for (int i = 1; i <= m_BombRange; i++)
 	{
 		tposition = ccpAdd(tposition, points[direction]);
@@ -126,6 +127,8 @@ void cBomb::explosion(dire direction)
 		}
 		iLen++;
 	}
+
+	//create the explosion effect except the boundary
 	for (int i = 1; i < iLen; i++)
 	{
 		char str[100];
@@ -138,6 +141,7 @@ void cBomb::explosion(dire direction)
 		m_Map->addChild(sprite,1);
 	}
 
+	//create the explosion effect at the boundary
 	if (iLen > 0)
 	{
 		Animate* animate = Animate::create(creatExplodeAnimation(direction));
@@ -184,6 +188,7 @@ void cBomb::idleUpdate(float dt)
 		for (auto* it : m_AllSprites)
 			m_Map->removeChild(it);
 		m_AllSprites.clear();
+		m_Exploded = true;
 		explode();
 		m_CurrentTime = 0;
 		this->schedule(schedule_selector(cBomb::explodeUpdate), 0.1f);
@@ -199,6 +204,7 @@ void cBomb::explodeUpdate(float dt)
 			m_Map->removeChild(it);
 		m_AllSprites.clear();
 		m_Dropped = false;
+		m_Exploded = false;
 
 		unschedule(schedule_selector(cBomb::explodeUpdate));
 	}
