@@ -11,12 +11,13 @@ USING_NS_CC;
 class cBomb:public cocos2d::Layer
 {
 private:
-	int m_IdleTime;
+	int m_IdleTime;            
 	int m_BombRange;
 	float m_CurrentTime;
 	bool m_Dropped;
-	CCPoint m_BombPosition;
-	CCPoint m_TBombPosition;
+	bool m_Exploded;
+	CCPoint m_BombPosition;            //the opengl coordinate
+	CCPoint m_TBombPosition;           //the tile coordinate
 	cocos2d::CCTMXTiledMap* m_Map;
 	cocos2d::CCSprite* m_Role1;
 	enum dire {
@@ -29,7 +30,8 @@ private:
 	Vector<Sprite*> m_AllSprites;
 public:
 	cBomb(int bombRange = 1, int idleTime = 3) :m_IdleTime(idleTime),
-		m_BombRange(bombRange), m_CurrentTime(0.0), m_Dropped(false),m_Map(nullptr),m_Role1(nullptr)
+		m_BombRange(bombRange), m_CurrentTime(0.0), m_Dropped(false),m_Map(nullptr),m_Role1(nullptr),
+		m_Exploded(false)
 	{
 		cocos2d::Layer::onEnter();
 	}
@@ -45,31 +47,45 @@ public:
 	{
 		return m_Dropped;
 	}
+	CCPoint bombOpenglCoord()
+	{
+		return m_BombPosition;
+	}
 
-	//递增炸弹的爆炸范围
+	//increase the bomb power
 	void addBombRange() { ++m_BombRange; }
-	//获取炸弹放置点的坐标
+	//get the bomb's opengl coordinate
 	CCPoint getBombPosition();
-	//获取炸弹所在瓦片的坐标
+	//get the role's Tile coordinate
 	CCPoint getGrid();
-	//获得炸弹爆炸前的动画
+	//create the animation of bomb before explosion
 	Animation* creatBombAnimation();
-	//放置炸弹
+	//drop the bomb
 	void dropBomb();
-	//获得爆炸四周水柱的动画
-	//dire: 水柱方向
+	//create the animation around the explosion center
+	//divided into four directions
 	Animation* creatExplodeAnimation(dire drection);
-	//获得爆炸中心的动画
+	//create the animation of explosion center
 	Animation* creatCenterAnimation();
-	//炸弹向dire所指定的方向爆炸
+	//the explosion in one direction
 	void explosion(dire direction);
-	//炸弹整体引爆
+	//the complete explosion process
 	void explode();
-	//爆炸计时器
+	//Timer before explosion
 	void idleUpdate(float dt);
+	//Timer during the explosion
 	void explodeUpdate(float dt);
-	//删去被炸的瓦片
+	//remove the tile in m_Map destoied by explosion
 	void removeTile(dire direction);
+
+	bool explodedOrNot()
+	{
+		return m_Exploded;
+	}
+	CCPoint showBombPosition()
+	{
+		return m_BombPosition;
+	}
 };
 
 #endif;

@@ -1,7 +1,7 @@
 #include "PlayScene.h"
 
 //collision check according to the role's position
-MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPosition, RoleDirection direction) {
+MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction) {
 	CCPoint searchRange = ccp(0, 0);
 	//set search range for four directioin
 	switch (direction)
@@ -21,6 +21,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 	default:
 		break;
 	}
+	auto roleTilePosition = tilecoordForPosition(rolePosition);
 	targetPosition += searchRange;
 	//transfer the coord
 	CCPoint tileCoord;
@@ -30,6 +31,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 		return kWall;
 	}
 	//check the obstacles
+	//added bombs
 	if (direction == kUp || direction == kDown) {
 		for (int i = 1, j = -1; i <= 2; i++, j *= -1) {
 			searchRange = ccp(13.5* j*i, 0);
@@ -37,6 +39,18 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
+			}
+			//bomb check
+			for (auto it : role1.m_Bombs)
+			{
+				if (it->droppedOrNot())
+				{
+					auto bombTilePosition = tilecoordForPosition(it->bombOpenglCoord());
+					if (roleTilePosition == bombTilePosition)
+						continue;
+					else if (tileCoord == bombTilePosition)
+						return kWall;
+				}
 			}
 		}
 	}
@@ -46,6 +60,18 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint targetPositi
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
+			}
+			//bomb check
+			for (auto it : role1.m_Bombs)
+			{
+				if (it->droppedOrNot())
+				{
+					auto bombTilePosition = tilecoordForPosition(it->bombOpenglCoord());
+					if (roleTilePosition == bombTilePosition)
+						continue;
+					else if (tileCoord == bombTilePosition)
+						return kWall;
+				}
 			}
 	}
 
