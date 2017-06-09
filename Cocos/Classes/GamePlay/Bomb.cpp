@@ -39,9 +39,9 @@ void cBomb::dropBomb()
 	if (m_Dropped)
 		return;
 
-	m_Dropped = true;
 	m_BombPosition = getBombPosition();
 	m_TBombPosition = getGrid();
+	m_Dropped = true;
 	//获取对象数组
 	TMXObjectGroup* objG = m_Map->getObjectGroup("objects");
 	auto object = objG->getObject("object");

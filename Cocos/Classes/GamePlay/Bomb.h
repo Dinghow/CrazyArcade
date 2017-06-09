@@ -47,6 +47,10 @@ public:
 	{
 		return m_Dropped;
 	}
+	CCPoint bombOpenglCoord()
+	{
+		return m_BombPosition;
+	}
 
 	//increase the bomb power
 	void addBombRange() { ++m_BombRange; }

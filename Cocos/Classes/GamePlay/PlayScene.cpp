@@ -112,7 +112,21 @@ bool MapOfGame::init()
 			break;
 		case EventKeyboard::KeyCode::KEY_SPACE:
 			if (!role1.killedOrNot())
-				role1.dropBomb();
+			{
+				bool empty = true;
+				auto roleTileCoord = tilecoordForPosition(role1.role->getPosition());
+				for (auto it : role1.m_Bombs)
+				{
+					if (it->droppedOrNot())
+						if (roleTileCoord == tilecoordForPosition(it->bombOpenglCoord()))
+						{
+							empty = false;
+							break;
+						}
+				}
+				if (empty)
+					role1.dropBomb();
+			}
 			break;
 		default:
 			break;

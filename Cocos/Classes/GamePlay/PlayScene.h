@@ -46,6 +46,7 @@ public:
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
 	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
+	
 	void bombKillCheck(Role* role,vector<cBomb*>& vcBombs);
 	void killRole(Role* role);
 
@@ -56,7 +57,7 @@ public:
 		kNone,
 		kWall,
 	}CollisionType;
-	CollisionType checkCollision(cocos2d::CCPoint targetPosition,RoleDirection direction);
+	CollisionType checkCollision(cocos2d::CCPoint rolePosition,cocos2d::CCPoint targetPosition,RoleDirection direction);
 
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void playMusic(float dt);

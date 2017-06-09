@@ -178,7 +178,7 @@ void MapOfGame::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 	}
 	//collision check
 	CCPoint targetPosition = ccpAdd(role1.role->getPosition(), moveByPosition);
-	if (checkCollision(targetPosition, tag) == kWall&&!role1.killedOrNot()) {
+	if (checkCollision(role1.role->getPosition(),targetPosition, tag) == kWall&&!role1.killedOrNot()) {
 		setFaceDirection(tag);
 		return;
 	}
