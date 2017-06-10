@@ -1,4 +1,5 @@
 #include "bomb.h"
+#include "Item.h"
 #include <vector>
 using namespace cocostudio::timeline;
 
@@ -240,6 +241,9 @@ void cBomb::removeTile(dire direction)
 					if (gid2 > 0)
 					{
 						layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
+
+						//Drop items
+						randomItem(m_TBombPosition, m_BombRange, m_Map);
 					}
 				}
 			}

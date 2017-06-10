@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "Item.h"
 #include "Bomb.h"
 #include <vector>
 USING_NS_CC;
@@ -20,6 +21,7 @@ private:
 	int bombQuantity;
 	int bombRange;
 	float speed;
+	int money;
 	float m_DeadTime;
 	bool m_Killed;
 	bool m_Deleted;
@@ -32,14 +34,15 @@ public:
 	Role();
 	//speed property
 	int getSpeed() { return speed; }
-	void addspeed() { speed++; }
+	void addSpeed() { speed++; }
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
 	void setPosition(CCPoint& r) { position = r;}
 	//bomb property
 	void addBombRange();
-	
+	//Pick up items
+	void pickUpItem(const cocos2d::CCPoint &tilePos);
 	
 	/*****************************************************/
 	//drop bomb

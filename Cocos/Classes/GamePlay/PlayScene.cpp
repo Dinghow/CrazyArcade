@@ -248,6 +248,10 @@ void MapOfGame::update(float delta) {
 			keyPressedMovement(rightArrow);
 		}
 	}
+
+	//Pick up items
+	auto tilePosition = tilecoordForPosition(role1.getPosition());
+	role1.pickUpItem(tilePosition);
 }
 
 void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
