@@ -33,7 +33,7 @@ The list of the game's group(In no particular order ):
 
 - 支持地图绘制、人物绘制、水泡效果绘制等（√）
 
--       支持鼠标和键盘操作交互（√）
+- 支持鼠标和键盘操作交互（√）
 
 
 -       支持障碍物（√）
@@ -65,6 +65,7 @@ The list of the game's group(In no particular order ):
 - 人物死亡后角色动画悬空
 - 人物被炸的检测
 - 炸弹对障碍物的破坏
+- 尸体移动
 
 
 
