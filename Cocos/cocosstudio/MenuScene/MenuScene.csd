@@ -49,7 +49,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.2726" Y="-0.0055" />
                 <PreSize X="0.4510" Y="1.0219" />
-                <FileData Type="Normal" Path="MenuScene/menu.png" Plist="" />
+                <FileData Type="Normal" Path="MenuScene/about_menu.png" Plist="" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />
                 <EndColor A="255" R="255" G="255" B="255" />

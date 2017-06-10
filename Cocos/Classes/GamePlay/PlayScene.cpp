@@ -66,11 +66,7 @@ bool MapOfGame::init()
 	case 1:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-<<<<<<< HEAD
 		role1.setProperties(6.5, 1, 1);
-=======
-		role1.setProperties(6.5, 5, 1);
->>>>>>> origin/hpc
 		break;
 	case 2:
 		cache->removeSpriteFrames();
@@ -142,8 +138,9 @@ bool MapOfGame::init()
 							break;
 						}
 				}
-				if (empty)
+				if (empty) {
 					role1.dropBomb();
+				}
 			}
 			break;
 		default:
@@ -296,7 +293,7 @@ void MapOfGame::onEnterTransitionDidFinish() {
 	Layer::onEnterTransitionDidFinish();
 	//play music
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
-	SimpleAudioEngine::getInstance()->playEffect("MusicSource/appear.wav");
+	SimpleAudioEngine::getInstance()->playEffect("MusicSource/start.wav");
 }
 
 void MapOfGame::onExit() {
@@ -335,38 +332,22 @@ void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
 		}
 		for (int i = 1; i <= role->showBombRange(); i++)
 		{
-<<<<<<< HEAD
-			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i)))
-=======
 			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i))&&i<=it->m_Board[0])
->>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
-<<<<<<< HEAD
-			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)))
-=======
 			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)) && i <= it->m_Board[1])
->>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
-<<<<<<< HEAD
-			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)))
-=======
 			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)) && i <= it->m_Board[2])
->>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
-<<<<<<< HEAD
-			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)))
-=======
 			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)) && i <= it->m_Board[3])
->>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;

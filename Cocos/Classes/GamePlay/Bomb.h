@@ -7,6 +7,8 @@
 #include "ui/CocosGUI.h"
 #include <string>
 USING_NS_CC;
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
 
 class cBomb:public cocos2d::Layer
 {
@@ -95,13 +97,10 @@ public:
 	{
 		return m_BombPosition;
 	}
-<<<<<<< HEAD
-=======
 	void setBombRange(int bombRange)
 	{
 		m_BombRange = bombRange;
 	}
->>>>>>> origin/hpc
 };
 
 #endif;

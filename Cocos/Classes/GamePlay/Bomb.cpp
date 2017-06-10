@@ -131,10 +131,7 @@ void cBomb::explosion(dire direction)
 		else
 			iLen++;
 	}
-<<<<<<< HEAD
-=======
 	m_Board[direction] = iLen;
->>>>>>> origin/hpc
 
 	//create the explosion effect except the boundary
 	for (int i = 1; i < iLen; i++)
@@ -198,6 +195,7 @@ void cBomb::idleUpdate(float dt)
 		m_AllSprites.clear();
 		m_Exploded = true;
 		explode();
+		SimpleAudioEngine::getInstance()->playEffect("MusicSource/explode.wav");
 		m_CurrentTime = 0;
 		this->schedule(schedule_selector(cBomb::explodeUpdate), 0.1f);
 	}

@@ -55,12 +55,17 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 		}
 	}
 	else if (direction == kLeft || direction == kRight) {
-			searchRange = ccp(0, -28);
+		for (int i = 1; i <= 2 ; i++) {
+			if (i == 1)
+				searchRange = ccp(0, -28);
+			if (i == 2)
+				searchRange = ccp(0, 29);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
 			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
+		}
 			//bomb check
 			for (auto it : role1.m_Bombs)
 			{

@@ -1,12 +1,9 @@
 #include "Role.h"
 using namespace cocostudio::timeline;
-<<<<<<< HEAD
-=======
 
 extern int isItem[15][13];
 extern Item* items[15][13];
 
->>>>>>> origin/hpc
 Role::Role() {
 	bombQuantity = 1;
 	bombRange = 1;
@@ -26,21 +23,16 @@ void Role::setProperties(int speed, int bombRange, int bombQuantity) {
 	this->bombQuantity = bombQuantity;
 	this->bombRange = bombRange;
 	this->speed = speed;
-<<<<<<< HEAD
-=======
 	for (auto it : m_Bombs)
 	{
 		it->setBombRange(bombRange);
 	}
->>>>>>> origin/hpc
 }
 
 void Role::loadPositon() {
 	position = role->getPosition();
 }
 
-<<<<<<< HEAD
-=======
 void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
 {
 	if (isItem[(int)tilePos.x][(int)tilePos.y])
@@ -69,13 +61,13 @@ void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
 
 		//remove items from maps
 		isItem[(int)tilePos.x][(int)tilePos.y] = 0;
+		SimpleAudioEngine::getInstance()->playEffect("MusicSource/get.wav");
 		(items[(int)tilePos.x][(int)tilePos.y])->remove();
 		delete (items[(int)tilePos.x][(int)tilePos.y]);
 		items[(int)tilePos.x][(int)tilePos.y] = nullptr;
 
 	}
 }
->>>>>>> origin/hpc
 
 /**********************************************/
 void Role::dropBomb()
@@ -85,6 +77,7 @@ void Role::dropBomb()
 		if (!it->droppedOrNot())
 		{
 			it->dropBomb();
+			SimpleAudioEngine::getInstance()->playEffect("MusicSource/appear.wav");
 			break;
 		}
 	}
@@ -132,6 +125,10 @@ void Role::setRoleDead()
 void Role::deadUpdate(float dt)
 {
 	m_DeadTime += dt;
+	if (m_DeadTime >= 2.0f && m_DeadTime <= 2.1f) {
+		SimpleAudioEngine::getInstance()->playEffect("MusicSource/die.wav");
+		shadow->setAnchorPoint(Vec2(-0.2,-0.2));
+	}
 	if (m_DeadTime >= 3.5f)
 	{
 		setDeleted();

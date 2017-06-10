@@ -60,12 +60,9 @@
     <ClCompile Include="..\Classes\Login\VideoPlayer.cpp">
       <Filter>src\Login</Filter>
     </ClCompile>
-<<<<<<< HEAD
-=======
     <ClCompile Include="..\Classes\GamePlay\Item.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
->>>>>>> origin/hpc
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -104,12 +101,9 @@
     <ClInclude Include="..\Classes\Login\VideoPlayer.h">
       <Filter>src\Login</Filter>
     </ClInclude>
-<<<<<<< HEAD
-=======
     <ClInclude Include="..\Classes\GamePlay\Item.h">
       <Filter>src\GamePlay</Filter>
     </ClInclude>
->>>>>>> origin/hpc
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -8,6 +8,8 @@
 #include "Item.h"
 #include <vector>
 USING_NS_CC;
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
 
 class cBomb;
 using namespace cocostudio::timeline;
@@ -21,10 +23,7 @@ private:
 	int bombQuantity;
 	int bombRange;
 	float speed;
-<<<<<<< HEAD
-=======
 	int money;
->>>>>>> origin/hpc
 	float m_DeadTime;
 	bool m_Killed;
 	bool m_Deleted;
@@ -38,19 +37,15 @@ public:
 	void setProperties(int speed = 6.5, int bombRange = 1, int bombQuantity = 1);
 	//speed property
 	int getSpeed() { return speed; }
-	void addSpeed() { speed++; }
+	void addSpeed() { speed += 0.7; }
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
 	void setPosition(CCPoint& r) { position = r;}
 	//bomb property
 	void addBombRange();
-<<<<<<< HEAD
-	
-=======
 	//Pick up items
 	void pickUpItem(const cocos2d::CCPoint &tilePos);
->>>>>>> origin/hpc
 	
 	/*****************************************************/
 	//drop bomb

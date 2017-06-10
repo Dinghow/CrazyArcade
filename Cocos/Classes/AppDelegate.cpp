@@ -49,6 +49,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("MusicSource/bg/Prepare.mp3");
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("MusicSource/bg/Village.mp3");
 	SimpleAudioEngine::getInstance()->preloadEffect("MusicSource/appear.wav");
+	SimpleAudioEngine::getInstance()->preloadEffect("MusicSource/start.wav");
 	// run
     director->runWithScene(scene);
 
