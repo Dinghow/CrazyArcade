@@ -66,7 +66,11 @@ bool MapOfGame::init()
 	case 1:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+<<<<<<< HEAD
 		role1.setProperties(6.5, 1, 1);
+=======
+		role1.setProperties(6.5, 5, 1);
+>>>>>>> origin/hpc
 		break;
 	case 2:
 		cache->removeSpriteFrames();
@@ -262,6 +266,10 @@ void MapOfGame::update(float delta) {
 			keyPressedMovement(rightArrow);
 		}
 	}
+
+	//Pick up items
+	auto tilePosition = tilecoordForPosition(role1.getPosition());
+	role1.pickUpItem(tilePosition);
 }
 
 void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
@@ -327,22 +335,38 @@ void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
 		}
 		for (int i = 1; i <= role->showBombRange(); i++)
 		{
+<<<<<<< HEAD
 			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i)))
+=======
+			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i))&&i<=it->m_Board[0])
+>>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
+<<<<<<< HEAD
 			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)))
+=======
+			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)) && i <= it->m_Board[1])
+>>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
+<<<<<<< HEAD
 			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)))
+=======
+			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)) && i <= it->m_Board[2])
+>>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;
 			}
+<<<<<<< HEAD
 			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)))
+=======
+			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)) && i <= it->m_Board[3])
+>>>>>>> origin/hpc
 			{
 				role->getKilled();
 				break;

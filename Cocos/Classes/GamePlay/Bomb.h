@@ -29,6 +29,7 @@ private:
 	CCPoint points[4] = { ccp(0,-1),ccp(1,0),ccp(0,1),ccp(-1,0) };
 	Vector<Sprite*> m_AllSprites;
 public:
+	int m_Board[4];
 	cBomb(int bombRange = 1, int idleTime = 3) :m_IdleTime(idleTime),
 		m_BombRange(bombRange), m_CurrentTime(0.0), m_Dropped(false),m_Map(nullptr),m_Role1(nullptr),
 		m_Exploded(false)
@@ -42,6 +43,14 @@ public:
 	void getRole(cocos2d::CCSprite* role)
 	{
 		m_Role1 = role;
+	}
+	cocos2d::CCTMXTiledMap* returnMap()
+	{
+		return m_Map;
+	}
+	cocos2d::CCSprite* returnRole()
+	{
+		return m_Role1;
 	}
 	bool droppedOrNot()
 	{
@@ -86,6 +95,13 @@ public:
 	{
 		return m_BombPosition;
 	}
+<<<<<<< HEAD
+=======
+	void setBombRange(int bombRange)
+	{
+		m_BombRange = bombRange;
+	}
+>>>>>>> origin/hpc
 };
 
 #endif;

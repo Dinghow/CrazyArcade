@@ -1,4 +1,5 @@
 #include "bomb.h"
+#include "Item.h"
 #include <vector>
 using namespace cocostudio::timeline;
 
@@ -122,11 +123,18 @@ void cBomb::explosion(dire direction)
 
 			std::string destructible = propValueMap["destructible"].asString();
 
-			if ("true" != destructible)
-				break;
+			if ("true" == destructible)
+				iLen++;
+
+			break;
 		}
-		iLen++;
+		else
+			iLen++;
 	}
+<<<<<<< HEAD
+=======
+	m_Board[direction] = iLen;
+>>>>>>> origin/hpc
 
 	//create the explosion effect except the boundary
 	for (int i = 1; i < iLen; i++)
@@ -240,6 +248,10 @@ void cBomb::removeTile(dire direction)
 					if (gid2 > 0)
 					{
 						layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
+
+						//Drop items
+						randomItem(tposition, m_Map);
+						break;
 					}
 				}
 			}
