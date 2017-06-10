@@ -37,10 +37,12 @@ bool MapOfGame::init()
 	case 2:
 		gameMap = CCTMXTiledMap::create("MapScene/map2/map2.tmx");
 		break;
+	case 3:
+		gameMap = CCTMXTiledMap::create("MapScene/map3/map3.tmx");
+		break;
 	default:
 		break;
 	}
-
 	gameMap->setAnchorPoint(Vec2(0, 0));
 	map_vehicle->addChild(gameMap);
 	//get objects layer
@@ -59,7 +61,21 @@ bool MapOfGame::init()
 
 	//load the plist file
 	cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+	switch (role_tag)
+	{
+	case 1:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+		role1.setProperties(6.5, 5, 1);
+		break;
+	case 2:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
+		role1.setProperties(6.0, 1.2, 1);
+		break;
+	default:
+		break;
+	}
 
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
@@ -85,8 +101,6 @@ bool MapOfGame::init()
 		it->getMap(gameMap);
 		it->getRole(role1.role);
 	}
-
-
 
 	//add keyboard listener
 	auto listener = EventListenerKeyboard::create();

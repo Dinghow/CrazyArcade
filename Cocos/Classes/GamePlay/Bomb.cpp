@@ -122,10 +122,13 @@ void cBomb::explosion(dire direction)
 
 			std::string destructible = propValueMap["destructible"].asString();
 
-			if ("true" != destructible)
-				break;
+			if ("true" == destructible)
+				iLen++;
+
+			break;
 		}
-		iLen++;
+		else
+			iLen++;
 	}
 
 	//create the explosion effect except the boundary
@@ -240,6 +243,7 @@ void cBomb::removeTile(dire direction)
 					if (gid2 > 0)
 					{
 						layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
+						break;
 					}
 				}
 			}

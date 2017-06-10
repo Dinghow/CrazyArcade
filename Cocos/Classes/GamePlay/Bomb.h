@@ -43,6 +43,14 @@ public:
 	{
 		m_Role1 = role;
 	}
+	cocos2d::CCTMXTiledMap* returnMap()
+	{
+		return m_Map;
+	}
+	cocos2d::CCSprite* returnRole()
+	{
+		return m_Role1;
+	}
 	bool droppedOrNot()
 	{
 		return m_Dropped;
@@ -85,6 +93,10 @@ public:
 	CCPoint showBombPosition()
 	{
 		return m_BombPosition;
+	}
+	void setBombRange(int bombRange)
+	{
+		m_BombRange = bombRange;
 	}
 };
 

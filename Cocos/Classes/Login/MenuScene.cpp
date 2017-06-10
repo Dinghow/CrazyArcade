@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "LoginScene.h"
+#include "AboutScene.h"
 
 Scene* MenuTable::createScene()
 {
@@ -83,9 +84,15 @@ bool MenuTable::init()
 	auto rootNode = CSLoader::createNode("MenuScene/MenuScene.csb");
 	Layout* background = (Layout*)rootNode->getChildByName("background");
 	Button* btnReturnMainMenu = (Button*)Helper::seekWidgetByName(background, "returnbutton");
+	Button* btnPlusVolume = (Button*)Helper::seekWidgetByName(background, "plus_button");
+	Button* btnMinusVolume = (Button*)Helper::seekWidgetByName(background, "minus_button");
+	Button* btnAbout = (Button*)Helper::seekWidgetByName(background, "about_button");
 	
 
 	btnReturnMainMenu->addTouchEventListener(CC_CALLBACK_2(MenuTable::ReturnMainTouch, this));
+	btnAbout->addTouchEventListener(CC_CALLBACK_2(MenuTable::AboutTouch, this));
+	btnPlusVolume->addTouchEventListener(CC_CALLBACK_2(MenuTable::PlusTouch, this));
+	btnMinusVolume->addTouchEventListener(CC_CALLBACK_2(MenuTable::MinusTouch, this));
 
 	addChild(rootNode);
 
@@ -100,6 +107,33 @@ void MenuTable::ReturnMainTouch(Ref* pSender, Widget::TouchEventType type) {
 		auto transition = TransitionCrossFade::create(1.0f, scene);
 		director->replaceScene(transition);
 
+		break;
+	}
+}
+
+void MenuTable::AboutTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
+	switch (type) {
+	case Widget::TouchEventType::ENDED:
+		auto director = Director::getInstance();
+		auto scene = AboutUs::createScene();
+		auto transition = TransitionCrossFade::create(1.0f, scene);
+		director->pushScene(transition);
+
+		break;
+	}
+}
+
+void MenuTable::PlusTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
+	switch (type) {
+	case Widget::TouchEventType::ENDED:
+		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(SimpleAudioEngine::sharedEngine()->getBackgroundMusicVolume() + 0.1f);
+		break;
+	}
+}
+void MenuTable::MinusTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
+	switch (type) {
+	case Widget::TouchEventType::ENDED:
+		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(SimpleAudioEngine::sharedEngine()->getBackgroundMusicVolume() - 0.1f);
 		break;
 	}
 }

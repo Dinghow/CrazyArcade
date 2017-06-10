@@ -30,6 +30,7 @@ public:
 	CCSprite* shadow;
 	CCPoint startPosition;
 	Role();
+	void setProperties(int speed = 6.5, int bombRange = 1, int bombQuantity = 1);
 	//speed property
 	int getSpeed() { return speed; }
 	void addspeed() { speed++; }

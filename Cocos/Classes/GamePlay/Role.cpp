@@ -15,11 +15,19 @@ Role::Role() {
 	}
 }
 
+void Role::setProperties(int speed, int bombRange, int bombQuantity) {
+	this->bombQuantity = bombQuantity;
+	this->bombRange = bombRange;
+	this->speed = speed;
+	for (auto it : m_Bombs)
+	{
+		it->setBombRange(bombRange);
+	}
+}
+
 void Role::loadPositon() {
 	position = role->getPosition();
 }
-
-
 
 
 /**********************************************/
@@ -39,6 +47,8 @@ void Role::addBomb()
 {
 	cBomb* bomb = new cBomb(bombRange);
 	m_Bombs.push_back(bomb);
+	bomb->getMap(m_Bombs[0]->returnMap());
+	bomb->getRole(m_Bombs[0]->returnRole());
 }
 
 void Role::addBombRange()
