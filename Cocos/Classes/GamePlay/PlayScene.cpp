@@ -262,6 +262,10 @@ void MapOfGame::update(float delta) {
 			keyPressedMovement(rightArrow);
 		}
 	}
+
+	//Pick up items
+	auto tilePosition = tilecoordForPosition(role1.getPosition());
+	role1.pickUpItem(tilePosition);
 }
 
 void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
@@ -327,22 +331,22 @@ void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
 		}
 		for (int i = 1; i <= role->showBombRange(); i++)
 		{
-			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i)))
+			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i))&&i<=it->m_Board[0])
 			{
 				role->getKilled();
 				break;
 			}
-			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)))
+			if (rolePosition == ccpAdd(bombPosition, ccp(i,0)) && i <= it->m_Board[1])
 			{
 				role->getKilled();
 				break;
 			}
-			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)))
+			if (rolePosition == ccpAdd(bombPosition, ccp(0,i)) && i <= it->m_Board[2])
 			{
 				role->getKilled();
 				break;
 			}
-			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)))
+			if (rolePosition == ccpAdd(bombPosition, ccp(-i,0)) && i <= it->m_Board[3])
 			{
 				role->getKilled();
 				break;

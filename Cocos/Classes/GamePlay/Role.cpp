@@ -1,8 +1,12 @@
 #include "Role.h"
 using namespace cocostudio::timeline;
+
+extern int isItem[15][13];
+extern Item* items[15][13];
+
 Role::Role() {
-	bombQuantity = 5;
-	bombRange = 3;
+	bombQuantity = 1;
+	bombRange = 1;
 	speed = 6.5;
 	m_Killed = false;
 	m_Deleted = false;
@@ -29,6 +33,40 @@ void Role::loadPositon() {
 	position = role->getPosition();
 }
 
+void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
+{
+	if (isItem[(int)tilePos.x][(int)tilePos.y])
+	{
+		switch (isItem[(int)tilePos.x][(int)tilePos.y])
+		{
+		case 1:
+			money += 100;
+			break;
+		case 2:
+			money += 10;
+			break;
+		case 3:
+			++money;
+			break;
+		case 4:
+			addBombRange();
+			break;
+		case 5:
+			addBomb();
+			break;
+		case 6:
+			addSpeed();
+			break;
+		}
+
+		//remove items from maps
+		isItem[(int)tilePos.x][(int)tilePos.y] = 0;
+		(items[(int)tilePos.x][(int)tilePos.y])->remove();
+		delete (items[(int)tilePos.x][(int)tilePos.y]);
+		items[(int)tilePos.x][(int)tilePos.y] = nullptr;
+
+	}
+}
 
 /**********************************************/
 void Role::dropBomb()
