@@ -59,8 +59,7 @@ The list of the game's group(In no particular order ):
 - 人物被炸的检测（√）
 - 炸弹对障碍物的破坏（√）
 - 尸体移动（√）
-- 碰撞检测
-- 炸弹穿模
+- 默认地图和默认角色
 
 
 
