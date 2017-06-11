@@ -3,6 +3,8 @@
 #include <vector>
 using namespace cocostudio::timeline;
 
+extern int isItem[15][13];
+extern Item* items[15][13];
 
 CCPoint cBomb::getBombPosition()
 {
@@ -116,6 +118,15 @@ void cBomb::explosion(dire direction)
 			break;
 		int gid = layer->getTileGIDAt(tposition);
 
+		//remove items
+		if (isItem[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)])
+		{
+			isItem[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)] = 0;
+			(items[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)])->remove();
+			delete (items[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)]);
+			items[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)] = nullptr;
+		}
+
 		if (gid > 0)
 		{
 			Value prop = m_Map->getPropertiesForGID(gid);
@@ -123,11 +134,15 @@ void cBomb::explosion(dire direction)
 
 			std::string destructible = propValueMap["destructible"].asString();
 
-			if ("true" != destructible)
-				break;
+			if ("true" == destructible)
+				iLen++;
+
+			break;
 		}
-		iLen++;
+		else
+			iLen++;
 	}
+	m_Board[direction] = iLen;
 
 	//create the explosion effect except the boundary
 	for (int i = 1; i < iLen; i++)
@@ -191,6 +206,7 @@ void cBomb::idleUpdate(float dt)
 		m_AllSprites.clear();
 		m_Exploded = true;
 		explode();
+		SimpleAudioEngine::getInstance()->playEffect("MusicSource/explode.wav");
 		m_CurrentTime = 0;
 		this->schedule(schedule_selector(cBomb::explodeUpdate), 0.1f);
 	}
@@ -243,7 +259,8 @@ void cBomb::removeTile(dire direction)
 						layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
 
 						//Drop items
-						randomItem(m_TBombPosition, m_BombRange, m_Map);
+						randomItem(tposition, m_Map);
+						break;
 					}
 				}
 			}
