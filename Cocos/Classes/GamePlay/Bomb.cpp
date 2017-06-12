@@ -117,7 +117,7 @@ void cBomb::explosion(dire direction)
 		if (tposition.x > 14 || tposition.x < 0 || tposition.y < 0 || tposition.y>12)
 			break;
 		int gid = layer->getTileGIDAt(tposition);
-
+		
 		//remove items
 		if (isItem[static_cast<int>(tposition.x)][static_cast<int>(tposition.y)])
 		{
@@ -192,7 +192,6 @@ void cBomb::explode()
 	explosion(RIGHT);
 	explosion(DOWN);
 	explosion(LEFT);
-	m_Exploded = true;
 }
 
 
@@ -205,6 +204,7 @@ void cBomb::idleUpdate(float dt)
 		for (auto* it : m_AllSprites)
 			m_Map->removeChild(it);
 		m_AllSprites.clear();
+		m_Exploded = true;
 		explode();
 		SimpleAudioEngine::getInstance()->playEffect("MusicSource/explode.wav");
 		m_CurrentTime = 0;

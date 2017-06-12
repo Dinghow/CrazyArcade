@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="finalproject" Version="3.10.0.0" Type="CocosStudio" />
+  <PropertyGroup Name="FinalProject" Version="3.10.0.0" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">

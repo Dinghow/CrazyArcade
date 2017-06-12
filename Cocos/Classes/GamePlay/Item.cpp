@@ -4,12 +4,6 @@
 int isItem[15][13] = { 0 };
 Item* items[15][13] = { nullptr };
 
-<<<<<<< HEAD
-Item::Item(int &itemNo, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
-{
-	cocos2d::Node::onEnter();
-
-=======
 Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
 {
 	cocos2d::Node::onEnter();
@@ -19,7 +13,6 @@ Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_
 	else
 		itemNo = itemno + 2;
 
->>>>>>> origin/zhc
 	//create item
 	auto position = getItemPosition();
 	auto itemName = cocos2d::String::createWithFormat("Item/item%d__.png", itemNo);
@@ -77,12 +70,9 @@ Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_
 		auto *action = cocos2d::Animate::create(animation);
 		item->runAction(action);
 	}
-<<<<<<< HEAD
-=======
 
 	items[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = &(*this);
 	isItem[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = itemNo;
->>>>>>> origin/zhc
 }
 
 /****************************************************/
@@ -99,29 +89,6 @@ cocos2d::CCPoint Item::getItemPosition()
 	return cocos2d::Vec2(x, y);
 }
 
-<<<<<<< HEAD
-int randNum()
-{
-	srand(time(nullptr));
-	return rand();
-}
-
-int randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
-{
-	int itemNum = randNum() % 897;
-
-	int itemNo = itemNum % 7;
-	if ((itemNum > 897 * (1 - PROBABILITY)) && itemNo)
-	{
-		auto item = new Item(itemNo, itemPos, Map);
-
-		items[(int)itemPos.x][(int)itemPos.y] = item;
-		isItem[(int)itemPos.x][(int)itemPos.y] = itemNo;
-
-		return 0;
-	}
-	return 0;
-=======
 unsigned int randNum()
 {
 	static HCRYPTPROV hProvider = 0;
@@ -146,5 +113,4 @@ void randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
 	//CCLOG("%ditem:%d", itemNum, itemNo);
 	if ((itemNum > 100 * (1 - PROBABILITY)) && itemNo)
 		auto item = new Item(itemNo, itemPos, Map);
->>>>>>> origin/zhc
 }

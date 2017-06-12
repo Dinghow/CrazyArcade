@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-#include "Item.h"
 #include "Bomb.h"
 #include "Item.h"
 #include <vector>
@@ -38,15 +37,7 @@ public:
 	void setProperties(int speed = 6.5, int bombRange = 1, int bombQuantity = 1);
 	//speed property
 	int getSpeed() { return speed; }
-<<<<<<< HEAD
-<<<<<<< HEAD
 	void addSpeed() { speed += 0.7; }
-=======
-	void addSpeed() { speed++; }
->>>>>>> origin/zhc
-=======
-	void addSpeed() { speed += 0.7; }
->>>>>>> origin/hpc
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }

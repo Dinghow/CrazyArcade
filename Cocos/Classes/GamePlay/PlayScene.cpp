@@ -397,13 +397,13 @@ void MapOfGame::bombForcedDetonate()
 			{
 				for (auto forced : role1.m_Bombs)
 				{
-					if (it != forced&&forced->droppedOrNot()&&!forced->explodedOrNot())
+					if (it != forced&&forced->droppedOrNot() && !forced->explodedOrNot())
 					{
 						for (int j = 1; j <= it->m_Board[i]; j++)
 						{
 							bombPosition = ccpAdd(tilecoordForPosition(it->showBombPosition()), j*it->points[i]);
 							forcedPosition = tilecoordForPosition(forced->showBombPosition());
-							if (forcedPosition==bombPosition)
+							if (forcedPosition == bombPosition)
 								forced->detonate();
 						}
 					}
