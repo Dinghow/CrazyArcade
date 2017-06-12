@@ -66,12 +66,12 @@ bool MapOfGame::init()
 	case 1:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		role1.setProperties(6.5, 5, 1);
+		role1.setProperties(6.5, 1, 1);
 		break;
 	case 2:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
-		role1.setProperties(6.0, 1.2, 1);
+		role1.setProperties(6.0, 1, 1);
 		break;
 	default:
 		break;
@@ -138,8 +138,9 @@ bool MapOfGame::init()
 							break;
 						}
 				}
-				if (empty)
+				if (empty) {
 					role1.dropBomb();
+				}
 			}
 			break;
 		default:
@@ -244,6 +245,7 @@ void MapOfGame::update(float delta) {
 		leftArrow = EventKeyboard::KeyCode::KEY_LEFT_ARROW,
 		rightArrow = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;
 
+	bombForcedDetonate();
 	bombKillCheck(&role1, role1.m_Bombs);
 	killRole(&role1);
 
@@ -292,7 +294,7 @@ void MapOfGame::onEnterTransitionDidFinish() {
 	Layer::onEnterTransitionDidFinish();
 	//play music
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
-	SimpleAudioEngine::getInstance()->playEffect("MusicSource/appear.wav");
+	SimpleAudioEngine::getInstance()->playEffect("MusicSource/start.wav");
 }
 
 void MapOfGame::onExit() {
@@ -374,6 +376,33 @@ void MapOfGame :: killRole(Role* role)
 			{
 				role->setDying();
 				role->setRoleDead();
+			}
+		}
+	}
+}
+
+void MapOfGame::bombForcedDetonate()
+{
+	CCPoint bombPosition, forcedPosition;
+	for (auto it : role1.m_Bombs)
+	{
+		if (it->explodedOrNot())
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				for (auto forced : role1.m_Bombs)
+				{
+					if (it != forced&&forced->droppedOrNot()&&!forced->explodedOrNot())
+					{
+						for (int j = 1; j <= it->m_Board[i]; j++)
+						{
+							bombPosition = ccpAdd(tilecoordForPosition(it->showBombPosition()), j*it->points[i]);
+							forcedPosition = tilecoordForPosition(forced->showBombPosition());
+							if (forcedPosition==bombPosition)
+								forced->detonate();
+						}
+					}
+				}
 			}
 		}
 	}

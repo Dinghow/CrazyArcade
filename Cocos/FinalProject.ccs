@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="FinalProject" Version="3.10.0.0" Type="CocosStudio" />
+  <PropertyGroup Name="finalproject" Version="3.10.0.0" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
@@ -33,11 +33,11 @@
           <Project Name="Map.csd" Type="Scene" />
         </Folder>
         <Folder Name="MenuScene">
+          <Image Name="about_menu.png" />
           <Image Name="button1.png" />
           <Image Name="button2.png" />
           <Image Name="leftarrow.png" />
           <Image Name="leftarrow2.png" />
-          <Image Name="menu.png" />
           <Project Name="MenuScene.csd" Type="Scene" />
           <Image Name="minusbutton1.png" />
           <Image Name="minusbutton2.png" />

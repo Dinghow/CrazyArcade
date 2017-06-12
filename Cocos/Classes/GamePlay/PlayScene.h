@@ -49,6 +49,7 @@ public:
 	
 	void bombKillCheck(Role* role,vector<cBomb*>& vcBombs);
 	void killRole(Role* role);
+	void bombForcedDetonate();
 
 	cocos2d::CCPoint positionForTileCoord(cocos2d::CCPoint tileCoord);
 	cocos2d::CCPoint tilecoordForPosition(cocos2d::CCPoint position);
