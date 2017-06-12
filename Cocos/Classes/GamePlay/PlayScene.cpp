@@ -41,6 +41,8 @@ bool MapOfGame::init()
 		gameMap = CCTMXTiledMap::create("MapScene/map3/map3.tmx");
 		break;
 	default:
+		gameMap = CCTMXTiledMap::create("MapScene/map1/map1.tmx");
+		break;
 		break;
 	}
 	gameMap->setAnchorPoint(Vec2(0, 0));
@@ -71,9 +73,12 @@ bool MapOfGame::init()
 	case 2:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
-		role1.setProperties(6.0, 1.2, 1);
+		role1.setProperties(6.0, 1, 1);
 		break;
 	default:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+		role1.setProperties(6.5, 1, 1);
 		break;
 	}
 

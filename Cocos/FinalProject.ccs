@@ -11,6 +11,23 @@
           <TTF Name="CornDog.ttf" />
           <TTF Name="font1.ttf" />
         </Folder>
+        <Folder Name="HallScene">
+          <Image Name="back_pressed.png" />
+          <Image Name="back_released.png" />
+          <Image Name="background.png" />
+          <Image Name="client_pressed.png" />
+          <Image Name="client_released.png" />
+          <Image Name="exit_pressed.png" />
+          <Image Name="exit_released.png" />
+          <Project Name="HallScene.csd" Type="Scene" />
+          <Image Name="menu_pressed.png" />
+          <Image Name="menu_released.png" />
+          <Image Name="room.png" />
+          <Image Name="server_pressed.png" />
+          <Image Name="server_released.png" />
+          <Image Name="test_pressed.png" />
+          <Image Name="test_released.png" />
+        </Folder>
         <Folder Name="LoginScene">
           <Image Name="16sucai_201405010936.png" />
           <Image Name="button4.png" />

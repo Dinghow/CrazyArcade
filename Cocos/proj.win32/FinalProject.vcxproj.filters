@@ -63,6 +63,9 @@
     <ClCompile Include="..\Classes\GamePlay\Item.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GamePlay\HallScene.cpp">
+      <Filter>src\GamePlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -102,6 +105,9 @@
       <Filter>src\Login</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\Item.h">
+      <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GamePlay\HallScene.h">
       <Filter>src\GamePlay</Filter>
     </ClInclude>
   </ItemGroup>
