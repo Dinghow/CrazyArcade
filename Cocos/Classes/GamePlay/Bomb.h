@@ -28,10 +28,10 @@ private:
 		DOWN,
 		LEFT,
 	};
-	CCPoint points[4] = { ccp(0,-1),ccp(1,0),ccp(0,1),ccp(-1,0) };
 	Vector<Sprite*> m_AllSprites;
 public:
 	int m_Board[4];
+	CCPoint points[4] = { ccp(0,-1),ccp(1,0),ccp(0,1),ccp(-1,0) };
 	cBomb(int bombRange = 1, int idleTime = 3) :m_IdleTime(idleTime),
 		m_BombRange(bombRange), m_CurrentTime(0.0), m_Dropped(false),m_Map(nullptr),m_Role1(nullptr),
 		m_Exploded(false)
@@ -61,6 +61,10 @@ public:
 	CCPoint bombOpenglCoord()
 	{
 		return m_BombPosition;
+	}
+	void detonate()
+	{
+		m_CurrentTime = 4.0f;
 	}
 
 	//increase the bomb power

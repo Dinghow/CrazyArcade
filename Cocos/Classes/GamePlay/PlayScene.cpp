@@ -250,6 +250,7 @@ void MapOfGame::update(float delta) {
 		leftArrow = EventKeyboard::KeyCode::KEY_LEFT_ARROW,
 		rightArrow = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;
 
+	bombForcedDetonate();
 	bombKillCheck(&role1, role1.m_Bombs);
 	killRole(&role1);
 
@@ -380,6 +381,33 @@ void MapOfGame :: killRole(Role* role)
 			{
 				role->setDying();
 				role->setRoleDead();
+			}
+		}
+	}
+}
+
+void MapOfGame::bombForcedDetonate()
+{
+	CCPoint bombPosition, forcedPosition;
+	for (auto it : role1.m_Bombs)
+	{
+		if (it->explodedOrNot())
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				for (auto forced : role1.m_Bombs)
+				{
+					if (it != forced&&forced->droppedOrNot()&&!forced->explodedOrNot())
+					{
+						for (int j = 1; j <= it->m_Board[i]; j++)
+						{
+							bombPosition = ccpAdd(tilecoordForPosition(it->showBombPosition()), j*it->points[i]);
+							forcedPosition = tilecoordForPosition(forced->showBombPosition());
+							if (forcedPosition==bombPosition)
+								forced->detonate();
+						}
+					}
+				}
 			}
 		}
 	}

@@ -192,6 +192,7 @@ void cBomb::explode()
 	explosion(RIGHT);
 	explosion(DOWN);
 	explosion(LEFT);
+	m_Exploded = true;
 }
 
 
@@ -204,7 +205,6 @@ void cBomb::idleUpdate(float dt)
 		for (auto* it : m_AllSprites)
 			m_Map->removeChild(it);
 		m_AllSprites.clear();
-		m_Exploded = true;
 		explode();
 		SimpleAudioEngine::getInstance()->playEffect("MusicSource/explode.wav");
 		m_CurrentTime = 0;

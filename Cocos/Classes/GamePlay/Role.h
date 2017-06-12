@@ -39,10 +39,14 @@ public:
 	//speed property
 	int getSpeed() { return speed; }
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void addSpeed() { speed += 0.7; }
 =======
 	void addSpeed() { speed++; }
 >>>>>>> origin/zhc
+=======
+	void addSpeed() { speed += 0.7; }
+>>>>>>> origin/hpc
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }

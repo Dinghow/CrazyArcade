@@ -20,9 +20,14 @@ Role::Role() {
 }
 
 void Role::setProperties(int speed, int bombRange, int bombQuantity) {
-	this->bombQuantity = bombQuantity;
 	this->bombRange = bombRange;
 	this->speed = speed;
+	for (int i = 0; i < bombQuantity - this->bombQuantity; i++)
+	{
+		cBomb* bomb = new cBomb(bombRange);
+		m_Bombs.push_back(bomb);
+	}
+	this->bombQuantity = bombQuantity;
 	for (auto it : m_Bombs)
 	{
 		it->setBombRange(bombRange);
