@@ -98,6 +98,41 @@ void Role::addBombRange()
 		it->addBombRange();
 }
 
+void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
+{
+	if (isItem[(int)tilePos.x][(int)tilePos.y])
+	{
+		switch (isItem[(int)tilePos.x][(int)tilePos.y])
+		{
+		case 1:
+			money += 100;
+			break;
+		case 2:
+			money += 10;
+			break;
+		case 3:
+			++money;
+			break;
+		case 4:
+			addBombRange();
+			break;
+		case 5:
+			addBomb();
+			break;
+		case 6:
+			addSpeed();
+			break;
+		}
+		//remove items from maps
+		isItem[(int)tilePos.x][(int)tilePos.y] = 0;
+		(items[(int)tilePos.x][(int)tilePos.y])->remove();
+		delete (items[(int)tilePos.x][(int)tilePos.y]);
+		items[(int)tilePos.x][(int)tilePos.y] = nullptr;
+
+		//CCLOG("picked.bomb:%d", bombQuantity);
+	}
+}
+
 Animation* Role::createDeadAnimation()
 {
 	CCSpriteFrameCache* deadFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();

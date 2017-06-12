@@ -4,10 +4,22 @@
 int isItem[15][13] = { 0 };
 Item* items[15][13] = { nullptr };
 
+<<<<<<< HEAD
 Item::Item(int &itemNo, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
 {
 	cocos2d::Node::onEnter();
 
+=======
+Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
+{
+	cocos2d::Node::onEnter();
+
+	if (itemno == 1)
+		itemNo = itemno + randNum() % 3;
+	else
+		itemNo = itemno + 2;
+
+>>>>>>> origin/zhc
 	//create item
 	auto position = getItemPosition();
 	auto itemName = cocos2d::String::createWithFormat("Item/item%d__.png", itemNo);
@@ -65,6 +77,12 @@ Item::Item(int &itemNo, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_
 		auto *action = cocos2d::Animate::create(animation);
 		item->runAction(action);
 	}
+<<<<<<< HEAD
+=======
+
+	items[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = &(*this);
+	isItem[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = itemNo;
+>>>>>>> origin/zhc
 }
 
 /****************************************************/
@@ -81,6 +99,7 @@ cocos2d::CCPoint Item::getItemPosition()
 	return cocos2d::Vec2(x, y);
 }
 
+<<<<<<< HEAD
 int randNum()
 {
 	srand(time(nullptr));
@@ -102,4 +121,30 @@ int randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
 		return 0;
 	}
 	return 0;
+=======
+unsigned int randNum()
+{
+	static HCRYPTPROV hProvider = 0;
+	static const DWORD dwLength = 2;
+	static BYTE pbBuffer[dwLength] = {};
+
+	DWORD result = ::CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT);
+
+	DWORD res = ::CryptGenRandom(hProvider, dwLength, pbBuffer);
+	auto randomVal = *(unsigned int*)pbBuffer;
+
+	::CryptReleaseContext(hProvider, 0);
+
+	return randomVal;
+}
+
+void randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
+{
+	int itemNum = randNum() % 100;
+
+	int itemNo = itemNum % 5;
+	//CCLOG("%ditem:%d", itemNum, itemNo);
+	if ((itemNum > 100 * (1 - PROBABILITY)) && itemNo)
+		auto item = new Item(itemNo, itemPos, Map);
+>>>>>>> origin/zhc
 }
