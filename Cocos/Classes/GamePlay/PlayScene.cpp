@@ -1,6 +1,9 @@
 #include "PlayScene.h"
 #include "../Login/LoginScene.h"
 #include "Data.h"
+#include "CoordTransfer.h"
+
+cocos2d::CCTMXTiledMap* theMap;
 
 Scene* MapOfGame::createScene()
 {
@@ -47,6 +50,7 @@ bool MapOfGame::init()
 	}
 	gameMap->setAnchorPoint(Vec2(0, 0));
 	map_vehicle->addChild(gameMap);
+	theMap = gameMap;
 	//get objects layer
 	CCTMXObjectGroup *objects = gameMap->objectGroupNamed("objects");
 	CCTMXLayer *architecture = gameMap->layerNamed("architecture-real");
@@ -55,50 +59,17 @@ bool MapOfGame::init()
 	floatlayer->setZOrder(888);
 	CCAssert(objects != NULL, "ObjectLayer not found");
 
-	//set first spawn point
-	auto spawnPoint1 = objects->objectNamed("spawnpoint1");
-	int startX = spawnPoint1.at("x").asInt();
-	int startY = spawnPoint1.at("y").asInt();
-	role1.startPosition = tilecoordForPosition(CCPoint(startX, startY));
-
-	//load the plist file
+	//load the plist file and init the role
 	cache = SpriteFrameCache::getInstance();
-	switch (role_tag)
-	{
-	case 1:
-		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		role1.setProperties(6.5, 1, 1);
-		break;
-	case 2:
-		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
-		role1.setProperties(6.0, 1, 1);
-		break;
-	default:
-		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		role1.setProperties(6.5, 1, 1);
-		break;
-	}
+	role1.roleInit(objects, cache, 1);
+	role2.roleInit(objects, cache, 2);
+	gameMap->addChild(role1.role, 2);
+	gameMap->addChild(role2.role, 2);
 
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
 		walkAnimations[i] = creatAnimationByDirecton((RoleDirection)i,cache);
 	}
-
-	//create the role and set the first frame as the static condition
-	role1.role = Sprite::createWithSpriteFrameName("role/stop_down.png");
-	role1.role->setAnchorPoint(Vec2(0.5,0.5));
-	role1.role->setPosition(ccp(startX+20,startY+28));
-	//add shadow for the role
-	role1.shadow = Sprite::create("Role/shadow.png");
-	role1.shadow->setAnchorPoint(Vec2(0,0));
-	role1.shadow->setPosition(ccp(0,0));
-	role1.role->addChild(role1.shadow);
-	role1.shadow->setLocalZOrder(-1);
-	
-	gameMap->addChild(role1.role,2);
 	
 	//bomb init
 	for (auto it : role1.m_Bombs)
@@ -114,22 +85,27 @@ bool MapOfGame::init()
 		keys[keyCode] = true;
 		switch (keyCode){
 		case EventKeyboard::KeyCode::KEY_UP_ARROW:
+			role1.playerInfo.isUpPressed = true;
 			if (!role1.killedOrNot())
 				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			role1.playerInfo.isDownPressed = true;
 			if (!role1.killedOrNot())
 				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			role1.playerInfo.isLeftPressed = true;
 			if (!role1.killedOrNot())
 				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			role1.playerInfo.isRightPressed = true;
 			if (!role1.killedOrNot())
 				keyPressedAnimation(keyCode);
 			break;
 		case EventKeyboard::KeyCode::KEY_SPACE:
+			role1.playerInfo.isSpacePressed = true;
 			if (!role1.killedOrNot())
 			{
 				bool empty = true;
@@ -158,6 +134,7 @@ bool MapOfGame::init()
 		switch (keyCode)
 		{
 		case EventKeyboard::KeyCode::KEY_UP_ARROW :
+			role1.playerInfo.isUpPressed = false;
 			if (!role1.killedOrNot())
 			{
 				role1.role->stopAction(animations[kUp]);
@@ -165,6 +142,7 @@ bool MapOfGame::init()
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			role1.playerInfo.isDownPressed = false;
 			if (!role1.killedOrNot()) 
 			{
 				role1.role->stopAction(animations[kDown]);
@@ -172,6 +150,7 @@ bool MapOfGame::init()
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			role1.playerInfo.isLeftPressed = false;
 			if (!role1.killedOrNot()) 
 			{
 				role1.role->stopAction(animations[kLeft]);
@@ -179,11 +158,15 @@ bool MapOfGame::init()
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			role1.playerInfo.isRightPressed = false;
 			if (!role1.killedOrNot())
 			{
 				role1.role->stopAction(animations[kRight]);
 				onWalkDone(kRight);
 			}
+			break;
+		case EventKeyboard::KeyCode::KEY_SPACE:
+			role1.playerInfo.isSpacePressed = false;
 			break;
 		default:
 			break;
@@ -197,39 +180,9 @@ bool MapOfGame::init()
 	btnBackMain->addTouchEventListener(CC_CALLBACK_2(MapOfGame::BackTouch, this));
 	//call the schedule
 //*******ATTENTION:the duration of schedule must large than that of move action,if not there'll be collision check bug***********//
-	//this->scheduleOnce(schedule_selector(MapOfGame)
+
 	this->schedule(schedule_selector(MapOfGame::update), 0.05f);
-	//play background music via the schedule
-	//this->scheduleOnce(schedule_selector(MapOfGame::playMusic), 0.5f);
 	return true;
-}
-
-//set close menu
-/*void MapOfGame::menuCloseCallback(CCObject *pSender) {
-	//"close" menu item clicked
-	CCDirector::sharedDirector()->end();
-}*/
-
-//transfer position coord to tile coord
-CCPoint MapOfGame::tilecoordForPosition(CCPoint position) {
-	int x = 0;
-	int y = 0;
-	if (position.x > 0)
-		x = int(position.x / gameMap->getTileSize().width);
-	else if (position.x < 0)
-		x = -1;
-	if (position.y > 0)
-		y = gameMap->getMapSize().height - 1 - int(position.y / gameMap->getTileSize().height);
-	else if (position.y < 0)
-		y = -1;
-	return ccp(x, y);
-}
-
-//transfer tile coord to postion coord
-CCPoint MapOfGame::positionForTileCoord(CCPoint position) {
-	float x = float(position.x*gameMap->getTileSize().width);
-	float y = float(((gameMap->getMapSize().height-1)*gameMap->getTileSize().height)-position.y*gameMap->getTileSize().height);
-	return ccp(x, y);
 }
 
 
@@ -323,7 +276,7 @@ void MapOfGame::cleanup() {
 *                                      *
 *                                      *
 ****************************************/
-void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
+void MapOfGame::bombKillCheck(Player* role,vector<cBomb*>& vcBombs)
 {
 	
 	CCPoint rolePosition = tilecoordForPosition(role->role->getPosition());
@@ -362,7 +315,7 @@ void MapOfGame::bombKillCheck(Role* role,vector<cBomb*>& vcBombs)
 	}
 }
 
-void MapOfGame :: killRole(Role* role)
+void MapOfGame :: killRole(Player* role)
 {
 
 	if (role->killedOrNot())

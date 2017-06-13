@@ -27,9 +27,6 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GamePlay\Role.cpp">
-      <Filter>src\GamePlay</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\PlayScene.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
@@ -66,6 +63,12 @@
     <ClCompile Include="..\Classes\GamePlay\HallScene.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GamePlay\Player.cpp">
+      <Filter>src\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GamePlay\CoordTransfer.cpp">
+      <Filter>src\GamePlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -78,9 +81,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\PlayScene.h">
-      <Filter>src\GamePlay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GamePlay\Role.h">
       <Filter>src\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\RoomScene.h">
@@ -108,6 +108,12 @@
       <Filter>src\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\HallScene.h">
+      <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GamePlay\Player.h">
+      <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GamePlay\CoordTransfer.h">
       <Filter>src\GamePlay</Filter>
     </ClInclude>
   </ItemGroup>

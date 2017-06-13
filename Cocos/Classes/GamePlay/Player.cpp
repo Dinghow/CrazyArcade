@@ -1,10 +1,11 @@
-#include "Role.h"
+#include "Player.h"
+#include "CoordTransfer.h"
 using namespace cocostudio::timeline;
 
 extern int isItem[15][13];
 extern Item* items[15][13];
 
-Role::Role() {
+Player::Player() {
 	bombQuantity = 1;
 	bombRange = 1;
 	speed = 6.5;
@@ -19,7 +20,62 @@ Role::Role() {
 	}
 }
 
-void Role::setProperties(int speed, int bombRange, int bombQuantity) {
+void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int point) {
+	switch (role_tag)
+	{
+	case 1:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+		this->setProperties(6.5, 1, 1);
+		break;
+	case 2:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
+		this->setProperties(6.0, 1, 1);
+		break;
+	default:
+		cache->removeSpriteFrames();
+		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
+		this->setProperties(6.5, 1, 1);
+		break;
+	}
+	//set first spawn point
+	cocos2d::ValueMap spawnPoint;
+	switch (point)
+	{
+	case 1:
+		spawnPoint = objects->objectNamed("spawnpoint1");
+		break;
+	case 2:
+		spawnPoint = objects->objectNamed("spawnpoint2");
+		break;
+	case 3:
+		spawnPoint = objects->objectNamed("spawnpoint3");
+		break;
+	case 4:
+		spawnPoint = objects->objectNamed("spawnpoint4");
+		break;
+	default:
+		break;
+	}
+	int startX = spawnPoint.at("x").asInt();
+	int startY = spawnPoint.at("y").asInt();
+	startPosition = tilecoordForPosition(CCPoint(startX, startY));
+
+	//create the role and set the first frame as the static condition
+	role = Sprite::createWithSpriteFrameName("role/stop_down.png");
+	role->setAnchorPoint(Vec2(0.5, 0.5));
+	role->setPosition(ccp(startX + 20, startY + 28));
+
+	//add shadow for the role
+	shadow = Sprite::create("Role/shadow.png");
+	shadow->setAnchorPoint(Vec2(0, 0));
+	shadow->setPosition(ccp(0, 0));
+	role->addChild(shadow);
+	shadow->setLocalZOrder(-1);
+}
+
+void Player::setProperties(int speed, int bombRange, int bombQuantity) {
 	this->bombQuantity = bombQuantity;
 	this->bombRange = bombRange;
 	this->speed = speed;
@@ -29,11 +85,11 @@ void Role::setProperties(int speed, int bombRange, int bombQuantity) {
 	}
 }
 
-void Role::loadPositon() {
+void Player::loadPositon() {
 	position = role->getPosition();
 }
 
-void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
+void Player::pickUpItem(const cocos2d::CCPoint &tilePos)
 {
 	if (isItem[(int)tilePos.x][(int)tilePos.y])
 	{
@@ -70,7 +126,7 @@ void Role::pickUpItem(const cocos2d::CCPoint &tilePos)
 }
 
 /**********************************************/
-void Role::dropBomb()
+void Player::dropBomb()
 {
 	for (auto it : m_Bombs)
 	{
@@ -83,7 +139,7 @@ void Role::dropBomb()
 	}
 }
 
-void Role::addBomb()
+void Player::addBomb()
 {
 	cBomb* bomb = new cBomb(bombRange);
 	m_Bombs.push_back(bomb);
@@ -91,14 +147,14 @@ void Role::addBomb()
 	bomb->getRole(m_Bombs[0]->returnRole());
 }
 
-void Role::addBombRange()
+void Player::addBombRange()
 {
 	bombRange++;
 	for (auto it : m_Bombs)
 		it->addBombRange();
 }
 
-Animation* Role::createDeadAnimation()
+Animation* Player::createDeadAnimation()
 {
 	CCSpriteFrameCache* deadFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
 	deadFrameCache->addSpriteFramesWithFile("res/Role/bazzi.plist", "res/Role/bazzi.png");
@@ -112,17 +168,17 @@ Animation* Role::createDeadAnimation()
 	return animation;
 }
 
-void Role::setRoleDead()
+void Player::setRoleDead()
 {
 	auto deadRoleAnimation = createDeadAnimation();
 	deadRoleAnimation->setDelayPerUnit(0.5f);
 	deadRoleAnimation->setLoops(1);
 	auto deadRoleAnimate = Animate::create(deadRoleAnimation);
 	role->runAction(deadRoleAnimate);
-	this->schedule(schedule_selector(Role::deadUpdate), 0.1f);
+	this->schedule(schedule_selector(Player::deadUpdate), 0.1f);
 }
 
-void Role::deadUpdate(float dt)
+void Player::deadUpdate(float dt)
 {
 	m_DeadTime += dt;
 	if (m_DeadTime >= 2.0f && m_DeadTime <= 2.1f) {
@@ -132,7 +188,7 @@ void Role::deadUpdate(float dt)
 	if (m_DeadTime >= 3.5f)
 	{
 		setDeleted();
-		this->unschedule(schedule_selector(Role::deadUpdate));
+		this->unschedule(schedule_selector(Player::deadUpdate));
 	}
 
 }

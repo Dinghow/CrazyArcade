@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "CoordTransfer.h"
 
 //collision check according to the role's position
 MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction) {
