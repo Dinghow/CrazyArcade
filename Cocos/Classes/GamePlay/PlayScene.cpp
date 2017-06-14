@@ -65,6 +65,11 @@ bool MapOfGame::init()
 	role2.roleInit(objects, cache, 2);
 	gameMap->addChild(role1.role, 2);
 	gameMap->addChild(role2.role, 2);
+<<<<<<< HEAD
+=======
+	m_Roles[0] = &role1;
+	m_Roles[1] = &role2;
+>>>>>>> origin/hpc
 
 	//create the animation of four direction
 	for (int i = 0; i < kTotal; i++) {
@@ -72,10 +77,13 @@ bool MapOfGame::init()
 	}
 	
 	//bomb init
-	for (auto it : role1.m_Bombs)
+	for (int i = 0; i < 2; i++)
 	{
-		it->getMap(gameMap);
-		it->getRole(role1.role);
+		for (auto it : m_Roles[i]->m_Bombs)
+		{
+			it->getMap(gameMap);
+			it->getRole(m_Roles[i]->role);
+		}
 	}
 
 	//add keyboard listener
@@ -121,6 +129,27 @@ bool MapOfGame::init()
 				}
 				if (empty) {
 					role1.dropBomb();
+				}
+			}
+			break;
+			//role2
+		case EventKeyboard::KeyCode::KEY_ENTER:
+			role2.playerInfo.isSpacePressed = true;
+			if (!role2.killedOrNot())
+			{
+				bool empty = true;
+				auto roleTileCoord = tilecoordForPosition(role2.role->getPosition());
+				for (auto it : role2.m_Bombs)
+				{
+					if (it->droppedOrNot())
+						if (roleTileCoord == tilecoordForPosition(it->bombOpenglCoord()))
+						{
+							empty = false;
+							break;
+						}
+				}
+				if (empty) {
+					role2.dropBomb();
 				}
 			}
 			break;
@@ -204,8 +233,15 @@ void MapOfGame::update(float delta) {
 		rightArrow = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;
 
 	bombForcedDetonate();
-	bombKillCheck(&role1, role1.m_Bombs);
-	killRole(&role1);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			bombKillCheck(m_Roles[i], m_Roles[j]->m_Bombs);
+			detonateKill(m_Roles[i], m_Roles[j]);
+		}
+		killRole(m_Roles[i]);
+	}
 
 	if (!role1.deletedOrNot())
 	{
@@ -317,8 +353,7 @@ void MapOfGame::bombKillCheck(Player* role,vector<cBomb*>& vcBombs)
 
 void MapOfGame :: killRole(Player* role)
 {
-
-	if (role->killedOrNot())
+	if (role->killedOrNot()&&!role->dyingOrNot()&&!role->deletedOrNot())
 	{
 		if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
 			role->role->stopAction(animations[kUp]);
@@ -342,26 +377,55 @@ void MapOfGame :: killRole(Player* role)
 void MapOfGame::bombForcedDetonate()
 {
 	CCPoint bombPosition, forcedPosition;
-	for (auto it : role1.m_Bombs)
+	for (int i = 0; i < 2; i++)
 	{
-		if (it->explodedOrNot())
+		for (auto it : m_Roles[i]->m_Bombs)
 		{
-			for (int i = 0; i < 4; i++)
+			if (it->explodedOrNot())
 			{
-				for (auto forced : role1.m_Bombs)
+				for (int i = 0; i < 4; i++)
 				{
+<<<<<<< HEAD
 					if (it != forced&&forced->droppedOrNot() && !forced->explodedOrNot())
+=======
+					for (int j = 0; j < 2; j++)
+>>>>>>> origin/hpc
 					{
-						for (int j = 1; j <= it->m_Board[i]; j++)
+						for (auto forced : m_Roles[j]->m_Bombs)
 						{
+<<<<<<< HEAD
 							bombPosition = ccpAdd(tilecoordForPosition(it->showBombPosition()), j*it->points[i]);
 							forcedPosition = tilecoordForPosition(forced->showBombPosition());
 							if (forcedPosition == bombPosition)
 								forced->detonate();
+=======
+							if (it != forced&&forced->droppedOrNot() && !forced->explodedOrNot())
+							{
+								for (int j = 1; j <= it->m_Board[i]; j++)
+								{
+									bombPosition = ccpAdd(tilecoordForPosition(it->showBombPosition()), j*it->points[i]);
+									forcedPosition = tilecoordForPosition(forced->showBombPosition());
+									if (forcedPosition == bombPosition)
+										forced->detonate();
+								}
+							}
+>>>>>>> origin/hpc
 						}
 					}
 				}
 			}
 		}
 	}
+<<<<<<< HEAD
+=======
+}
+
+void MapOfGame::detonateKill(Player* role1, Player* role2)
+{
+	if (role1->dyingOrNot() && !role1->deletedOrNot() && !role2->killedOrNot())
+	{
+		if (tilecoordForPosition(role1->role->getPosition()) == tilecoordForPosition(role2->role->getPosition()))
+			role1->detonateKill();
+	}
+>>>>>>> origin/hpc
 }

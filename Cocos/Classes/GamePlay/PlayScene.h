@@ -29,6 +29,10 @@ public:
 	cocos2d::CCAnimation* walkAnimations[4];
 	Player role1;
 	Player role2;
+<<<<<<< HEAD
+=======
+	Player* m_Roles[2];
+>>>>>>> origin/hpc
 	typedef enum {
 		kUp,
 		kDown,
@@ -49,6 +53,10 @@ public:
 	
 	void bombKillCheck(Player* role,vector<cBomb*>& vcBombs);
 	void killRole(Player* role);
+<<<<<<< HEAD
+=======
+	void detonateKill(Player* role1, Player* role2);
+>>>>>>> origin/hpc
 
 	typedef enum {
 		kNone,
