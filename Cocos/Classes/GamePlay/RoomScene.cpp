@@ -1,5 +1,5 @@
 #include "RoomScene.h"
-#include "../Login/LoginScene.h"
+#include "HallScene.h"
 #include "PlayScene.h"
 #include "Data.h"
 
@@ -73,7 +73,7 @@ void Room::BackTouch(Ref* pSender, Widget::TouchEventType type) {
 	case Widget::TouchEventType::ENDED:
 		auto director = Director::getInstance();
 		//transfer to MapScene
-		auto scene = Login::createScene();
+		auto scene = Hall::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
 		director->pushScene(transition);
 

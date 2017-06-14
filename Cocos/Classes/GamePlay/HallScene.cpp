@@ -27,7 +27,7 @@ bool Hall::init()
 	{
 		return false;
 	}
-
+	test_model = false;
 	auto rootNode = CSLoader::createNode("HallScene/HallScene.csb");
 	Layout* background = (Layout*)rootNode->getChildByName("background");
 	//get button and checkbox from the csb file

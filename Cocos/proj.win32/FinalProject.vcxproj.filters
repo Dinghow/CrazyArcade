@@ -33,9 +33,6 @@
     <ClCompile Include="..\Classes\GamePlay\CollisionCheck.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GamePlay\RoleMove.cpp">
-      <Filter>src\GamePlay</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\RoomScene.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>

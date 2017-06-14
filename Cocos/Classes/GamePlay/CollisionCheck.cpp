@@ -1,8 +1,9 @@
 #include "PlayScene.h"
+#include"Player.h"
 #include "CoordTransfer.h"
 
 //collision check according to the role's position
-MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction) {
+CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction) {
 	CCPoint searchRange = ccp(0, 0);
 	//set search range for four directioin
 	switch (direction)
@@ -27,8 +28,8 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 	//transfer the coord
 	CCPoint tileCoord;
 	//check the border of map
-	if (targetPosition.x<0 || targetPosition.x>gameMap->getMapSize().width*gameMap->getTileSize().width
-		|| targetPosition.y<0 || targetPosition.y>gameMap->getMapSize().height*gameMap->getTileSize().height) {
+	if (targetPosition.x<0 || targetPosition.x>theMap->getMapSize().width*theMap->getTileSize().width
+		|| targetPosition.y<0 || targetPosition.y>theMap->getMapSize().height*theMap->getTileSize().height) {
 		return kWall;
 	}
 	//check the obstacles
@@ -38,13 +39,13 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 			searchRange = ccp(13.5* j*i, 0);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
-			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+			if (theMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
 			//bomb check
 			for (int i = 0; i < 2; i++)
 			{
-				for (auto it : m_Roles[i]->m_Bombs)
+				for (auto it :m_Roles[i]->m_Bombs)
 				{
 					if (it->droppedOrNot())
 					{
@@ -66,14 +67,14 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 				searchRange = ccp(0, 29);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
-			if (gameMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
+			if (theMap->layerNamed("architecture-real")->tileGIDAt(tileCoord)) {
 				return kWall;
 			}
 		}
 		//bomb check
 		for (int i = 0; i < 2; i++)
 		{
-			for (auto it : m_Roles[i]->m_Bombs)
+			for (auto it :m_Roles[i]->m_Bombs)
 			{
 				if (it->droppedOrNot())
 				{

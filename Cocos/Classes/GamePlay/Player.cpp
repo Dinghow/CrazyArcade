@@ -20,25 +20,47 @@ Player::Player() {
 	}
 }
 
-void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int point) {
-	switch (role_tag)
+void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int point,int roleSelect,int isOpp) {
+	isOpponent = isOpp;
+	switch (roleSelect)
 	{
 	case 1:
 		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		this->setProperties(6.5, 1, 1);
+		cache->addSpriteFramesWithFile("Role/bazzi.plist","Role/bazzi.png");
+		this->setProperties(6.2, 2, 1);
 		break;
 	case 2:
 		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/cappi.plist");
-		this->setProperties(6.0, 1, 1);
+		cache->addSpriteFramesWithFile("Role/cappi.plist","Role/cappi.png");
+		this->setProperties(6.0, 2, 1);
 		break;
 	default:
 		cache->removeSpriteFrames();
-		cache->addSpriteFramesWithFile("RoleSource/bazzi.plist");
-		this->setProperties(6.5, 1, 1);
+		cache->addSpriteFramesWithFile("Role/bazzi.plist","Role/bazzi.png");
+		this->setProperties(6.2, 2, 1);
 		break;
 	}
+	//load dead animations
+	for (int i = 1; i <= 8; i++)
+	{
+		auto* frame = cache->getSpriteFrameByName(String::createWithFormat("role/wrapped_%d.png", i)->getCString());
+		if (i <= 4) {
+			frameArray1.pushBack(frame);
+		}
+		else if(i>=5)
+			frameArray2.pushBack(frame);
+	}
+	deadAnimations[0] = new CCAnimation();
+	deadAnimations[0]->initWithSpriteFrames(frameArray1, 0.3f);
+	deadAnimations[1] = new CCAnimation();
+	deadAnimations[1]->initWithSpriteFrames(frameArray2, 0.3f);
+	deadAnimations[0]->setLoops(5);
+	deadAnimations[1]->setLoops(1);
+	//load init frame
+	faceFrames[0] = SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_up.png");
+	faceFrames[1] = SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_down.png");
+	faceFrames[2] = SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_left.png");
+	faceFrames[3] = SpriteFrameCache::getInstance()->getSpriteFrameByName("role/stop_right.png");
 	//set first spawn point
 	cocos2d::ValueMap spawnPoint;
 	switch (point)
@@ -73,6 +95,10 @@ void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache
 	shadow->setPosition(ccp(0, 0));
 	role->addChild(shadow);
 	shadow->setLocalZOrder(-1);
+	//create the animation of four direction
+	for (int i = 0; i < kTotal; i++) {
+		walkAnimations[i] = creatAnimationByDirecton((RoleDirection)i, cache);
+	}
 }
 
 void Player::setProperties(int speed, int bombRange, int bombQuantity) {
@@ -83,6 +109,7 @@ void Player::setProperties(int speed, int bombRange, int bombQuantity) {
 	{
 		it->setBombRange(bombRange);
 	}
+
 }
 
 void Player::loadPositon() {
@@ -154,41 +181,201 @@ void Player::addBombRange()
 		it->addBombRange();
 }
 
-Animation* Player::createDeadAnimation()
+void Player::roleDying()
 {
-	CCSpriteFrameCache* deadFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
-	deadFrameCache->addSpriteFramesWithFile("res/Role/bazzi.plist", "res/Role/bazzi.png");
-	Vector<SpriteFrame*> frameArray;
-	for (int i = 1; i <= 8; i++)
-	{
-		auto* frame = deadFrameCache->getSpriteFrameByName(String::createWithFormat("role/wrapped_%d.png", i)->getCString());
-		frameArray.pushBack(frame);
-	}
-	Animation* animation = Animation::createWithSpriteFrames(frameArray);
-	return animation;
+	auto deadAnimate = CCAnimate::create(deadAnimations[0]);
+	role->setLocalZOrder(5);
+	role->runAction(deadAnimate);
+}
+
+void Player::roleDelete()
+{
+	auto deleteAnimate = CCAnimate::create(deadAnimations[1]);
+	role->setLocalZOrder(2);
+	role->runAction(deleteAnimate);
 }
 
 void Player::setRoleDead()
 {
-	auto deadRoleAnimation = createDeadAnimation();
-	deadRoleAnimation->setDelayPerUnit(0.5f);
-	deadRoleAnimation->setLoops(1);
-	auto deadRoleAnimate = Animate::create(deadRoleAnimation);
-	role->runAction(deadRoleAnimate);
+	roleDying();
 	this->schedule(schedule_selector(Player::deadUpdate), 0.1f);
 }
 
 void Player::deadUpdate(float dt)
 {
 	m_DeadTime += dt;
-	if (m_DeadTime >= 2.0f && m_DeadTime <= 2.1f) {
+	if (m_DeadTime >= 5.7f && m_DeadTime <= 5.8f) {
+		role->stopAllActions();
+		roleDelete();
 		SimpleAudioEngine::getInstance()->playEffect("MusicSource/die.wav");
 		shadow->setAnchorPoint(Vec2(-0.2,-0.2));
 	}
-	if (m_DeadTime >= 3.5f)
+
+	if (m_DeadTime >= 6.6f)
 	{
 		setDeleted();
 		this->unschedule(schedule_selector(Player::deadUpdate));
 	}
 
+}
+
+//create animation frames
+CCAnimation* Player::creatAnimationByDirecton(RoleDirection direction, cocos2d::SpriteFrameCache* cache) {
+	Vector<SpriteFrame*> frames(5);
+	cocos2d::SpriteFrame* frame1, *frame2, *frame3, *frame4, *frame5;
+	switch (direction)
+	{
+	case kUp:
+		frame1 = cache->getSpriteFrameByName("role/stop_up.png");
+		frame2 = cache->getSpriteFrameByName("role/move_up_1.png");
+		frame3 = cache->getSpriteFrameByName("role/move_up_2.png");
+		frame4 = cache->getSpriteFrameByName("role/move_up_3.png");
+		frame5 = cache->getSpriteFrameByName("role/move_up_4.png");
+		frames.pushBack(frame1);
+		frames.pushBack(frame2);
+		frames.pushBack(frame3);
+		frames.pushBack(frame4);
+		frames.pushBack(frame5);
+		break;
+
+	case kDown:
+		frame1 = cache->getSpriteFrameByName("role/stop_down.png");
+		frame2 = cache->getSpriteFrameByName("role/move_down_1.png");
+		frame3 = cache->getSpriteFrameByName("role/move_down_2.png");
+		frame4 = cache->getSpriteFrameByName("role/move_down_3.png");
+		frame5 = cache->getSpriteFrameByName("role/move_down_4.png");
+		frames.pushBack(frame1);
+		frames.pushBack(frame2);
+		frames.pushBack(frame3);
+		frames.pushBack(frame4);
+		frames.pushBack(frame5);
+		break;
+
+	case kLeft:
+		frame1 = cache->getSpriteFrameByName("role/stop_left.png");
+		frame2 = cache->getSpriteFrameByName("role/move_left_1.png");
+		frame3 = cache->getSpriteFrameByName("role/move_left_2.png");
+		frame4 = cache->getSpriteFrameByName("role/move_left_3.png");
+		frame5 = cache->getSpriteFrameByName("role/move_left_4.png");
+		frames.pushBack(frame1);
+		frames.pushBack(frame2);
+		frames.pushBack(frame3);
+		frames.pushBack(frame4);
+		frames.pushBack(frame5);
+		break;
+
+	case kRight:
+		frame1 = cache->getSpriteFrameByName("role/stop_right.png");
+		frame2 = cache->getSpriteFrameByName("role/move_right_1.png");
+		frame3 = cache->getSpriteFrameByName("role/move_right_2.png");
+		frame4 = cache->getSpriteFrameByName("role/move_right_3.png");
+		frame5 = cache->getSpriteFrameByName("role/move_right_4.png");
+		frames.pushBack(frame1);
+		frames.pushBack(frame2);
+		frames.pushBack(frame3);
+		frames.pushBack(frame4);
+		frames.pushBack(frame5);
+		break;
+		/*animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_right.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_1.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_2.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_3.png"));
+		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_right_4.png"));
+		animation->setDelayPerUnit(0.2f);
+		animation->setRestoreOriginalFrame(true);*/
+	default:
+		break;
+	}
+	CCAnimation* animation = new CCAnimation();
+	animation->initWithSpriteFrames(frames, 0.2f);
+
+	return animation;
+}
+
+//the event during key pressed
+void Player::keyPressedAnimation(EventKeyboard::KeyCode keyCode) {
+	RoleDirection tag;
+	//you can set move speed here
+	switch (keyCode) {
+	case EventKeyboard::KeyCode::KEY_UP_ARROW:
+		tag = kUp;
+		break;
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		tag = kDown;
+		break;
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		tag = kLeft;
+		break;
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		tag = kRight;
+		break;
+	default:
+		break;
+	}
+	animations[tag] = RepeatForever::create(CCAnimate::create(walkAnimations[tag]));
+	//animations[tag] = CCAnimate::create(walkAnimations[tag]);
+	role->runAction(animations[tag]);
+}
+
+void Player::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
+	CCPoint moveByPosition;
+	RoleDirection tag;
+	//you can set move speed here
+	switch (keyCode) {
+	case EventKeyboard::KeyCode::KEY_UP_ARROW:
+		moveByPosition = ccp(0, this->getSpeed());
+		tag = kUp;
+		break;
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		moveByPosition = ccp(0, -this->getSpeed());
+		tag = kDown;
+		break;
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		moveByPosition = ccp(-this->getSpeed(), 0);
+		tag = kLeft;
+		break;
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		moveByPosition = ccp(this->getSpeed(), 0);
+		tag = kRight;
+		break;
+	default:
+		moveByPosition = ccp(0, 0);
+		break;
+	}
+	//collision check
+	CCPoint targetPosition = ccpAdd(this->getPosition(), moveByPosition);
+	if (checkCollision(this->getPosition(), targetPosition, tag) == kWall && !this->killedOrNot()) {
+
+		setFaceDirection(tag);
+		return;
+	}
+
+	auto move = CCMoveBy::create(0.01f, moveByPosition);
+	role->runAction(move);
+}
+
+//set face direciton
+void Player::setFaceDirection(RoleDirection direction) {
+	switch (direction) {
+	case kUp:
+		this->role->setSpriteFrame(faceFrames[kUp]);
+		break;
+	case kDown:
+		this->role->setSpriteFrame(faceFrames[kDown]);
+		break;
+	case kLeft:
+		this->role->setSpriteFrame(faceFrames[kLeft]);
+		break;
+	case kRight:
+		this->role->setSpriteFrame(faceFrames[kRight]);
+		break;
+	default:
+		break;
+	}
+}
+
+
+//the call back function of finished walk
+void Player::onWalkDone(RoleDirection direction) {
+	this->setFaceDirection(direction);
 }

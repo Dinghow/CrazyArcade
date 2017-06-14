@@ -16,6 +16,12 @@ class cBomb;
 using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
 using namespace std;
+
+typedef enum {
+	kNone,
+	kWall,
+}CollisionType;
+
 typedef struct {
 	bool isUpPressed;
 	bool isDownPressed;
@@ -23,6 +29,14 @@ typedef struct {
 	bool isRightPressed;
 	bool isSpacePressed;
 }playerInfomation;
+
+typedef enum {
+	kUp,
+	kDown,
+	kLeft,
+	kRight,
+	kTotal,
+}RoleDirection;
 
 //the role class include basic role properties
 class Player : public cocos2d::Layer
@@ -38,6 +52,7 @@ private:
 	bool m_Deleted;
 	bool m_Dying;
 public:
+
 	vector<cBomb*> m_Bombs;
 	CCSprite* role;
 	CCSprite* shadow;
@@ -45,12 +60,27 @@ public:
 	Player();
 	/********************* Set this player's information ****************************************/
 	playerInfomation playerInfo;
+	bool isOpponent;
 	/********************* Set this player's role *********************************/
-	void roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int spawnpoint);
-	void setProperties(int speed = 6.5, int bombRange = 1, int bombQuantity = 1);
+	void roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int spawnpoint,int roleSelect,int isOpp);
+	//role animation
+	Vector<SpriteFrame*> frameArray1;
+	Vector<SpriteFrame*> frameArray2;
+	cocos2d::Animation* deadAnimations[2];
+	cocos2d::CCAnimation* walkAnimations[4];
+	cocos2d::RepeatForever* animations[4];
+	cocos2d::SpriteFrame* faceFrames[4];
+	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
+	void setFaceDirection(RoleDirection direction);
+	void onWalkDone(RoleDirection direction);
+	//role move
+	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
+	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
+	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 	//speed property
+	void setProperties(int speed = 6.5, int bombRange = 2, int bombQuantity = 1);
 	int getSpeed() { return speed; }
-	void addSpeed() { speed += 0.7; }
+	void addSpeed() { speed ++; }
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
@@ -96,9 +126,17 @@ public:
 	{
 		m_Dying = true;
 	}
-	Animation* createDeadAnimation();
+	Animation* createDyingAnimation();
+	Animation* createDeleteAnimation();
+	void roleDying();
+	void roleDelete();
 	void setRoleDead();
 	void deadUpdate(float dt);
+	void detonateKill()
+	{
+		if(m_DeadTime<=5.7)
+			m_DeadTime = 5.6;
+	}
 };
 
 

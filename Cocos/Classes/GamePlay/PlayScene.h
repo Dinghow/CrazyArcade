@@ -12,6 +12,9 @@ using namespace cocostudio::timeline;
 using namespace cocos2d::ui;
 using namespace std;
 
+extern Player* m_Roles[2];
+extern int opponent;
+
 class MapOfGame : public cocos2d::Layer
 {
 public:
@@ -26,44 +29,17 @@ public:
 	virtual ~MapOfGame();
 	cocos2d::SpriteFrameCache* cache;
 	cocos2d::CCTMXTiledMap* gameMap;
-	cocos2d::CCAnimation* walkAnimations[4];
 	Player role1;
 	Player role2;
-<<<<<<< HEAD
-=======
-	Player* m_Roles[2];
->>>>>>> origin/hpc
-	typedef enum {
-		kUp,
-		kDown,
-		kLeft,
-		kRight,
-		kTotal,
-	}RoleDirection;
-	cocos2d::RepeatForever* animations[4];
-	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
+	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 
 	void menuCallbackMove(CCObject *pSender);
-	void setFaceDirection(RoleDirection direction);
-	void onWalkDone(RoleDirection direction);
 	void update(float delta);
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
-	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
-	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	
 	void bombKillCheck(Player* role,vector<cBomb*>& vcBombs);
 	void killRole(Player* role);
-<<<<<<< HEAD
-=======
 	void detonateKill(Player* role1, Player* role2);
->>>>>>> origin/hpc
-
-	typedef enum {
-		kNone,
-		kWall,
-	}CollisionType;
-	CollisionType checkCollision(cocos2d::CCPoint rolePosition,cocos2d::CCPoint targetPosition,RoleDirection direction);
-
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void playMusic(float dt);
 	void bombForcedDetonate();

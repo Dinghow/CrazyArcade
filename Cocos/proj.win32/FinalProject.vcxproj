@@ -158,7 +158,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\GamePlay\Item.cpp" />
     <ClCompile Include="..\Classes\GamePlay\PlayScene.cpp" />
     <ClCompile Include="..\Classes\GamePlay\Player.cpp" />
-    <ClCompile Include="..\Classes\GamePlay\RoleMove.cpp" />
     <ClCompile Include="..\Classes\GamePlay\RoomScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Login\AboutScene.cpp" />
