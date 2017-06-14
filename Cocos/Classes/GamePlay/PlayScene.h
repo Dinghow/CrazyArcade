@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-#include "Role.h"
+#include "Player.h"
 #include "Bomb.h"
 USING_NS_CC;
 class cBomb;
@@ -27,8 +27,9 @@ public:
 	cocos2d::SpriteFrameCache* cache;
 	cocos2d::CCTMXTiledMap* gameMap;
 	cocos2d::CCAnimation* walkAnimations[4];
-	Role role1;
-	cBomb* bomb1;
+	Player role1;
+	Player role2;
+	Player* m_Roles[2];
 	typedef enum {
 		kUp,
 		kDown,
@@ -47,12 +48,9 @@ public:
 	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	
-	void bombKillCheck(Role* role,vector<cBomb*>& vcBombs);
-	void killRole(Role* role);
-	void bombForcedDetonate();
-
-	cocos2d::CCPoint positionForTileCoord(cocos2d::CCPoint tileCoord);
-	cocos2d::CCPoint tilecoordForPosition(cocos2d::CCPoint position);
+	void bombKillCheck(Player* role,vector<cBomb*>& vcBombs);
+	void killRole(Player* role);
+	void detonateKill(Player* role1, Player* role2);
 
 	typedef enum {
 		kNone,
@@ -62,6 +60,7 @@ public:
 
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void playMusic(float dt);
+	void bombForcedDetonate();
 	void onEnter();
 	void onExit();
 	void cleanup();
@@ -70,6 +69,7 @@ public:
 private:
 	std::map<cocos2d::EventKeyboard::KeyCode, bool> keys;
 };
+
 
 #endif // __PLAY_SCENE_H__
 

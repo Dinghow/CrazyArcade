@@ -9,14 +9,14 @@
           <AbstractNodeData Name="background" ActionTag="-1242784989" Tag="4" IconVisible="False" VerticalEdge="BottomEdge" RightMargin="-160.0000" TopMargin="-40.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" LeftEage="52" RightEage="52" TopEage="39" BottomEage="39" Scale9OriginX="52" Scale9OriginY="39" Scale9Width="920" Scale9Height="690" ctype="PanelObjectData">
             <Size X="960.0000" Y="640.0000" />
             <Children>
-              <AbstractNodeData Name="playbutton" ActionTag="-1808226001" Tag="3" IconVisible="False" LeftMargin="54.9799" RightMargin="780.0201" TopMargin="29.2631" BottomMargin="485.7369" TouchEnable="True" FontSize="18" ButtonText="Play" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="125.0000" Y="125.0000" />
+              <AbstractNodeData Name="playbutton" ActionTag="-1808226001" Tag="3" IconVisible="False" LeftMargin="-16.8206" RightMargin="708.8206" TopMargin="-35.9984" BottomMargin="414.9984" TouchEnable="True" FontSize="50" ButtonText="Play" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="238" Scale9Height="253" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="268.0000" Y="261.0000" />
                 <AnchorPoint ScaleX="0.5021" ScaleY="0.5176" />
-                <Position X="117.7424" Y="550.4369" />
-                <Scale ScaleX="3.0943" ScaleY="1.9006" />
+                <Position X="117.7422" Y="550.0920" />
+                <Scale ScaleX="0.6694" ScaleY="0.6068" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.1226" Y="0.8601" />
-                <PreSize X="0.1302" Y="0.1953" />
+                <PrePosition X="0.1226" Y="0.8595" />
+                <PreSize X="0.2792" Y="0.4078" />
                 <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
                 <TextColor A="255" R="255" G="255" B="0" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
@@ -25,14 +25,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="menubutton" ActionTag="2132594830" Tag="5" IconVisible="False" LeftMargin="270.2425" RightMargin="564.7575" TopMargin="29.2631" BottomMargin="485.7369" TouchEnable="True" FontSize="16" ButtonText="Menu" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="125.0000" Y="125.0000" />
+              <AbstractNodeData Name="menubutton" ActionTag="2132594830" Tag="5" IconVisible="False" LeftMargin="194.4406" RightMargin="497.5594" TopMargin="-36.5557" BottomMargin="415.5557" TouchEnable="True" FontSize="50" ButtonText="Menu" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="238" Scale9Height="253" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="268.0000" Y="261.0000" />
                 <AnchorPoint ScaleX="0.5021" ScaleY="0.5176" />
-                <Position X="333.0050" Y="550.4369" />
-                <Scale ScaleX="3.0943" ScaleY="1.9006" />
+                <Position X="329.0034" Y="550.6493" />
+                <Scale ScaleX="0.6653" ScaleY="0.6024" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.3469" Y="0.8601" />
-                <PreSize X="0.1302" Y="0.1953" />
+                <PrePosition X="0.3427" Y="0.8604" />
+                <PreSize X="0.2792" Y="0.4078" />
                 <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
                 <TextColor A="255" R="255" G="255" B="0" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
@@ -41,14 +41,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="exitbutton" ActionTag="2132633050" Tag="9" IconVisible="False" LeftMargin="477.5963" RightMargin="357.4037" TopMargin="29.2630" BottomMargin="485.7370" TouchEnable="True" FontSize="18" ButtonText="Exit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="470" Scale9Height="392" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="125.0000" Y="125.0000" />
+              <AbstractNodeData Name="exitbutton" ActionTag="2132633050" Tag="9" IconVisible="False" LeftMargin="406.7984" RightMargin="287.2016" TopMargin="-40.6819" BottomMargin="410.6819" TouchEnable="True" FontSize="50" ButtonText="Exit" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="4" BottomEage="4" Scale9OriginX="15" Scale9OriginY="4" Scale9Width="236" Scale9Height="262" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="266.0000" Y="270.0000" />
                 <AnchorPoint ScaleX="0.5021" ScaleY="0.5176" />
-                <Position X="540.3588" Y="550.4370" />
-                <Scale ScaleX="3.0943" ScaleY="1.9006" />
+                <Position X="540.3570" Y="550.4340" />
+                <Scale ScaleX="0.7057" ScaleY="0.6131" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5629" Y="0.8601" />
-                <PreSize X="0.1302" Y="0.1953" />
+                <PreSize X="0.2771" Y="0.4219" />
                 <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
                 <TextColor A="255" R="255" G="0" B="0" />
                 <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />

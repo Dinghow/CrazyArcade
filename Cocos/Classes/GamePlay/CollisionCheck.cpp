@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "CoordTransfer.h"
 
 //collision check according to the role's position
 MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction) {
@@ -41,15 +42,18 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 				return kWall;
 			}
 			//bomb check
-			for (auto it : role1.m_Bombs)
+			for (int i = 0; i < 2; i++)
 			{
-				if (it->droppedOrNot())
+				for (auto it : m_Roles[i]->m_Bombs)
 				{
-					auto bombTilePosition = tilecoordForPosition(it->bombOpenglCoord());
-					if (roleTilePosition == bombTilePosition)
-						continue;
-					else if (tileCoord == bombTilePosition)
-						return kWall;
+					if (it->droppedOrNot())
+					{
+						auto bombTilePosition = tilecoordForPosition(it->bombOpenglCoord());
+						if (roleTilePosition == bombTilePosition)
+							continue;
+						else if (tileCoord == bombTilePosition)
+							return kWall;
+					}
 				}
 			}
 		}
@@ -66,8 +70,10 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 				return kWall;
 			}
 		}
-			//bomb check
-			for (auto it : role1.m_Bombs)
+		//bomb check
+		for (int i = 0; i < 2; i++)
+		{
+			for (auto it : m_Roles[i]->m_Bombs)
 			{
 				if (it->droppedOrNot())
 				{
@@ -78,6 +84,7 @@ MapOfGame::CollisionType MapOfGame::checkCollision(cocos2d::CCPoint rolePosition
 						return kWall;
 				}
 			}
+		}
 	}
 
 	return kNone;

@@ -4,9 +4,14 @@
 int isItem[15][13] = { 0 };
 Item* items[15][13] = { nullptr };
 
-Item::Item(int &itemNo, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
+Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_Map) :tilePos(TPos), Map(m_Map)
 {
 	cocos2d::Node::onEnter();
+
+	if (itemno == 1)
+		itemNo = itemno + randNum() % 3;
+	else
+		itemNo = itemno + 2;
 
 	//create item
 	auto position = getItemPosition();
@@ -65,6 +70,9 @@ Item::Item(int &itemNo, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_
 		auto *action = cocos2d::Animate::create(animation);
 		item->runAction(action);
 	}
+
+	items[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = &(*this);
+	isItem[static_cast<int>(TPos.x)][static_cast<int>(TPos.y)] = itemNo;
 }
 
 /****************************************************/
@@ -81,25 +89,28 @@ cocos2d::CCPoint Item::getItemPosition()
 	return cocos2d::Vec2(x, y);
 }
 
-int randNum()
+unsigned int randNum()
 {
-	srand(time(nullptr));
-	return rand();
+	static HCRYPTPROV hProvider = 0;
+	static const DWORD dwLength = 2;
+	static BYTE pbBuffer[dwLength] = {};
+
+	DWORD result = ::CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT);
+
+	DWORD res = ::CryptGenRandom(hProvider, dwLength, pbBuffer);
+	auto randomVal = *(unsigned int*)pbBuffer;
+
+	::CryptReleaseContext(hProvider, 0);
+
+	return randomVal;
 }
 
-int randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
+void randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
 {
-	int itemNum = randNum() % 897;
+	int itemNum = randNum() % 100;
 
-	int itemNo = itemNum % 7;
-	if ((itemNum > 897 * (1 - PROBABILITY)) && itemNo)
-	{
+	int itemNo = itemNum % 5;
+	//CCLOG("%ditem:%d", itemNum, itemNo);
+	if ((itemNum > 100 * (1 - PROBABILITY)) && itemNo)
 		auto item = new Item(itemNo, itemPos, Map);
-
-		items[(int)itemPos.x][(int)itemPos.y] = item;
-		isItem[(int)itemPos.x][(int)itemPos.y] = itemNo;
-
-		return 0;
-	}
-	return 0;
 }

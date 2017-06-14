@@ -18,13 +18,7 @@ CCAnimation* MapOfGame::creatAnimationByDirecton(RoleDirection direction, cocos2
 		frames.pushBack(frame4);
 		frames.pushBack(frame5);
 		break;
-		/*animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_up.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_1.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_2.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_3.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_up_4.png"));
-		animation->setDelayPerUnit(0.1f);
-		animation->setRestoreOriginalFrame(true);*/
+
 	case kDown:
 		frame1 = cache->getSpriteFrameByName("role/stop_down.png");
 		frame2 = cache->getSpriteFrameByName("role/move_down_1.png");
@@ -37,13 +31,7 @@ CCAnimation* MapOfGame::creatAnimationByDirecton(RoleDirection direction, cocos2
 		frames.pushBack(frame4);
 		frames.pushBack(frame5);
 		break;
-		/*animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_down.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_1.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_2.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_3.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_down_4.png"));
-		animation->setDelayPerUnit(0.1f);
-		animation->setRestoreOriginalFrame(true);*/
+
 	case kLeft:
 		frame1 = cache->getSpriteFrameByName("role/stop_left.png");
 		frame2 = cache->getSpriteFrameByName("role/move_left_1.png");
@@ -56,13 +44,7 @@ CCAnimation* MapOfGame::creatAnimationByDirecton(RoleDirection direction, cocos2
 		frames.pushBack(frame4);
 		frames.pushBack(frame5);
 		break;
-		/*animation->addSpriteFrame(cache->getSpriteFrameByName("role/stop_left.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_1.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_2.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_3.png"));
-		animation->addSpriteFrame(cache->getSpriteFrameByName("role/move_left_4.png"));
-		animation->setDelayPerUnit(0.1f);
-		animation->setRestoreOriginalFrame(true);*/
+
 	case kRight:
 		frame1 = cache->getSpriteFrameByName("role/stop_right.png");
 		frame2 = cache->getSpriteFrameByName("role/move_right_1.png");

@@ -30,8 +30,8 @@ private:
 	};
 	Vector<Sprite*> m_AllSprites;
 public:
-	int m_Board[4];
 	CCPoint points[4] = { ccp(0,-1),ccp(1,0),ccp(0,1),ccp(-1,0) };
+	int m_Board[4];
 	cBomb(int bombRange = 1, int idleTime = 3) :m_IdleTime(idleTime),
 		m_BombRange(bombRange), m_CurrentTime(0.0), m_Dropped(false),m_Map(nullptr),m_Role1(nullptr),
 		m_Exploded(false)

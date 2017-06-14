@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="finalproject" Version="3.10.0.0" Type="CocosStudio" />
+  <PropertyGroup Name="FinalProject" Version="3.10.0.0" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
@@ -10,6 +10,23 @@
         <Folder Name="Font">
           <TTF Name="CornDog.ttf" />
           <TTF Name="font1.ttf" />
+        </Folder>
+        <Folder Name="HallScene">
+          <Image Name="back_pressed.png" />
+          <Image Name="back_released.png" />
+          <Image Name="background.png" />
+          <Image Name="client_pressed.png" />
+          <Image Name="client_released.png" />
+          <Image Name="exit_pressed.png" />
+          <Image Name="exit_released.png" />
+          <Project Name="HallScene.csd" Type="Scene" />
+          <Image Name="menu_pressed.png" />
+          <Image Name="menu_released.png" />
+          <Image Name="room.png" />
+          <Image Name="server_pressed.png" />
+          <Image Name="server_released.png" />
+          <Image Name="test_pressed.png" />
+          <Image Name="test_released.png" />
         </Folder>
         <Folder Name="LoginScene">
           <Image Name="16sucai_201405010936.png" />

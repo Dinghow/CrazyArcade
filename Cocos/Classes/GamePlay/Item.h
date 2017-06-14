@@ -11,15 +11,16 @@ public:
 	void remove();
 	cocos2d::CCPoint getItemPosition();
 private:
+	int itemNo;
 	cocos2d::Sprite* item;
 	cocos2d::Sprite* shadow;
 	cocos2d::CCTMXTiledMap* Map;
 	cocos2d::CCPoint tilePos;
 };
 //random number generator
-int randNum();
+unsigned int randNum();
 
 //random item at a random place
-int randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map);
+void randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map);
 
 #endif; //__ITEM_H__
