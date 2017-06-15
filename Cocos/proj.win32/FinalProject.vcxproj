@@ -154,6 +154,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\GamePlay\CollisionCheck.cpp" />
     <ClCompile Include="..\Classes\GamePlay\CoordTransfer.cpp" />
     <ClCompile Include="..\Classes\GamePlay\Data.cpp" />
+    <ClCompile Include="..\Classes\GamePlay\GameOver.cpp" />
     <ClCompile Include="..\Classes\GamePlay\HallScene.cpp" />
     <ClCompile Include="..\Classes\GamePlay\Item.cpp" />
     <ClCompile Include="..\Classes\GamePlay\PlayScene.cpp" />
@@ -171,6 +172,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\GamePlay\Bomb.h" />
     <ClInclude Include="..\Classes\GamePlay\CoordTransfer.h" />
     <ClInclude Include="..\Classes\GamePlay\Data.h" />
+    <ClInclude Include="..\Classes\GamePlay\GameOver.h" />
     <ClInclude Include="..\Classes\GamePlay\HallScene.h" />
     <ClInclude Include="..\Classes\GamePlay\Item.h" />
     <ClInclude Include="..\Classes\GamePlay\PlayScene.h" />

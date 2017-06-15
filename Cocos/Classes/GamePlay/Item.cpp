@@ -20,7 +20,7 @@ Item::Item(int &itemno, const cocos2d::CCPoint &TPos, cocos2d::CCTMXTiledMap* m_
 	item->setAnchorPoint(cocos2d::Vec2(0, 0));
 	item->setPosition(position);
 	item->setVisible(true);
-	Map->addChild(item, 2);
+	Map->addChild(item, 2.5);
 
 	//make items jump up and down
 	cocos2d::JumpBy* jumpby = cocos2d::JumpBy::create(1, cocos2d::Vec2(0, 0), 3, 1);

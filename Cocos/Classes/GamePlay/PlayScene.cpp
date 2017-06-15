@@ -1,5 +1,6 @@
 #include "PlayScene.h"
 #include "../Login/LoginScene.h"
+#include "HallScene.h"
 #include "Data.h"
 #include "CoordTransfer.h"
 
@@ -28,10 +29,10 @@ bool MapOfGame::init()
 	{
 		return false;
 	}
+	seconds = 0;
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
 	Layout* map_vehicle = (Layout*)rootNode->getChildByName("map_vehicle");
 	this->addChild(rootNode);
-	
 	//select map
 	switch (map_tag)
 	{
@@ -68,7 +69,7 @@ bool MapOfGame::init()
 	gameMap->addChild(role2.role, 3);
 	m_Roles[0] = &role1;
 	m_Roles[1] = &role2;
-	int opponent = 1;
+	opponent = 1;
 
 	//bomb init
 	for (int i = 0; i < 2; i++)
@@ -306,6 +307,7 @@ bool MapOfGame::init()
 	//*******ATTENTION:the duration of schedule must large than that of move action,if not there'll be collision check bug***********//
 
 	this->schedule(schedule_selector(MapOfGame::update), 0.05f);
+	this->schedule(schedule_selector(MapOfGame::timer), 1.0f);
 	return true;
 }
 
@@ -314,6 +316,23 @@ MapOfGame::~MapOfGame() {
 	this->unscheduleAllSelectors();
 }
 
+//count the time
+void MapOfGame::timer(float delta) {
+	seconds += delta;
+	int temp = 180 - seconds;
+	strstream ss;
+	string s;
+	ss << temp;
+	ss >> s;
+	if (seconds > 1)
+		this->removeChild(numberAtlas);
+	numberAtlas = CCLabelAtlas::create("0123456789", "MapScene/number.png", 12, 10, '0');
+	numberAtlas->setPosition(ccp(720, 548));
+	numberAtlas->setString(s);
+	this->addChild(numberAtlas);
+	if(seconds >= 180 && seconds < 181)
+		judgeResult(false);
+}
 //control the role's behavior
 void MapOfGame::update(float delta) {
 	Node::update(delta);
@@ -376,6 +395,17 @@ void MapOfGame::update(float delta) {
 	auto tilePosition2 = tilecoordForPosition(role2.getPosition());
 	role1.pickUpItem(tilePosition1);
 	role2.pickUpItem(tilePosition2);
+
+	//result judge
+	if (opponent == 0 && isMeAlive == true && !hasJudgeRun) {
+		judgeResult(true);
+	}
+	if (opponent > 0 && isMeAlive == false && !hasJudgeRun) {
+		judgeResult(false);
+	}
+	if (shouldBack == true && !hasBackRun)
+		backToHall();
+
 }
 
 //check whether the key is pressed
@@ -388,6 +418,14 @@ bool MapOfGame::isKeyPressed(EventKeyboard::KeyCode keyCode) {
 	}
 }
 
+void MapOfGame::backToHall() {
+	hasBackRun = true;
+	auto director = Director::getInstance();
+	auto scene = Hall::createScene();
+	auto transition = TransitionCrossFade::create(0.5f, scene);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Prepare.mp3", true);
+	director->pushScene(transition);
+}
 void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
 	switch (type)
 	{
@@ -398,6 +436,30 @@ void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
 		director->replaceScene(transition);
 		break;
 	}
+}
+
+void MapOfGame::judgeResult(bool isWin) {
+	hasJudgeRun = true;
+	auto layer = GameOver::create();
+	playResultMusic();
+	layer->setAnchorPoint(Vec2(0.5, 0.5));
+	layer->setPosition(300, 300);
+	this->addChild(layer);
+}
+
+void MapOfGame::playResultMusic() {
+	if (test_model == false){
+		if (opponent == 0 && isMeAlive == true)
+			SimpleAudioEngine::getInstance()->playEffect("MusicSource/win.wav");
+		else if (isMeAlive == false)
+			SimpleAudioEngine::getInstance()->playEffect("MusicSource/lose.wav");
+	}
+	else if (test_model == true) {
+		if ((opponent == 0 && isMeAlive == true)||(opponent > 0 && isMeAlive == false))
+			SimpleAudioEngine::getInstance()->playEffect("MusicSource/win.wav");
+	}
+
+
 }
 
 void MapOfGame::playMusic(float dt) {
@@ -479,14 +541,15 @@ void MapOfGame :: killRole(Player* player)
 {
 	if (player->killedOrNot()&&!player->dyingOrNot()&&!player->deletedOrNot())
 	{
-		if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
+		/*if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
 			player->role->stopAction(player->animations[kUp]);
 		if (keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW])
 			player->role->stopAction(player->animations[kDown]);
 		if (keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW])
 			player->role->stopAction(player->animations[kLeft]);
 		if (keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])
-			player->role->stopAction(player->animations[kRight]);
+			player->role->stopAction(player->animations[kRight]);*/
+		player->role->stopAllActions();
 		if (!player->deletedOrNot())
 		{
 			if (!player->dyingOrNot())

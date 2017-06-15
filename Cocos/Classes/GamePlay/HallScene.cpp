@@ -86,6 +86,7 @@ void Hall::TestTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
 		test_model = true;
 		auto scene = Room::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		director->pushScene(transition);
 
 		break;

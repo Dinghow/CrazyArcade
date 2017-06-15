@@ -22,12 +22,14 @@ Player::Player() {
 
 void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int point,int roleSelect,int isOpp) {
 	isOpponent = isOpp;
+	if (!isOpp)
+		isMeAlive = true;
 	switch (roleSelect)
 	{
 	case 1:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("Role/bazzi.plist","Role/bazzi.png");
-		this->setProperties(6.2, 2, 1);
+		this->setProperties(6.5, 2, 1);
 		break;
 	case 2:
 		cache->removeSpriteFrames();
@@ -37,7 +39,7 @@ void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache
 	default:
 		cache->removeSpriteFrames();
 		cache->addSpriteFramesWithFile("Role/bazzi.plist","Role/bazzi.png");
-		this->setProperties(6.2, 2, 1);
+		this->setProperties(6.5, 2, 1);
 		break;
 	}
 	//load dead animations
@@ -193,6 +195,11 @@ void Player::roleDelete()
 	auto deleteAnimate = CCAnimate::create(deadAnimations[1]);
 	role->setLocalZOrder(2);
 	role->runAction(deleteAnimate);
+	if (this->isOpponent == true) {
+		opponent--;
+	}
+	else if (this->isOpponent == false)
+		isMeAlive = false;
 }
 
 void Player::setRoleDead()
@@ -319,6 +326,7 @@ void Player::keyPressedAnimation(EventKeyboard::KeyCode keyCode) {
 
 void Player::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 	CCPoint moveByPosition;
+	CCPoint tempPosition;
 	RoleDirection tag;
 	//you can set move speed here
 	switch (keyCode) {
@@ -344,13 +352,32 @@ void Player::keyPressedMovement(EventKeyboard::KeyCode keyCode) {
 	}
 	//collision check
 	CCPoint targetPosition = ccpAdd(this->getPosition(), moveByPosition);
-	if (checkCollision(this->getPosition(), targetPosition, tag) == kWall && !this->killedOrNot()) {
 
-		setFaceDirection(tag);
-		return;
+	while (checkCollision(this->getPosition(), targetPosition, tag) == kWall) {
+		switch (tag) {
+		case kUp:
+			tempPosition = ccp(0, -0.5);
+			targetPosition = ccpAdd(targetPosition, tempPosition);
+			break;
+		case kDown:
+			tempPosition = ccp(0, 0.5);
+			targetPosition = ccpAdd(targetPosition, tempPosition);
+			break;
+		case kLeft:
+			tempPosition = ccp(0.5,0);
+			targetPosition = ccpAdd(targetPosition, tempPosition);
+			break;
+		case kRight:
+			tempPosition = ccp(-0.5, 0);
+			targetPosition = ccpAdd(targetPosition, tempPosition);
+			break;
+		default:
+			tempPosition = ccp(0, 0);
+			break;
+		}
 	}
 
-	auto move = CCMoveBy::create(0.01f, moveByPosition);
+	auto move = CCMoveTo::create(0.01f, targetPosition);
 	role->runAction(move);
 }
 

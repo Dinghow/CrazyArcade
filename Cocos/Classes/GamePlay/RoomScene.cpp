@@ -25,7 +25,10 @@ bool Room::init()
 	{
 		return false;
 	}
-
+	shouldBack = false;
+	hasBackRun = false;
+	hasJudgeRun = false;
+	isMeAlive = false;
 	auto rootNode = CSLoader::createNode("RoomScene/RoomScene.csb");
 	Layout* background = (Layout*)rootNode->getChildByName("background");
 	//get button and checkbox from the csb file
@@ -179,4 +182,26 @@ void Room::r_checkBoxCallback2(cocos2d::Ref * ref, CheckBox::EventType type)
 	default:
 		break;
 	}
+}
+
+void Room::onEnter() {
+	Layer::onEnter();
+}
+
+void Room::onEnterTransitionDidFinish() {
+	Layer::onEnterTransitionDidFinish();
+	//play music
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Room.mp3", true);
+}
+
+void Room::onExit() {
+	Layer::onExit();
+}
+
+void Room::onExitTransitionDidStart() {
+	Layer::onExitTransitionDidStart();
+}
+
+void Room::cleanup() {
+	Layer::cleanup();
 }

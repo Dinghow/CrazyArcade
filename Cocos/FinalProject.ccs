@@ -48,6 +48,7 @@
           <Image Name="buttonPressed.png" />
           <Image Name="buttonReleased.png" />
           <Project Name="Map.csd" Type="Scene" />
+          <Project Name="OverLayer.csd" Type="Layer" />
         </Folder>
         <Folder Name="MenuScene">
           <Image Name="about_menu.png" />

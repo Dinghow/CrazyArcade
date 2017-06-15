@@ -6,6 +6,8 @@
 #include "ui/CocosGUI.h"
 #include "Player.h"
 #include "Bomb.h"
+#include <strstream>
+#include "GameOver.h"
 USING_NS_CC;
 class cBomb;
 using namespace cocostudio::timeline;
@@ -13,7 +15,6 @@ using namespace cocos2d::ui;
 using namespace std;
 
 extern Player* m_Roles[2];
-extern int opponent;
 
 class MapOfGame : public cocos2d::Layer
 {
@@ -29,18 +30,24 @@ public:
 	virtual ~MapOfGame();
 	cocos2d::SpriteFrameCache* cache;
 	cocos2d::CCTMXTiledMap* gameMap;
+	CCLabelAtlas* numberAtlas;
 	Player role1;
 	Player role2;
+	int seconds;
 	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 
 	void menuCallbackMove(CCObject *pSender);
 	void update(float delta);
+	void timer(float delta);
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
 	
 	void bombKillCheck(Player* role,vector<cBomb*>& vcBombs);
 	void killRole(Player* role);
 	void detonateKill(Player* role1, Player* role2);
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
+	void judgeResult(bool isWin);
+	void backToHall();
+	void playResultMusic();
 	void playMusic(float dt);
 	void bombForcedDetonate();
 	void onEnter();

@@ -66,6 +66,9 @@
     <ClCompile Include="..\Classes\GamePlay\CoordTransfer.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GamePlay\GameOver.cpp">
+      <Filter>src\GamePlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -111,6 +114,9 @@
       <Filter>src\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\CoordTransfer.h">
+      <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GamePlay\GameOver.h">
       <Filter>src\GamePlay</Filter>
     </ClInclude>
   </ItemGroup>

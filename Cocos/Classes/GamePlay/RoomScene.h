@@ -31,6 +31,11 @@ public:
 	ImageView* r_thumbnail;
 	ImageView* m_blank;
 	ImageView* r_blank;
+	void onEnter();
+	void onExit();
+	void cleanup();
+	void onEnterTransitionDidFinish();
+	void onExitTransitionDidStart();
 private:
 	void PlayTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void BackTouch(Ref* pSender, Widget::TouchEventType type);
