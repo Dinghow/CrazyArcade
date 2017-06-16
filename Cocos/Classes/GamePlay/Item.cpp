@@ -109,8 +109,9 @@ void randomItem(const cocos2d::CCPoint &itemPos, cocos2d::CCTMXTiledMap* Map)
 {
 	int itemNum = randNum() % 100;
 
-	int itemNo = itemNum % 5;
-	//CCLOG("%ditem:%d", itemNum, itemNo);
-	if ((itemNum > 100 * (1 - PROBABILITY)) && itemNo)
+	if (itemNum > 100 * (1 - PROBABILITY))
+	{
+		int itemNo = itemNum % 7 + 1;
 		auto item = new Item(itemNo, itemPos, Map);
+	}
 }

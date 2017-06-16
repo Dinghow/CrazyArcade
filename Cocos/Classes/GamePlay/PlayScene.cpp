@@ -70,7 +70,8 @@ bool MapOfGame::init()
 	m_Roles[0] = &role1;
 	m_Roles[1] = &role2;
 	opponent = 1;
-
+	//initial face direction
+	initFaceDirection(m_Roles, cache);
 	//bomb init
 	for (int i = 0; i < 2; i++)
 	{

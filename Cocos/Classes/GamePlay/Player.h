@@ -46,13 +46,20 @@ private:
 	int bombQuantity;
 	int bombRange;
 	float speed;
+	float preSpeed;
 	int money;
+
+	int speedLimit;
+	int bombQuantityLimit;
+	float m_CanNotBeKilledTime;
 	float m_DeadTime;
 	bool m_Killed;
 	bool m_Deleted;
 	bool m_Dying;
+	bool m_CanNotBeKilled;
 public:
-
+	int onRide;
+	int roleSelection;
 	vector<cBomb*> m_Bombs;
 	CCSprite* role;
 	CCSprite* shadow;
@@ -67,10 +74,10 @@ public:
 	Vector<SpriteFrame*> frameArray1;
 	Vector<SpriteFrame*> frameArray2;
 	cocos2d::Animation* deadAnimations[2];
-	cocos2d::CCAnimation* walkAnimations[4];
+	cocos2d::CCAnimation* walkAnimations[3][4];
 	cocos2d::RepeatForever* animations[4];
-	cocos2d::SpriteFrame* faceFrames[4];
-	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
+	cocos2d::SpriteFrame* faceFrames[3][4];
+	cocos2d::CCAnimation* creatAnimationByDirecton(int ride, RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
 	void setFaceDirection(RoleDirection direction);
 	void onWalkDone(RoleDirection direction);
 	//role move
@@ -78,9 +85,14 @@ public:
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 	//speed property
-	void setProperties(int speed = 6.5, int bombRange = 2, int bombQuantity = 1);
+	void setProperties(float speed = 6.5, int bombRange = 2, int bombQuantity = 1, int speedLimit = 15, int bombQuantityLimit = 4);
 	int getSpeed() { return speed; }
-	void addSpeed() { speed ++; }
+	void addSpeed() { 
+		if (++speed > speedLimit)
+			speed = speedLimit;
+		if (++preSpeed > speedLimit)
+			preSpeed = speedLimit;
+	}
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
@@ -89,18 +101,17 @@ public:
 	void addBombRange();
 	//Pick up items
 	void pickUpItem(const cocos2d::CCPoint &tilePos);
+	//Role on ride
+	void roleOnRide(const int &No);
 	
 	/********************* Function about bomb ********************************/
 	//drop bomb
 	void dropBomb();
 	void addBomb();
+	void getKilled();
+	void canNotBeKilledUpdate(float dt);
 	bool killedOrNot() {
 		return m_Killed;
-	}
-	void getKilled()
-	{
-		m_Killed = true;
-		speed = 1.5;
 	}
 	void getSaved()
 	{
@@ -139,5 +150,5 @@ public:
 	}
 };
 
-
+void initFaceDirection(Player* Roles[2], cocos2d::SpriteFrameCache* cache);
 #endif
