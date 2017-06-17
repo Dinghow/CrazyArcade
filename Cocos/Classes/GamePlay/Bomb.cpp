@@ -45,9 +45,6 @@ void cBomb::dropBomb()
 	m_BombPosition = getBombPosition();
 	m_TBombPosition = getGrid();
 	m_Dropped = true;
-	//获取对象数组
-	TMXObjectGroup* objG = m_Map->getObjectGroup("objects");
-	auto object = objG->getObject("object");
 
 	//create Shadow
 	CCSprite* shadow = CCSprite::create("Bomb/bomb4.png");
@@ -233,39 +230,31 @@ void cBomb::removeTile(dire direction)
 	auto* layer2 = m_Map->layerNamed("architecture-float");
 	auto tposition = m_TBombPosition;
 
-	for (int i = 1; i <= m_BombRange; i++)
+	tposition = ccpAdd(tposition, m_Board[direction]*points[direction]);
+
+	int gid1 = layer1->getTileGIDAt(tposition);
+
+	if (gid1 > 0)
 	{
-		tposition = ccpAdd(tposition, points[direction]);
-		if (tposition.x > 14 || tposition.x < 0 || tposition.y < 0 || tposition.y>12)
-			break;
+		Value prop1 = m_Map->getPropertiesForGID(gid1);
+		ValueMap propValueMap1 = prop1.asValueMap();
 
-		int gid1 = layer1->getTileGIDAt(tposition);
+		std::string destructible = propValueMap1["destructible"].asString();
 
-		if (gid1 > 0)
+		if ("true" == destructible)
 		{
-			Value prop1 = m_Map->getPropertiesForGID(gid1);
-			ValueMap propValueMap1 = prop1.asValueMap();
-
-			std::string destructible = propValueMap1["destructible"].asString();
-
-			if ("true" == destructible)
+			layer1->removeTileAt(tposition);
+			if (tposition.y > 0)
 			{
-				layer1->removeTileAt(tposition);
-				if (tposition.y > 0)
+				int gid2 = layer2->getTileGIDAt(ccpAdd(tposition, ccp(0, -1)));
+				if (gid2 > 0)
 				{
-					int gid2 = layer2->getTileGIDAt(ccpAdd(tposition, ccp(0, -1)));
-					if (gid2 > 0)
-					{
-						layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
+					layer2->removeTileAt(ccpAdd(tposition, ccp(0, -1)));
 
-						//Drop items
-						randomItem(tposition, m_Map);
-						break;
-					}
+					//Drop items
+					randomItem(tposition, m_Map);
 				}
 			}
-			else
-				break;
 		}
 	}
 }

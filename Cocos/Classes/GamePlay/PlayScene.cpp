@@ -501,12 +501,13 @@ void MapOfGame::cleanup() {
 ****************************************/
 void MapOfGame::bombKillCheck(Player* role,vector<cBomb*>& vcBombs)
 {
-	
+	//the tile coordinate of the player
 	CCPoint rolePosition = tilecoordForPosition(role->role->getPosition());
 	for (auto it : vcBombs)
 	{
 		if (!it->explodedOrNot())
 			continue;
+		//the tile coordinate of the bomb
 		CCPoint bombPosition = tilecoordForPosition(it->showBombPosition());
 		if (bombPosition == rolePosition)
 		{
@@ -542,14 +543,6 @@ void MapOfGame :: killRole(Player* player)
 {
 	if (player->killedOrNot()&&!player->dyingOrNot()&&!player->deletedOrNot())
 	{
-		/*if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
-			player->role->stopAction(player->animations[kUp]);
-		if (keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW])
-			player->role->stopAction(player->animations[kDown]);
-		if (keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW])
-			player->role->stopAction(player->animations[kLeft]);
-		if (keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])
-			player->role->stopAction(player->animations[kRight]);*/
 		player->role->stopAllActions();
 		if (!player->deletedOrNot())
 		{

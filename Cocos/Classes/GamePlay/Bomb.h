@@ -70,6 +70,7 @@ public:
 	//increase the bomb power
 	void addBombRange() { ++m_BombRange; }
 	//get the bomb's opengl coordinate
+	//the center of tile
 	CCPoint getBombPosition();
 	//get the role's Tile coordinate
 	CCPoint getGrid();
@@ -90,7 +91,7 @@ public:
 	void idleUpdate(float dt);
 	//Timer during the explosion
 	void explodeUpdate(float dt);
-	//remove the tile in m_Map destoied by explosion
+	//remove the tile in m_Map destroied by explosion
 	void removeTile(dire direction);
 
 	bool explodedOrNot()
