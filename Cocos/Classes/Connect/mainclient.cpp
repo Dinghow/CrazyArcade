@@ -72,9 +72,6 @@ void message()
 	mymessage[15] = t_hun + 48;
 	mymessage[16] = t_ten + 48;
 	mymessage[17] = t_ge + 48;
-	for (int i = 0; i < 195; i++) {
-		mymessage[i + 18] = itemInfo[i];
-	}
 
 	rlt = client.ClientSend(mymessage,sizeof(mymessage));
 
