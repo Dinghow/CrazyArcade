@@ -2,6 +2,8 @@
 #include "../Login/LoginScene.h"
 #include "HallScene.h"
 #include "Data.h"
+#include "Item.h"
+#include "../Connect/client.h"
 #include "CoordTransfer.h"
 
 cocos2d::CCTMXTiledMap* theMap;
@@ -30,6 +32,8 @@ bool MapOfGame::init()
 		return false;
 	}
 	seconds = 0;
+	direction = kStart;
+	direction2 = kStart;
 	auto rootNode = CSLoader::createNode("MapScene/Map.csb");
 	Layout* map_vehicle = (Layout*)rootNode->getChildByName("map_vehicle");
 	this->addChild(rootNode);
@@ -53,6 +57,7 @@ bool MapOfGame::init()
 	gameMap->setAnchorPoint(Vec2(0, 0));
 	map_vehicle->addChild(gameMap);
 	theMap = gameMap;
+
 	//get objects layer
 	CCTMXObjectGroup *objects = gameMap->objectGroupNamed("objects");
 	CCTMXLayer *architecture = gameMap->layerNamed("architecture-real");
@@ -63,13 +68,26 @@ bool MapOfGame::init()
 
 	//load the plist file and init the role
 	cache = SpriteFrameCache::getInstance();
-	role1.roleInit(objects, cache, 1,role_tag,false);
-	role2.roleInit(objects, cache, 2,2,true);
+	if (role_tag == 1 && test_model == false)
+		isHost = true;
+	role1.roleInit(objects, cache, role_tag,false);
+	role2.roleInit(objects, cache, (role_tag == 1)?2:1,true);
 	gameMap->addChild(role1.role, 3);
 	gameMap->addChild(role2.role, 3);
 	m_Roles[0] = &role1;
 	m_Roles[1] = &role2;
+	//initial face direction
+	initFaceDirection(m_Roles, cache);
 	opponent = 1;
+
+	role1.hasUpReleased = true;
+	role1.hasDownReleased = true;
+	role1.hasLeftReleased = true;
+	role1.hasRightReleased = true;
+	role2.hasUpReleased = true;
+	role2.hasDownReleased = true;
+	role2.hasLeftReleased = true;
+	role2.hasRightReleased = true;
 
 	//bomb init
 	for (int i = 0; i < 2; i++)
@@ -88,117 +106,100 @@ bool MapOfGame::init()
 		keys[keyCode] = true;
 		switch (keyCode){
 		case EventKeyboard::KeyCode::KEY_UP_ARROW:
-			role1.playerInfo.isUpPressed = true;
-			if (!role1.killedOrNot())
-				role1.keyPressedAnimation(keyCode);
+			keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = false;
+			myPlayerInformation.isDownPressed = false;
+			myPlayerInformation.isLeftPressed = false;
+			myPlayerInformation.isRightPressed = false;
+			role1.hasUpReleased = false;
+			myPlayerInformation.isUpPressed = true;
+			direction = kUp;
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			role1.playerInfo.isDownPressed = true;
-			if (!role1.killedOrNot())
-				role1.keyPressedAnimation(keyCode);
+			keys[EventKeyboard::KeyCode::KEY_UP_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = false;
+			myPlayerInformation.isUpPressed = false;
+			myPlayerInformation.isLeftPressed = false;
+			myPlayerInformation.isRightPressed = false;
+			role1.hasDownReleased = false;
+			myPlayerInformation.isDownPressed = true;
+			direction = kDown;
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			role1.playerInfo.isLeftPressed = true;
-			if (!role1.killedOrNot())
-				role1.keyPressedAnimation(keyCode);
+			keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_UP_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = false;
+			myPlayerInformation.isDownPressed = false;
+			myPlayerInformation.isUpPressed = false;
+			myPlayerInformation.isRightPressed = false;
+			myPlayerInformation.isLeftPressed = true;
+			role1.hasLeftReleased = false;
+			direction = kLeft;
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			role1.playerInfo.isRightPressed = true;
-			if (!role1.killedOrNot())
-				role1.keyPressedAnimation(keyCode);
+			keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = false;
+			keys[EventKeyboard::KeyCode::KEY_UP_ARROW] = false;
+			myPlayerInformation.isDownPressed = false;
+			myPlayerInformation.isLeftPressed = false;
+			myPlayerInformation.isUpPressed = false;
+			myPlayerInformation.isRightPressed = true;
+			role1.hasRightReleased = false;
+			direction = kRight;
 			break;
 		case EventKeyboard::KeyCode::KEY_SPACE:
 			if (test_model == false) {
-				role1.playerInfo.isSpacePressed = true;
-				if (!role1.killedOrNot())
-				{
-					bool empty = true;
-					auto roleTileCoord = tilecoordForPosition(role1.role->getPosition());
-					for (auto it : role1.m_Bombs)
-					{
-						if (it->droppedOrNot())
-							if (roleTileCoord == tilecoordForPosition(it->bombOpenglCoord()))
-							{
-								empty = false;
-								break;
-							}
-					}
-					if (empty) {
-						role1.dropBomb();
-					}
-				}
+				myPlayerInformation.isSpacePressed = true;
+				role1.dropBomb();
 			}
 			else if (test_model == true) {
-				role2.playerInfo.isSpacePressed = true;
-				if (!role2.killedOrNot())
-				{
-					bool empty = true;
-					auto roleTileCoord = tilecoordForPosition(role2.role->getPosition());
-					for (auto it : role2.m_Bombs)
-					{
-						if (it->droppedOrNot())
-							if (roleTileCoord == tilecoordForPosition(it->bombOpenglCoord()))
-							{
-								empty = false;
-								break;
-							}
-					}
-					if (empty) {
-						role2.dropBomb();
-					}
+				role2.dropBomb();
 				}
-			}
 			break;
 			//role2
 		case EventKeyboard::KeyCode::KEY_KP_ENTER:
 			if (test_model == true) {
-				role1.playerInfo.isSpacePressed = true;
-				if (!role1.killedOrNot())
-				{
-					bool empty = true;
-					auto roleTileCoord = tilecoordForPosition(role1.role->getPosition());
-					for (auto it : role1.m_Bombs)
-					{
-						if (it->droppedOrNot())
-							if (roleTileCoord == tilecoordForPosition(it->bombOpenglCoord()))
-							{
-								empty = false;
-								break;
-							}
-					}
-					if (empty) {
-						role1.dropBomb();
-					}
-				}
+				myPlayerInformation.isSpacePressed = true;
+				role1.dropBomb();
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_W:
-			if(test_model == true){
-			role2.playerInfo.isUpPressed = true;
-			if (!role2.killedOrNot())
-				role2.keyPressedAnimation(EventKeyboard::KeyCode::KEY_UP_ARROW);
-			}
+			if (test_model == true) {
+					keys[EventKeyboard::KeyCode::KEY_S] = false;
+					keys[EventKeyboard::KeyCode::KEY_A] = false;
+					keys[EventKeyboard::KeyCode::KEY_D] = false;
+					role2.hasUpReleased = false;
+					direction2 = kUp;
+				}
 			break;
 		case EventKeyboard::KeyCode::KEY_S:
 			if (test_model == true) {
-				role2.playerInfo.isDownPressed = true;
-				if (!role2.killedOrNot())
-					role2.keyPressedAnimation(EventKeyboard::KeyCode::KEY_DOWN_ARROW);
-			}
+					keys[EventKeyboard::KeyCode::KEY_W] = false;
+					keys[EventKeyboard::KeyCode::KEY_A] = false;
+					keys[EventKeyboard::KeyCode::KEY_D] = false;
+					role2.hasDownReleased = false;
+					direction2 = kDown;
+				}
 			break;
 		case EventKeyboard::KeyCode::KEY_A:
 			if (test_model == true) {
-				role2.playerInfo.isLeftPressed = true;
-				if (!role2.killedOrNot())
-					role2.keyPressedAnimation(EventKeyboard::KeyCode::KEY_LEFT_ARROW);
-			}
+					keys[EventKeyboard::KeyCode::KEY_W] = false;
+					keys[EventKeyboard::KeyCode::KEY_S] = false;
+					keys[EventKeyboard::KeyCode::KEY_D] = false;
+					role2.hasLeftReleased = false;
+					direction2 = kLeft;
+				}
 			break;
 		case EventKeyboard::KeyCode::KEY_D:
 			if (test_model == true) {
-				role2.playerInfo.isRightPressed = true;
-				if (!role2.killedOrNot())
-					role2.keyPressedAnimation(EventKeyboard::KeyCode::KEY_RIGHT_ARROW);
-			}
+					keys[EventKeyboard::KeyCode::KEY_S] = false;
+					keys[EventKeyboard::KeyCode::KEY_A] = false;
+					keys[EventKeyboard::KeyCode::KEY_W] = false;
+					role2.hasRightReleased = false;
+					direction2 = kRight;
+				}
 			break;
 		default:
 			break;
@@ -210,89 +211,47 @@ bool MapOfGame::init()
 		switch (keyCode)
 		{
 		case EventKeyboard::KeyCode::KEY_UP_ARROW:
-			role1.playerInfo.isUpPressed = false;
-			if (!role1.killedOrNot())
-			{
-				role1.role->stopAction(role1.animations[kUp]);
-				role1.onWalkDone(kUp);
-			}
+			myPlayerInformation.isUpPressed = false;
+			role1.hasUpReleased = true;
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			role1.playerInfo.isDownPressed = false;
-			if (!role1.killedOrNot())
-			{
-				role1.role->stopAction(role1.animations[kDown]);
-				role1.onWalkDone(kDown);
-			}
+			myPlayerInformation.isDownPressed = false;
+			role1.hasDownReleased = true;
 			break;
 		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			role1.playerInfo.isLeftPressed = false;
-			if (!role1.killedOrNot())
-			{
-				role1.role->stopAction(role1.animations[kLeft]);
-				role1.onWalkDone(kLeft);
-			}
+			myPlayerInformation.isLeftPressed = false;
+			role1.hasLeftReleased = true;
 			break;
 		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			role1.playerInfo.isRightPressed = false;
-			if (!role1.killedOrNot())
-			{
-				role1.role->stopAction(role1.animations[kRight]);
-				role1.onWalkDone(kRight);
-			}
+			myPlayerInformation.isRightPressed = false;
+			role1.hasRightReleased = true;
 			break;
 		case EventKeyboard::KeyCode::KEY_SPACE:
 			if (test_model == false) {
-				role1.playerInfo.isSpacePressed = false;
-			}
-			else if (test_model == true) {
-				role2.playerInfo.isSpacePressed = false;
+				myPlayerInformation.isSpacePressed = false;
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_W:
 			if (test_model == true) {
-				role2.playerInfo.isUpPressed = false;
-				if (!role2.killedOrNot())
-				{
-					role2.role->stopAction(role2.animations[kUp]);
-					role2.onWalkDone(kUp);
-				}
+				role2.hasUpReleased = true;
 			}
 			break;
 		case EventKeyboard::KeyCode::KEY_S:
 			if (test_model == true) {
-				role2.playerInfo.isUpPressed = false;
-				if (!role2.killedOrNot())
-				{
-					role2.role->stopAction(role2.animations[kDown]);
-					role2.onWalkDone(kDown);
-				}
+				role2.hasDownReleased = true;
 			}
-				break;
+			break;
 		case EventKeyboard::KeyCode::KEY_A:
 			if (test_model == true) {
-				role2.playerInfo.isUpPressed = false;
-				if (!role2.killedOrNot())
-				{
-					role2.role->stopAction(role2.animations[kLeft]);
-					role2.onWalkDone(kLeft);
-				}
+				role2.hasLeftReleased = true;
 			}
-				break;
+			break;
 		case EventKeyboard::KeyCode::KEY_D:
 			if (test_model == true) {
-				role2.playerInfo.isUpPressed = false;
-				if (!role2.killedOrNot())
-				{
-					role2.role->stopAction(role2.animations[kRight]);
-					role2.onWalkDone(kRight);
-				}
+				role2.hasRightReleased = true;
 			}
-				break;
+			break;
 		case EventKeyboard::KeyCode::KEY_KP_ENTER:
-			if (test_model == true) {
-				role2.playerInfo.isSpacePressed = false;
-			}
 			break;
 		default:
 			break;
@@ -306,25 +265,91 @@ bool MapOfGame::init()
 	//call the schedule
 	//*******ATTENTION:the duration of schedule must large than that of move action,if not there'll be collision check bug***********//
 
-	this->schedule(schedule_selector(MapOfGame::update), 0.05f);
+	this->scheduleUpdate();
+	this->schedule(schedule_selector(MapOfGame::moveUpdate), 0.05f);
 	this->schedule(schedule_selector(MapOfGame::timer), 1.0f);
 	return true;
 }
 
-
 MapOfGame::~MapOfGame() {
 	this->unscheduleAllSelectors();
 }
-
-//count the time
+//exchange information
+void MapOfGame::update(float dt) {
+	if (test_model == false) {
+		message();
+	}
+	myPlayerInformation.role_x = role1.getPosition().x;
+	myPlayerInformation.role_y = role1.getPosition().y;
+	if (othermessage[2] == '1' || othermessage[3] == '1' || othermessage[4] == '1' || othermessage[5] == '1') {
+		int x, y;
+		x = (othermessage[7] - 48) * 100 + (othermessage[8] - 48) * 10 + othermessage[9] - 48;
+		y = (othermessage[10] - 48) * 100 + (othermessage[11] - 48) * 10 + othermessage[12] - 48;
+		role2.role->setPosition(ccp(x,y));
+	}
+	if (role1.hasUpReleased == true && role1.hasDownReleased == true && role1.hasLeftReleased == true && role1.hasRightReleased == true&&!role1.killedOrNot())
+		direction = kStop;
+	if (role1.killedOrNot())
+		direction = kStart;
+	if (test_model == true) {
+		if (role2.hasUpReleased == true && role2.hasDownReleased == true && role2.hasLeftReleased == true && role2.hasRightReleased == true && !role2.killedOrNot())
+			direction2 = kStop;
+		if (role2.killedOrNot())
+			direction2 = kStart;
+	}
+	else {
+		if (othermessage[2] == '1')
+			direction2 = kUp;
+		else if (othermessage[3] == '1')
+			direction2 = kDown;
+		else if (othermessage[4] == '1')
+			direction2 = kLeft;
+		else if (othermessage[5] == '1')
+			direction2 = kRight;
+		else
+			direction2 = kStop;
+  		if (othermessage[6] == '1') {
+			role2.dropBomb();
+			/*int x = othermessage[13] - 48;
+ 			int y = othermessage[14] - 48;
+			if (x >= 0 && x <= 14 && y >= 0 && y <= 12) {
+				role2.dropBomb(x,12-y);
+			}*/
+		}
+		if (isHost == false) {
+			/*for (int i = 0; i < 195; i++) {
+				if (othermessage[18 + i] != '\0') {
+					int itemType = othermessage[18 + i] - 48;
+					int tx = i % 15;
+					int ty = i / 15;
+					CCPoint tposition = ccp(tx, ty);
+					if (itemInfo[i] != 'r')
+						auto item = new Item(itemType, tposition, gameMap);
+					itemInfo[i] = 'r';
+				}
+			}*/
+			gameTime = (othermessage[15] - 48) * 100 + (othermessage[16] - 48) * 10 + othermessage[17] - 48;
+		}
+	}
+	if(!role1.deletedOrNot())
+		role1.keyPressedAnimation(direction);
+	if(!role2.deletedOrNot())
+		role2.keyPressedAnimation(direction2);
+}
+//count the gameTime
 void MapOfGame::timer(float delta) {
-	seconds += delta;
+	if (test_model == true || (test_model == false && isHost == true)) {
+		seconds += delta;
+		gameTime = seconds;
+	}
+	else if (test_model == false && isHost == false)
+		seconds = gameTime;
 	int temp = 180 - seconds;
 	strstream ss;
 	string s;
 	ss << temp;
 	ss >> s;
-	if (seconds > 1)
+	if (seconds > 0 || temp >180 )
 		this->removeChild(numberAtlas);
 	numberAtlas = CCLabelAtlas::create("0123456789", "MapScene/number.png", 12, 10, '0');
 	numberAtlas->setPosition(ccp(720, 548));
@@ -334,7 +359,7 @@ void MapOfGame::timer(float delta) {
 		judgeResult(false);
 }
 //control the role's behavior
-void MapOfGame::update(float delta) {
+void MapOfGame::moveUpdate(float delta) {
 	Node::update(delta);
 	role1.loadPositon();
 	role2.loadPositon();
@@ -404,7 +429,7 @@ void MapOfGame::update(float delta) {
 		judgeResult(false);
 	}
 	if (shouldBack == true && !hasBackRun)
-		backToHall();
+		backToRoom();
 
 }
 
@@ -418,7 +443,7 @@ bool MapOfGame::isKeyPressed(EventKeyboard::KeyCode keyCode) {
 	}
 }
 
-void MapOfGame::backToHall() {
+void MapOfGame::backToRoom() {
 	hasBackRun = true;
 	auto director = Director::getInstance();
 	auto scene = Hall::createScene();
@@ -511,7 +536,7 @@ void MapOfGame::bombKillCheck(Player* role,vector<cBomb*>& vcBombs)
 		{
 			role->getKilled();
 		}
-		for (int i = 1; i <= role->showBombRange(); i++)
+		for (int i = 1; i <= it->showBombRange(); i++)
 		{
 			if (rolePosition == ccpAdd(bombPosition, ccp(0, -i))&&i<=it->m_Board[0])
 			{
@@ -541,14 +566,6 @@ void MapOfGame :: killRole(Player* player)
 {
 	if (player->killedOrNot()&&!player->dyingOrNot()&&!player->deletedOrNot())
 	{
-		/*if (keys[EventKeyboard::KeyCode::KEY_UP_ARROW])
-			player->role->stopAction(player->animations[kUp]);
-		if (keys[EventKeyboard::KeyCode::KEY_DOWN_ARROW])
-			player->role->stopAction(player->animations[kDown]);
-		if (keys[EventKeyboard::KeyCode::KEY_LEFT_ARROW])
-			player->role->stopAction(player->animations[kLeft]);
-		if (keys[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])
-			player->role->stopAction(player->animations[kRight]);*/
 		player->role->stopAllActions();
 		if (!player->deletedOrNot())
 		{

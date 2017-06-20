@@ -6,7 +6,7 @@
       <ObjectData Name="Scene" Tag="5" ctype="GameNodeObjectData">
         <Size X="800.0000" Y="600.0000" />
         <Children>
-          <AbstractNodeData Name="background" ActionTag="-1154451902" Tag="6" IconVisible="False" LeftMargin="0.0001" RightMargin="-0.0001" TopMargin="1.2775" BottomMargin="-1.2775" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" LeftEage="263" RightEage="263" TopEage="198" BottomEage="198" Scale9OriginX="263" Scale9OriginY="198" Scale9Width="273" Scale9Height="204" ctype="PanelObjectData">
+          <AbstractNodeData Name="background" ActionTag="-1154451902" Tag="6" IconVisible="False" LeftMargin="0.6089" RightMargin="-0.6089" TopMargin="0.6687" BottomMargin="-0.6687" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" LeftEage="263" RightEage="263" TopEage="198" BottomEage="198" Scale9OriginX="263" Scale9OriginY="198" Scale9Width="273" Scale9Height="204" ctype="PanelObjectData">
             <Size X="800.0000" Y="600.0000" />
             <Children>
               <AbstractNodeData Name="confirm_button" ActionTag="311642469" Tag="7" IconVisible="False" LeftMargin="497.0792" RightMargin="179.9208" TopMargin="516.6882" BottomMargin="43.3118" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="93" Scale9Height="18" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
@@ -284,12 +284,24 @@
                 <PreSize X="0.1887" Y="0.2183" />
                 <FileData Type="Normal" Path="RoomScene/blank.png" Plist="" />
               </AbstractNodeData>
+              <AbstractNodeData Name="text" ActionTag="1495156562" Tag="46" IconVisible="False" LeftMargin="476.0366" RightMargin="23.9634" TopMargin="456.3175" BottomMargin="103.6825" IsCustomSize="True" FontSize="20" LabelText="&#xA;&#xA;" OutlineEnabled="True" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="300.0000" Y="40.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="626.0366" Y="123.6825" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="165" B="0" />
+                <PrePosition X="0.7825" Y="0.2061" />
+                <PreSize X="0.3750" Y="0.0667" />
+                <FontResource Type="Normal" Path="Font/font1.ttf" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="0.0001" Y="-1.2775" />
+            <Position X="0.6089" Y="-0.6687" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition Y="-0.0021" />
+            <PrePosition X="0.0008" Y="-0.0011" />
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="RoomScene/background1.png" Plist="" />
             <SingleColor A="255" R="150" G="200" B="255" />

@@ -4,6 +4,8 @@
 #include "PlayScene.h"
 #include "RoomScene.h"
 #include "Data.h"
+#include "../Connect/client.h"
+#include "../Connect/EnterIp.h"
 
 Scene* Hall::createScene()
 {
@@ -45,34 +47,38 @@ bool Hall::init()
 	btnBack->addTouchEventListener(CC_CALLBACK_2(Hall::BackTouch, this));
 	btnTest->addTouchEventListener(CC_CALLBACK_2(Hall::TestTouch, this));
 
-
+	this->schedule(schedule_selector(Hall::transferInspect), 0.8f);
 	addChild(rootNode);
 
 	return true;
 }
 
+void Hall::transferInspect(float dt) {
+	if (gamecanstart[0] == 'Y') {
+		auto director = Director::getInstance();
+		auto scene = Room::createScene();
+		auto transition = TransitionCrossFade::create(0.5f, scene);
+		director->pushScene(transition);
+	}
+}
+
 void Hall::StartTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		/*auto director = Director::getInstance();
-		//transfer to MapScene
-		auto scene = Room::createScene();
-		auto transition = TransitionCrossFade::create(1.0f, scene);
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-		director->pushScene(transition);*/
-
+		//WinExec("..\\Resources\\res\\Connect\\server.exe", SW_NORMAL);
+		WinExec("res\\Connect\\Server.exe", SW_NORMAL);
 		break;
 	}
 }
 
 void Hall::ConnectTouch(Ref* pSender, Widget::TouchEventType type) {
 	switch (type) {
-	/*case Widget::TouchEventType::ENDED:
-		auto director = Director::getInstance();
-		//transfer to MapScene
-		auto scene = Room::createScene();
-		auto transition = TransitionCrossFade::create(1.0f, scene);
-		director->pushScene(transition);*/
+	case Widget::TouchEventType::ENDED:
+		log("connect touch...");
+		auto layer = ENTER::create();
+		layer->setAnchorPoint(Vec2(0.5, 0.5));
+		layer->setPosition(350, 300);
+		this->addChild(layer,1);
 
 		break;
 	}
@@ -86,7 +92,6 @@ void Hall::TestTouch(cocos2d::Ref* pSender, Widget::TouchEventType type) {
 		test_model = true;
 		auto scene = Room::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		director->pushScene(transition);
 
 		break;

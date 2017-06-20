@@ -20,6 +20,7 @@
           <Image Name="exit_pressed.png" />
           <Image Name="exit_released.png" />
           <Project Name="HallScene.csd" Type="Scene" />
+          <Project Name="IpLayer.csd" Type="Layer" />
           <Image Name="menu_pressed.png" />
           <Image Name="menu_released.png" />
           <Image Name="room.png" />

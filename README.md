@@ -8,12 +8,12 @@ It's a cocos2d-x game imitating Crazy Arcade,and also a final project of TongjiU
 
 The list of the game's group(In no particular order ):
 
-|   学号    |  姓名  |                    分工                    |
-| :-----: | :--: | :--------------------------------------: |
-| 1652741 | 杨丁豪  | 人物移动，碰撞检测，地图制作，动画效果,地图选择，角色选择，视频，音效，UI设计 |
-| 1652742 | 贺鹏程  |       泡泡的放置、爆炸、地图对应变化，人物对炸弹检测及相应动画       |
-| 1652738 | 赵洪城  |             人物属性，道具产生，拾取，使用              |
-| 1652739 | 李亚康  |              网络模块，房间列表，聊天功能              |
+|   学号    |  姓名  |                   分工                   |
+| :-----: | :--: | :------------------------------------: |
+| 1652741 | 杨丁豪  | 人物移动，碰撞检测，地图制作，动画效果,地图角色、选择，视频，音效，UI设计 |
+|    \    | 贺鹏程  |      泡泡的放置、爆炸、地图对应变化，人物对炸弹检测及相应动画      |
+| 1652738 | 赵洪城  |            人物属性，道具产生，拾取，使用             |
+| 1652739 | 李亚康  |             网络模块，房间列表，聊天功能             |
 
 如果具体任务量较大可以协同一起做，其他附加功能暂时没有分配，等以上功能完成后看情况决定
 
@@ -45,7 +45,7 @@ The list of the game's group(In no particular order ):
 - 支持聊天（组队聊天和所有人聊天）
 - 支持房间列表
 - 支持 >= 2 张地图（√）
-- 支持 >= 2 种游戏模式（如团队模式、大乱斗、抢包山、刺猬模式等）
+- 支持 >= 2 种游戏模式（如团队模式、大乱斗、抢包山、刺猬模式等）（√）
 - 支持使用道具（如香蕉皮，飞镖） 
 - 支持骑宠（如乌龟，猫头鹰，飞碟，恶魔等）
 
@@ -58,12 +58,110 @@ The list of the game's group(In no particular order ):
 - 人物死亡后角色动画悬空（√）
 - 人物被炸的检测（√）
 - 炸弹对障碍物的破坏（√）
-- 尸体移动，尸体碰撞检测
+- 尸体移动，尸体碰撞检测（√）
 - 默认地图和默认角色（√）
 
 
 
 ## 4.开发日志
+
+**Commits on Jun 15, 2017**
+
+[Function Update 0.8.4(Finish victory judge,add game countdown,repair …](https://github.com/Dinghow/Cpp-finalproject/commit/a93985b929f3655207e26b801877b51c7ee9fac1)…
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 2 days ago
+
+
+
+**Commits on Jun 14, 2017**
+
+[Function Update 0.8.0(Add offline model,repair animation bug,wrap the…](https://github.com/Dinghow/Cpp-finalproject/commit/6c97dad0e06b55df5b836d8a68121c7a55671590)…
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 3 days ago
+
+[6c97dad](https://github.com/Dinghow/Cpp-finalproject/commit/6c97dad0e06b55df5b836d8a68121c7a55671590)
+
+ 
+
+[Merge remote-tracking branch 'origin/hpc'](https://github.com/Dinghow/Cpp-finalproject/commit/fff986a2bf98b3644c99aca00950d2bf901f441e) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 3 days ago
+
+
+
+[炸弹相互引爆，人物间相互杀伤](https://github.com/Dinghow/Cpp-finalproject/commit/368e07ab3bbf1a11535e0a651b49617040cfa3e7)
+
+[SherlockHpc](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=SherlockHpc) committed 4 days ago
+
+
+
+**Commits on Jun 13, 2017**
+
+[Function Update 0.7.4(Redefine class Role to Player,add struct to sav…](https://github.com/Dinghow/Cpp-finalproject/commit/6a4e67eaec8448db8903686ebb6cb1cdb7f7cca8) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 4 days ago
+
+
+
+**Commits on Jun 12, 2017**
+
+[File Update(Merge Zhc,Hpc and Ydh's latest edition)](https://github.com/Dinghow/Cpp-finalproject/commit/5536a3acd42cd96cad08ce98153b6fd269c64a13)
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 5 days ago
+
+
+
+[Merge remote-tracking branch 'origin/hpc'](https://github.com/Dinghow/Cpp-finalproject/commit/f9bef291009b2f1f63a22b0a4449edc2c8ccbcd4) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 5 days ago
+
+ 
+
+[Merge remote-tracking branch 'origin/zhc'](https://github.com/Dinghow/Cpp-finalproject/commit/a46d3eb05e6607829c600e44570bc2dea2311c66) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 5 days ago
+
+
+
+[Function Update 0.7.0(Add Hall scene,repair bug of Login scene's butt…](https://github.com/Dinghow/Cpp-finalproject/commit/d45617e1aff59eed594d153d28f800074324c118) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 5 days ago
+
+ 
+
+[炸弹间的相互引爆](https://github.com/Dinghow/Cpp-finalproject/commit/a689fc0a93802fd7bfd884e82140a6976e6a792a)
+
+[SherlockHpc](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=SherlockHpc) committed 5 days ago
+
+
+
+[randomNum function for dropping items optimized;](https://github.com/Dinghow/Cpp-finalproject/commit/d82105dec9951b052818fcc711b47b81c4846cd6) …
+
+[Pomevak](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Pomevak) committed 6 days ago
+
+ 
+
+**Commits on Jun 11, 2017**
+
+[Function Update(Merge Zhc's and Hpc's branches to master,add more eff…](https://github.com/Dinghow/Cpp-finalproject/commit/a46f5f7947292dfca8f297b1554813c262af8d2d)…
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 7 days ago
+
+[a46f5f7](https://github.com/Dinghow/Cpp-finalproject/commit/a46f5f7947292dfca8f297b1554813c262af8d2d)
+
+ 
+
+[Merge remote-tracking branch 'origin/hpc'](https://github.com/Dinghow/Cpp-finalproject/commit/8ccd1e11bbcd5c648b213ae6ea44597e626a7361) …
+
+[Dinghow](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=Dinghow) committed 7 days ago
+
+
+
+[爆炸对人物杀伤的修正](https://github.com/Dinghow/Cpp-finalproject/commit/eb1f48ddb99d000fbc5270d6c673319c99f0a72c)
+
+[SherlockHpc](https://github.com/Dinghow/Cpp-finalproject/commits/master?author=SherlockHpc) committed 7 days ago
+
+
 
 **Commits on Jun 10, 2017**
 

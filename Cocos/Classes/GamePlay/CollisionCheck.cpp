@@ -36,6 +36,8 @@ CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint tar
 	//added bombs
 	if (direction == kUp || direction == kDown) {
 		for (int i = 1, j = -1; i <= 2; i++, j *= -1) {
+			if(targetPosition.x <= 13.5)
+				break;
 			searchRange = ccp(13.5* j*i, 0);
 			targetPosition += searchRange;
 			tileCoord = tilecoordForPosition(targetPosition);
@@ -60,9 +62,11 @@ CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint tar
 		}
 	}
 	else if (direction == kLeft || direction == kRight) {
-		for (int i = 1; i <= 2 ; i++) {
+		for (int i = 1 ; i <= 2 ; i++) {
+			if (targetPosition.y < 27.6)
+				break;
 			if (i == 1)
-				searchRange = ccp(0, -28);
+				searchRange = ccp(0, -27);
 			if (i == 2)
 				searchRange = ccp(0, 29);
 			targetPosition += searchRange;

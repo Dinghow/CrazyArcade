@@ -21,7 +21,8 @@ class MapOfGame : public cocos2d::Layer
 public:
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
-
+	RoleDirection direction;
+	RoleDirection direction2;
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool init();
 	//void menuCloseCallback(CCObject* pSender);
@@ -37,7 +38,9 @@ public:
 	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 
 	void menuCallbackMove(CCObject *pSender);
-	void update(float delta);
+	void opponentBehavior(float dt);
+	void moveUpdate(float delta);
+	void update(float dt);
 	void timer(float delta);
 	bool isKeyPressed(EventKeyboard::KeyCode keyCode);
 	
@@ -46,7 +49,7 @@ public:
 	void detonateKill(Player* role1, Player* role2);
 	void BackTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void judgeResult(bool isWin);
-	void backToHall();
+	void backToRoom();
 	void playResultMusic();
 	void playMusic(float dt);
 	void bombForcedDetonate();

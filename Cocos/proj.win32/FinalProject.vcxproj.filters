@@ -16,6 +16,9 @@
     <Filter Include="src\GamePlay">
       <UniqueIdentifier>{1cc18633-e347-49ca-86db-8a9d00eb38b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Connect">
+      <UniqueIdentifier>{eb223ce4-887f-4028-964e-76e0137dcd3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -28,9 +31,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\PlayScene.cpp">
-      <Filter>src\GamePlay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GamePlay\CollisionCheck.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\RoomScene.cpp">
@@ -68,6 +68,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\GameOver.cpp">
       <Filter>src\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Connect\EnterIp.cpp">
+      <Filter>src\Connect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GamePlay\CollisionCheck.cpp">
+      <Filter>src\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Connect\ClientNet.cpp">
+      <Filter>src\Connect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Connect\mainclient.cpp">
+      <Filter>src\Connect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +130,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\GameOver.h">
       <Filter>src\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Connect\client.h">
+      <Filter>src\Connect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Connect\EnterIp.h">
+      <Filter>src\Connect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Connect\ClientNet.h">
+      <Filter>src\Connect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

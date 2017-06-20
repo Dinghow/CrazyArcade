@@ -1,5 +1,6 @@
 #include "bomb.h"
 #include "Item.h"
+#include "Data.h"
 #include <vector>
 using namespace cocostudio::timeline;
 
@@ -45,9 +46,6 @@ void cBomb::dropBomb()
 	m_BombPosition = getBombPosition();
 	m_TBombPosition = getGrid();
 	m_Dropped = true;
-	//获取对象数组
-	TMXObjectGroup* objG = m_Map->getObjectGroup("objects");
-	auto object = objG->getObject("object");
 
 	//create Shadow
 	CCSprite* shadow = CCSprite::create("Bomb/bomb4.png");
@@ -69,6 +67,38 @@ void cBomb::dropBomb()
 	auto bombAnimate = Animate::create(bombAnimation);
 	bomb->runAction(bombAnimate);
  	this->schedule(schedule_selector(cBomb::idleUpdate),0.2f);
+}
+
+void cBomb::dropBomb(int tx,int ty)
+{
+	if (m_Dropped)
+		return;
+
+	m_TBombPosition = getGrid();
+	m_Dropped = true;
+
+	//create Shadow
+	CCSprite* shadow = CCSprite::create("Bomb/bomb4.png");
+	shadow->setAnchorPoint(Vec2(0, 0));
+	shadow->setPosition(ccp(0, 0));
+	m_AllSprites.pushBack(shadow);
+
+	//create the bomb sprite and run the animation
+	auto bombAnimation = creatBombAnimation();
+	auto layer = m_Map->layerNamed("architecture-real");
+	CCSprite* bomb = CCSprite::create("Bomb/bomb1.png");
+	m_AllSprites.pushBack(bomb);
+	int x = (static_cast<float>(tx) + 0.5) * m_Map->getTileSize().width;
+	int y = (static_cast<float>(ty) + 0.5) * m_Map->getTileSize().height;
+	bomb->setPosition(ccp(x,y));
+	bombAnimation->setLoops(3);
+	bombAnimation->setDelayPerUnit(0.5f);
+	m_Map->addChild(bomb, 1);
+	bomb->addChild(shadow, -1);
+
+	auto bombAnimate = Animate::create(bombAnimation);
+	bomb->runAction(bombAnimate);
+	this->schedule(schedule_selector(cBomb::idleUpdate), 0.2f);
 }
 
 Animation* cBomb::creatExplodeAnimation(dire direction)
@@ -260,7 +290,6 @@ void cBomb::removeTile(dire direction)
 
 						//Drop items
 						randomItem(tposition, m_Map);
-						break;
 					}
 				}
 			}

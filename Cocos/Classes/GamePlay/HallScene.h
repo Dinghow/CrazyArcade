@@ -23,7 +23,7 @@ public:
 
 	// implement the "statiac create()" method manually
 	CREATE_FUNC(Hall);
-
+	void transferInspect(float dt);
 private:
 	void StartTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void ConnectTouch(Ref* pSender, Widget::TouchEventType type);

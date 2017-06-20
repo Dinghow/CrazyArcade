@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include <string>
 USING_NS_CC;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
@@ -31,11 +32,14 @@ public:
 	ImageView* r_thumbnail;
 	ImageView* m_blank;
 	ImageView* r_blank;
+	Text* text;
+	std::string notification;
 	void onEnter();
 	void onExit();
 	void cleanup();
 	void onEnterTransitionDidFinish();
 	void onExitTransitionDidStart();
+	void update(float dt);
 private:
 	void PlayTouch(cocos2d::Ref* pSender, Widget::TouchEventType type);
 	void BackTouch(Ref* pSender, Widget::TouchEventType type);

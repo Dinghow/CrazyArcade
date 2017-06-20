@@ -77,6 +77,7 @@ public:
 	Animation* creatBombAnimation();
 	//drop the bomb
 	void dropBomb();
+	void dropBomb(int tx,int ty);
 	//create the animation around the explosion center
 	//divided into four directions
 	Animation* creatExplodeAnimation(dire drection);
@@ -104,6 +105,10 @@ public:
 	void setBombRange(int bombRange)
 	{
 		m_BombRange = bombRange;
+	}
+	int showBombRange()
+	{
+		return m_BombRange;
 	}
 };
 

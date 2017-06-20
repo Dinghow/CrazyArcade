@@ -22,20 +22,14 @@ typedef enum {
 	kWall,
 }CollisionType;
 
-typedef struct {
-	bool isUpPressed;
-	bool isDownPressed;
-	bool isLeftPressed;
-	bool isRightPressed;
-	bool isSpacePressed;
-}playerInfomation;
-
 typedef enum {
 	kUp,
 	kDown,
 	kLeft,
 	kRight,
 	kTotal,
+	kStop,
+	kStart,
 }RoleDirection;
 
 //the role class include basic role properties
@@ -45,42 +39,57 @@ private:
 	CCPoint position;
 	int bombQuantity;
 	int bombRange;
-	float speed;
 	int money;
+	int speedLimit;
+	int bombQuantityLimit;
+	float speed;
+	float preSpeed;
+	float m_CanNotBeKilledTime;
 	float m_DeadTime;
 	bool m_Killed;
 	bool m_Deleted;
 	bool m_Dying;
+	bool m_CanNotBeKilled;
 public:
-
+	int onRide;
+	int roleSelection;
+	bool hasUpReleased;
+	bool hasDownReleased;
+	bool hasLeftReleased;
+	bool hasRightReleased;
+	RoleDirection nowDirection;
 	vector<cBomb*> m_Bombs;
 	CCSprite* role;
 	CCSprite* shadow;
 	CCPoint startPosition;
 	Player();
 	/********************* Set this player's information ****************************************/
-	playerInfomation playerInfo;
 	bool isOpponent;
 	/********************* Set this player's role *********************************/
-	void roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int spawnpoint,int roleSelect,int isOpp);
+	void roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int roleSelect,int isOpp);
 	//role animation
 	Vector<SpriteFrame*> frameArray1;
 	Vector<SpriteFrame*> frameArray2;
 	cocos2d::Animation* deadAnimations[2];
-	cocos2d::CCAnimation* walkAnimations[4];
+	cocos2d::CCAnimation* walkAnimations[3][4];
 	cocos2d::RepeatForever* animations[4];
-	cocos2d::SpriteFrame* faceFrames[4];
-	cocos2d::CCAnimation* creatAnimationByDirecton(RoleDirection direciton, cocos2d::SpriteFrameCache* cache);
+	cocos2d::SpriteFrame* faceFrames[3][4];
+	cocos2d::CCAnimation* creatAnimationByDirecton(int ride, RoleDirection direction, cocos2d::SpriteFrameCache* cache);
 	void setFaceDirection(RoleDirection direction);
 	void onWalkDone(RoleDirection direction);
 	//role move
-	void keyPressedAnimation(EventKeyboard::KeyCode keyCode);
+	void keyPressedAnimation(RoleDirection direction);
 	void keyPressedMovement(EventKeyboard::KeyCode keyCode);
 	friend CollisionType checkCollision(cocos2d::CCPoint rolePosition, cocos2d::CCPoint targetPosition, RoleDirection direction);
 	//speed property
-	void setProperties(int speed = 6.5, int bombRange = 2, int bombQuantity = 1);
+	void setProperties(float speed, int bombRange, int bombQuantity, int speedLimit, int bombQuantityLimit);
 	int getSpeed() { return speed; }
-	void addSpeed() { speed ++; }
+	void addSpeed() {
+		if (++speed > speedLimit)
+			speed = speedLimit;
+		if (++preSpeed > speedLimit)
+			preSpeed = speedLimit;
+	}
 	//position property
 	void loadPositon();
 	CCPoint getPosition() { return position; }
@@ -89,18 +98,18 @@ public:
 	void addBombRange();
 	//Pick up items
 	void pickUpItem(const cocos2d::CCPoint &tilePos);
-	
+	//Role on ride
+	void roleOnRide(const int &No);
+
 	/********************* Function about bomb ********************************/
 	//drop bomb
 	void dropBomb();
+	void dropBomb(int x, int y);
 	void addBomb();
+	void canNotBeKilledUpdate(float dt);
+	void getKilled();
 	bool killedOrNot() {
 		return m_Killed;
-	}
-	void getKilled()
-	{
-		m_Killed = true;
-		speed = 1.5;
 	}
 	void getSaved()
 	{
@@ -139,5 +148,5 @@ public:
 	}
 };
 
-
+void initFaceDirection(Player* Roles[2], cocos2d::SpriteFrameCache* cache);
 #endif
