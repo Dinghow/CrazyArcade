@@ -1,0 +1,100 @@
+<Solution>
+  <PropertyGroup Name="FinalProject" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="AboutUsScene">
+          <Image Name="about_menu.png" />
+          <Project Name="AboutScene.csd" Type="Scene" />
+        </Folder>
+        <Folder Name="Font">
+          <TTF Name="CornDog.ttf" />
+          <TTF Name="font1.ttf" />
+        </Folder>
+        <Folder Name="HallScene">
+          <Image Name="back_pressed.png" />
+          <Image Name="back_released.png" />
+          <Image Name="background.png" />
+          <Image Name="client_pressed.png" />
+          <Image Name="client_released.png" />
+          <Image Name="exit_pressed.png" />
+          <Image Name="exit_released.png" />
+          <Project Name="HallScene.csd" Type="Scene" />
+          <Project Name="IpLayer.csd" Type="Layer" />
+          <Image Name="menu_pressed.png" />
+          <Image Name="menu_released.png" />
+          <Image Name="room.png" />
+          <Image Name="server_pressed.png" />
+          <Image Name="server_released.png" />
+          <Image Name="test_pressed.png" />
+          <Image Name="test_released.png" />
+        </Folder>
+        <Folder Name="LoginScene">
+          <Image Name="16sucai_201405010936.png" />
+          <Image Name="button4.png" />
+          <Image Name="button5.png" />
+          <Image Name="button6.png" />
+          <Project Name="LoginScene.csd" Type="Scene" />
+          <Image Name="minusbutton1.png" />
+          <Image Name="minusbutton2.png" />
+          <Image Name="plusbutton1.png" />
+          <Image Name="plusbutton2.png" />
+          <Image Name="timg.jpg" />
+        </Folder>
+        <Folder Name="MapScene">
+          <Folder Name="map1">
+            <TmxFile Name="map1.tmx" />
+          </Folder>
+          <Image Name="BG.png" />
+          <Image Name="buttonPressed.png" />
+          <Image Name="buttonReleased.png" />
+          <Project Name="Map.csd" Type="Scene" />
+          <Project Name="OverLayer.csd" Type="Layer" />
+        </Folder>
+        <Folder Name="MenuScene">
+          <Image Name="about_menu.png" />
+          <Image Name="button1.png" />
+          <Image Name="button2.png" />
+          <Image Name="leftarrow.png" />
+          <Image Name="leftarrow2.png" />
+          <Project Name="MenuScene.csd" Type="Scene" />
+          <Image Name="minusbutton1.png" />
+          <Image Name="minusbutton2.png" />
+          <Image Name="plusbutton1.png" />
+          <Image Name="plusbutton2.png" />
+        </Folder>
+        <Folder Name="MusicSource">
+          <Folder Name="bg">
+            <Audio Name="Prepare.mp3" />
+            <Audio Name="Village.mp3" />
+            <Audio Name="Xmas.mp3" />
+          </Folder>
+          <Audio Name="appear.wav" />
+          <Audio Name="die.wav" />
+          <Audio Name="draw.wav" />
+          <Audio Name="explode.wav" />
+          <Audio Name="get.wav" />
+          <Audio Name="lay.wav" />
+          <Audio Name="save.wav" />
+          <Audio Name="start.wav" />
+          <Audio Name="win.wav" />
+        </Folder>
+        <Folder Name="RoomScene">
+          <Image Name="background.png" />
+          <Image Name="background1.png" />
+          <Image Name="blank.png" />
+          <Image Name="checkbox_selectedSkin.png" />
+          <Image Name="checkbox_upSkin.png" />
+          <Image Name="confirm_pressed.png" />
+          <Image Name="confirm_released.png" />
+          <Image Name="exit_pressed.png" />
+          <Image Name="exit_released.png" />
+          <Image Name="item_14.png" />
+          <Image Name="map1.png" />
+          <Image Name="map2.png" />
+          <Project Name="RoomScene.csd" Type="Scene" />
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
