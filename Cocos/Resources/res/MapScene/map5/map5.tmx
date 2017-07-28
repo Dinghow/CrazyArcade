@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="13" tilewidth="40" tileheight="40" nextobjectid="5">
+ <tileset firstgid="1" name="map_tile_mine2" tilewidth="40" tileheight="40" tilecount="20" columns="20">
+  <image source="map_tile_mine2.png" width="800" height="40"/>
+ </tileset>
+ <tileset firstgid="21" name="map_tile_mine" tilewidth="40" tileheight="80" tilecount="30" columns="15">
+  <image source="map_tile_mine.png" width="600" height="160"/>
+  <tile id="0">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="51" name="map_tile_mine1" tilewidth="40" tileheight="40" tilecount="60" columns="15">
+  <image source="map_tile_mine1.png" width="600" height="160"/>
+ </tileset>
+ <layer name="background" width="15" height="13">
+  <data encoding="base64">
+   BwAAAAgAAAAHAAAACAAAAAcAAAAIAAAABwAAAAgAAAAHAAAACAAAAAcAAAAIAAAABwAAAAgAAAAHAAAABwAAAAEAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAMAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAQAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAQAAAAHAAAABwAAAAYAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAUAAAAHAAAABwAAAAgAAAAHAAAACAAAAAcAAAAIAAAABwAAAAgAAAAHAAAACAAAAAcAAAAIAAAABwAAAAgAAAAHAAAA
+  </data>
+ </layer>
+ <layer name="architecture-real" width="15" height="13">
+  <data encoding="base64">
+   FgAAAAAAAAAWAAAAHwAAABYAAAAfAAAAFgAAAAAAAAAWAAAAHwAAABYAAAAfAAAAFgAAAAAAAAAWAAAAAAAAAAAAAAAgAAAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAHwAAAB8AAAAfAAAAAAAAAAAAAAAAAAAAIAAAABgAAAAZAAAAIAAAACoAAAAgAAAAKwAAACwAAAAtAAAALgAAAB8AAAAAAAAAGAAAABkAAAAAAAAAIAAAAB8AAAAfAAAAIAAAACAAAAAgAAAAHwAAACAAAAAgAAAAHwAAACAAAAAgAAAAIAAAACAAAAAgAAAAFQAAACAAAAAnAAAAIAAAACgAAAAgAAAAFwAAAB8AAAAWAAAAIAAAACkAAAAgAAAAMAAAACAAAAAqAAAAIAAAACAAAAAfAAAAIAAAACAAAAAgAAAAIAAAAB8AAAAgAAAAIAAAACAAAAAfAAAAIAAAACAAAAAgAAAAKgAAAAAAAAAgAAAAFgAAAB8AAAAVAAAAIAAAABYAAAAgAAAAKwAAACwAAAAtAAAALgAAAB8AAAAWAAAAAAAAAAAAAAAAAAAAHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAB8AAAAoAAAAKAAAACQAAAAlAAAAJgAAAB8AAAAoAAAAHwAAACcAAAAfAAAAFgAAAB8AAAAoAAAAIAAAAB8AAAAgAAAAHwAAACAAAAAgAAAAHwAAACAAAAAgAAAAIAAAAB8AAAAgAAAAIAAAACAAAAAfAAAAFgAAAB8AAAAWAAAAIAAAACkAAAAfAAAAFgAAAAAAAAAVAAAAIAAAABYAAAAfAAAAFgAAACAAAAAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAZAAAAHwAAACoAAAAgAAAAFgAAACAAAAAfAAAAFwAAACAAAAAYAAAAGQAAAAAAAAAAAAAA
+  </data>
+ </layer>
+ <layer name="architecture-float" width="15" height="13">
+  <data encoding="base64">
+   AAAAAAAAAAA+AAAAPgAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAPQAAAD0AAAA9AAAAAAAAAAAAAAAAAAAAPgAAADYAAAA3AAAAPgAAAFcAAAA+AAAAWAAAAFkAAABaAAAAWwAAAD0AAAAAAAAANgAAADcAAAAAAAAAPgAAAD0AAAA9AAAAPgAAAD4AAAA+AAAAPQAAAD4AAAA+AAAAPQAAAD4AAAA+AAAAPgAAAD4AAAA+AAAAMwAAAD4AAABUAAAAPgAAAFUAAAA+AAAANQAAAD0AAAA0AAAAPgAAAFYAAAA+AAAAXQAAAD4AAABXAAAAPgAAAD4AAAA9AAAAPgAAAD4AAAA+AAAAPgAAAD0AAAA+AAAAPgAAAD4AAAA+AAAAPgAAAD4AAAA+AAAAVwAAAAAAAAA+AAAANAAAAD0AAAA+AAAAPgAAADQAAAA+AAAAWAAAAFkAAABaAAAAWwAAAD0AAAA0AAAAAAAAAAAAAAAAAAAAPQAAAE4AAABPAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAD0AAABVAAAAVQAAAFEAAABSAAAAUwAAAD0AAABVAAAAPQAAAFQAAAA9AAAANAAAAD0AAABVAAAAPgAAAD0AAAA+AAAAPQAAAD4AAAA+AAAAPQAAAD4AAAA+AAAAPgAAAD0AAAA+AAAAPgAAAD4AAAA9AAAANAAAAD0AAAA0AAAAPgAAAFYAAAA9AAAANAAAAAAAAAAzAAAAPgAAADQAAAA9AAAANAAAAD4AAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYAAAA3AAAAPQAAAFcAAAA+AAAANAAAAD4AAAA9AAAANQAAAD4AAAA2AAAANwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="spawnpoint1" x="0" y="40" width="40" height="40"/>
+  <object id="2" name="spawnpoint2" x="0" y="480" width="40" height="40"/>
+  <object id="3" name="spawnpoint3" x="560" y="480" width="40" height="40"/>
+  <object id="4" name="spawnponit4" x="560" y="80" width="40" height="40"/>
+ </objectgroup>
+</map>

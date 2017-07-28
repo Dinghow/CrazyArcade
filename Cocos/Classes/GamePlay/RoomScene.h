@@ -23,9 +23,12 @@ public:
 
 	// implement the "statiac create()" method manually
 	CREATE_FUNC(Room);
+	Node* _cursor;
 	CheckBox* m_checkbox1;
 	CheckBox* m_checkbox2;
 	CheckBox* m_checkbox3;
+	CheckBox* m_checkbox4;
+	CheckBox* m_checkbox5;
 	CheckBox* r_checkbox1;
 	CheckBox* r_checkbox2;
 	ImageView* m_thumbnail;
@@ -46,6 +49,8 @@ private:
 	void m_checkBoxCallback1(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 	void m_checkBoxCallback2(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 	void m_checkBoxCallback3(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void m_checkBoxCallback4(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
+	void m_checkBoxCallback5(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 	void r_checkBoxCallback1(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 	void r_checkBoxCallback2(cocos2d::Ref * ref, cocos2d::ui::CheckBox::EventType type);
 };

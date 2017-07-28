@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="13" tilewidth="40" tileheight="40" nextobjectid="8">
+ <tileset firstgid="1" name="map_plaza_tile2" tilewidth="40" tileheight="40" tilecount="12" columns="12">
+  <image source="map_plaza_tile2.png" width="480" height="40"/>
+ </tileset>
+ <tileset firstgid="13" name="map_plaza_tile" tilewidth="40" tileheight="80" tilecount="45" columns="15">
+  <image source="map_plaza_tile.png" width="600" height="240"/>
+  <tile id="19">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="destructible" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="destructible" type="bool" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="58" name="map_plaza_tile1" tilewidth="40" tileheight="40" tilecount="90" columns="15">
+  <image source="map_plaza_tile1.png" width="600" height="240"/>
+ </tileset>
+ <layer name="background" width="15" height="13">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAABAAAAAQAAAAEAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABgAAAAUAAAAGAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABgAAAAUAAAAGAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABgAAAAUAAAAGAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAABwAAAAcAAAAHAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAA
+  </data>
+ </layer>
+ <layer name="architecture-real" width="15" height="13">
+  <data encoding="base64">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAvAAAAAAAAAAAAAAAiAAAALwAAADIAAAAAAAAAAAAAADIAAAAAAAAAAAAAADgAAAA5AAAAAAAAADEAAAAwAAAANwAAAAAAAAAAAAAAMQAAAAAAAAAAAAAAAAAAAAAAAAAyAAAAMQAAAAAAAAAAAAAAMQAAAAAAAAAvAAAAAAAAAAAAAAAAAAAALwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcAAAAAAAAAAAAAAAAAAAAwAAAAIgAAAAAAAAAkAAAAMQAAAAAAAAAAAAAAAAAAAAAAAAAyAAAAMQAAAAAAAAAxAAAAOAAAADkAAAAvAAAAAAAAAAAAAAAAAAAALwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAADAAAAAAAAAAMAAAAC8AAAAwAAAAIgAAAAAAAAAiAAAAKwAAACwAAAAtAAAALgAAADEAAAAvAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAA3AAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAkAAAAAAAAAAAAAAAiAAAAAAAAADcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADIAAAAvAAAAMgAAAC8AAAAyAAAAAAAAAAAAAAAAAAAAMgAAAC8AAAAyAAAALwAAADIAAAAvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvAAAAIgAAAAAAAAAAAAAALwAAADAAAAAAAAAAAAAAADEAAAAAAAAANwAAADAAAAAAAAAAAAAAADAAAAAyAAAAAAAAACMAAAAAAAAAMgAAAAAAAAAxAAAAMAAAAAAAAAA3AAAAAAAAAAAAAAAgAAAAIQAAAAAAAAAvAAAAAAAAAAAAAAAAAAAALwAAADgAAAA5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAAyAAAANwAAAAAAAAAkAAAAMgAAAAAAAAAxAAAAAAAAADAAAAAAAAAA
+  </data>
+ </layer>
+ <layer name="architecture-float" width="15" height="13">
+  <data encoding="base64">
+   AAAAAIMAAACEAAAAAAAAAHwAAAB7AAAAggAAAAAAAAAAAAAAfAAAADsAAAA8AAAAPQAAAAAAAAB9AAAAfAAAAAAAAAAAAAAAfAAAAAAAAAB6AAAAAAAAAAAAAAAAAAAAegAAAEoAAABLAAAATAAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAB7AAAAXgAAAAAAAABgAAAAWAAAAFkAAABaAAAAWwAAAAAAAAB9AAAAfAAAAAAAAAB8AAAAgwAAAIQAAAB6AAAAAAAAAAAAAAAAAAAAZwAAAGgAAABpAAAAagAAAAAAAAAAAAAAegAAAHsAAAAAAAAAewAAAHoAAAB7AAAAXgAAAAAAAABeAAAAdgAAAHcAAAB4AAAAeQAAAHwAAAB6AAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF4AAAAAAAAAAAAAAF4AAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAAAAAAAAAAABeAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH0AAAB6AAAAfQAAAHoAAAB9AAAAAAAAAAAAAAAAAAAAfQAAAHoAAAB9AAAAegAAAH0AAAB6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB6AAAAXgAAAAAAAAAAAAAAegAAAHsAAAAAAAAAAAAAAHwAAAAAAAAAggAAAHsAAABNAAAATgAAAHsAAAB9AAAAAAAAAF8AAAAAAAAAfQAAAAAAAAB8AAAAewAAAAAAAACCAAAAAAAAAAAAAABcAAAAXQAAAAAAAAB6AAAAAAAAAAAAAAAAAAAAegAAAIMAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB7AAAAewAAAAAAAAB9AAAAggAAAAAAAABgAAAAfQAAAAAAAAB8AAAAAAAAAHsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="spawnpoint1" x="0" y="480" width="40" height="40"/>
+  <object id="4" name="spawnpoint3" x="40" y="0" width="40" height="40"/>
+  <object id="6" name="spawnpoint4" x="480" y="440" width="40" height="40"/>
+  <object id="7" name="spawnpoint2" x="520" y="80" width="40" height="40"/>
+ </objectgroup>
+</map>

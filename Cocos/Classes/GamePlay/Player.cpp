@@ -40,6 +40,12 @@ Player::Player() {
 	}
 }
 
+Player::~Player()
+{
+	for (auto it : m_Bombs)
+		delete it;
+}
+
 void Player::roleInit(CCTMXObjectGroup *objects,cocos2d::SpriteFrameCache* cache,int roleSelect,int isOpp) {
 	isOpponent = isOpp;
 	roleSelection = roleSelect;

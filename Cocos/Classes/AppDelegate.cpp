@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
 #include "Login/LoginScene.h"
-#include "Login/VideoPlayer.h"
 
 USING_NS_CC;
 
@@ -29,6 +28,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::createWithRect("Crazy Arcade", Rect(0, 0, 1000,750));
+		glview->setCursorVisible(false);
         director->setOpenGLView(glview);
     }
 

@@ -50,6 +50,12 @@ bool MapOfGame::init()
 	case 3:
 		gameMap = CCTMXTiledMap::create("MapScene/map3/map3.tmx");
 		break;
+	case 4:
+		gameMap = CCTMXTiledMap::create("MapScene/map4/map4.tmx");
+		break;
+	case 5:
+		gameMap = CCTMXTiledMap::create("MapScene/map5/map5.tmx");
+		break;
 	default:
 		gameMap = CCTMXTiledMap::create("MapScene/map1/map1.tmx");
 		break;
@@ -160,7 +166,7 @@ bool MapOfGame::init()
 				}
 			break;
 			//role2
-		case EventKeyboard::KeyCode::KEY_KP_ENTER:
+		case EventKeyboard::KeyCode::KEY_ENTER:
 			if (test_model == true) {
 				myPlayerInformation.isSpacePressed = true;
 				role1.dropBomb();
@@ -252,7 +258,7 @@ bool MapOfGame::init()
 				role2.hasRightReleased = true;
 			}
 			break;
-		case EventKeyboard::KeyCode::KEY_KP_ENTER:
+		case EventKeyboard::KeyCode::KEY_ENTER:
 			break;
 		default:
 			break;
@@ -269,6 +275,32 @@ bool MapOfGame::init()
 	this->scheduleUpdate();
 	this->schedule(schedule_selector(MapOfGame::moveUpdate), 0.05f);
 	this->schedule(schedule_selector(MapOfGame::timer), 1.0f);
+
+	//add cursor
+	auto cursor = Sprite::create("cursor_nor.png");
+	this->_cursor = Node::create();
+	this->_cursor->addChild(cursor);
+	this->addChild(this->_cursor, 10000);
+
+	auto listenerMouse = EventListenerMouse::create();
+	listenerMouse->onMouseMove = [&](cocos2d::EventMouse* event) {
+		Point mouse = event->getLocation();
+		mouse.y = 600 - mouse.y;
+
+		this->_cursor->setPosition(Point(mouse.x + 20, mouse.y - 30));
+	};
+	listenerMouse->onMouseDown = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_pre.png");
+		this->_cursor->addChild(cursor);
+	};
+	listenerMouse->onMouseUp = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_nor.png");
+		this->_cursor->addChild(cursor);
+	};
+	this->_eventDispatcher->addEventListenerWithFixedPriority(listenerMouse, 1);
+
 	return true;
 }
 
@@ -461,7 +493,7 @@ void MapOfGame::BackTouch(Ref* pSender, Widget::TouchEventType type) {
 		auto director = Director::getInstance();
 		auto scene = Login::createScene();
 		auto transition = TransitionCrossFade::create(0.5f, scene);
-		director->replaceScene(transition);
+		director->pushScene(transition);
 		break;
 	}
 }
@@ -501,7 +533,26 @@ void MapOfGame::onEnter() {
 void MapOfGame::onEnterTransitionDidFinish() {
 	Layer::onEnterTransitionDidFinish();
 	//play music
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
+	switch (map_tag)
+	{
+	case 1:
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Forest.mp3", true);
+		break;
+	case 2:
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Village.mp3", true);
+		break;
+	case 3:
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Factory.mp3", true);
+		break;
+	case 4:
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Urban.mp3", true);
+		break;
+	case 5:
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("MusicSource/bg/Mine.mp3", true);
+		break;
+	default:
+		break;
+	}
 	SimpleAudioEngine::getInstance()->playEffect("MusicSource/start.wav");
 }
 

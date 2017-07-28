@@ -51,9 +51,6 @@
     <ClCompile Include="..\Classes\Login\MenuScene.cpp">
       <Filter>src\Login</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Login\VideoPlayer.cpp">
-      <Filter>src\Login</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GamePlay\Item.cpp">
       <Filter>src\GamePlay</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
       <Filter>src\Login</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Login\MenuScene.h">
-      <Filter>src\Login</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Login\VideoPlayer.h">
       <Filter>src\Login</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GamePlay\Item.h">

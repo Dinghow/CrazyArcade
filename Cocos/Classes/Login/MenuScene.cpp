@@ -96,6 +96,31 @@ bool MenuTable::init()
 
 	addChild(rootNode);
 
+	//add cursor
+	auto cursor = Sprite::create("cursor_nor.png");
+	this->_cursor = Node::create();
+	this->_cursor->addChild(cursor);
+	this->addChild(this->_cursor, 10000);
+
+	auto listenerMouse = EventListenerMouse::create();
+	listenerMouse->onMouseMove = [&](cocos2d::EventMouse* event) {
+		Point mouse = event->getLocation();
+		mouse.y = 600 - mouse.y;
+
+		this->_cursor->setPosition(Point(mouse.x + 20, mouse.y - 30));
+	};
+	listenerMouse->onMouseDown = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_pre.png");
+		this->_cursor->addChild(cursor);
+	};
+	listenerMouse->onMouseUp = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_nor.png");
+		this->_cursor->addChild(cursor);
+	};
+	this->_eventDispatcher->addEventListenerWithFixedPriority(listenerMouse, 1);
+
 	return true;
 }
 
@@ -105,7 +130,7 @@ void MenuTable::ReturnMainTouch(Ref* pSender, Widget::TouchEventType type) {
 		auto director = Director::getInstance();
 		auto scene = Login::createScene();
 		auto transition = TransitionCrossFade::create(1.0f, scene);
-		director->replaceScene(transition);
+		director->pushScene(transition);
 
 		break;
 	}

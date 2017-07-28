@@ -28,6 +28,7 @@ public:
 	//void menuCloseCallback(CCObject* pSender);
 	// implement the "static create()" method manually
 	CREATE_FUNC(MapOfGame);
+	Node* _cursor;
 	virtual ~MapOfGame();
 	cocos2d::SpriteFrameCache* cache;
 	cocos2d::CCTMXTiledMap* gameMap;

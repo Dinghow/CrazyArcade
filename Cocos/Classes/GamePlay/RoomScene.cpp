@@ -46,6 +46,8 @@ bool Room::init()
 	m_checkbox1 = (CheckBox*)Helper::seekWidgetByName(background, "m_check_box1");
 	m_checkbox2 = (CheckBox*)Helper::seekWidgetByName(background, "m_check_box2");
 	m_checkbox3 = (CheckBox*)Helper::seekWidgetByName(background, "m_check_box3");
+	m_checkbox4 = (CheckBox*)Helper::seekWidgetByName(background, "m_check_box4");
+	m_checkbox5 = (CheckBox*)Helper::seekWidgetByName(background, "m_check_box5");
 	m_blank = (ImageView*)Helper::seekWidgetByName(background, "m_thumbnail");
 	//role select button
 	r_checkbox1 = (CheckBox*)Helper::seekWidgetByName(background, "r_check_box1");
@@ -59,11 +61,38 @@ bool Room::init()
 	m_checkbox1->addEventListener(CC_CALLBACK_2(Room::m_checkBoxCallback1, this));
 	m_checkbox2->addEventListener(CC_CALLBACK_2(Room::m_checkBoxCallback2, this));
 	m_checkbox3->addEventListener(CC_CALLBACK_2(Room::m_checkBoxCallback3, this));
+	m_checkbox4->addEventListener(CC_CALLBACK_2(Room::m_checkBoxCallback4, this));
+	m_checkbox5->addEventListener(CC_CALLBACK_2(Room::m_checkBoxCallback5, this));
 	r_checkbox1->addEventListener(CC_CALLBACK_2(Room::r_checkBoxCallback1, this));
 	r_checkbox2->addEventListener(CC_CALLBACK_2(Room::r_checkBoxCallback2, this));
 
 	this->scheduleUpdate();
 	addChild(rootNode);
+
+	//add cursor
+	auto cursor = Sprite::create("cursor_nor.png");
+	this->_cursor = Node::create();
+	this->_cursor->addChild(cursor);
+	this->addChild(this->_cursor, 10000);
+
+	auto listenerMouse = EventListenerMouse::create();
+	listenerMouse->onMouseMove = [&](cocos2d::EventMouse* event) {
+		Point mouse = event->getLocation();
+		mouse.y = 600 - mouse.y;
+
+		this->_cursor->setPosition(Point(mouse.x + 20, mouse.y - 30));
+	};
+	listenerMouse->onMouseDown = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_pre.png");
+		this->_cursor->addChild(cursor);
+	};
+	listenerMouse->onMouseUp = [&](cocos2d::EventMouse* event) {
+		this->_cursor->removeAllChildren();
+		auto cursor = Sprite::create("cursor_nor.png");
+		this->_cursor->addChild(cursor);
+	};
+	this->_eventDispatcher->addEventListenerWithFixedPriority(listenerMouse, 1);
 
 	return true;
 }
@@ -130,6 +159,8 @@ void Room::m_checkBoxCallback1(cocos2d::Ref * ref, CheckBox::EventType type)
 	case cocos2d::ui::CheckBox::EventType::SELECTED:
 		m_checkbox2->setSelectedState(false);
 		m_checkbox3->setSelectedState(false);
+		m_checkbox4->setSelectedState(false);
+		m_checkbox5->setSelectedState(false);
 		m_thumbnail = ImageView::create("RoomScene/map1.png");
 		m_thumbnail->setAnchorPoint(Vec2(0, 0));
 		m_thumbnail->setPosition(ccp(0, 0));
@@ -152,6 +183,8 @@ void Room::m_checkBoxCallback2(cocos2d::Ref * ref, CheckBox::EventType type)
 	case cocos2d::ui::CheckBox::EventType::SELECTED:
 		m_checkbox1->setSelectedState(false);
 		m_checkbox3->setSelectedState(false);
+		m_checkbox4->setSelectedState(false);
+		m_checkbox5->setSelectedState(false);
 		m_thumbnail = ImageView::create("RoomScene/map2.png");
 		m_thumbnail->setAnchorPoint(Vec2(0, 0));
 		m_thumbnail->setPosition(ccp(0, 0));
@@ -174,12 +207,62 @@ void Room::m_checkBoxCallback3(cocos2d::Ref * ref, CheckBox::EventType type)
 	case cocos2d::ui::CheckBox::EventType::SELECTED:
 		m_checkbox1->setSelectedState(false);
 		m_checkbox2->setSelectedState(false);
+		m_checkbox4->setSelectedState(false);
+		m_checkbox5->setSelectedState(false);
 		m_thumbnail = ImageView::create("RoomScene/map3.png");
 		m_thumbnail->setAnchorPoint(Vec2(0, 0));
 		m_thumbnail->setPosition(ccp(0, 0));
 		m_blank->addChild(m_thumbnail);
 		map_tag = 3;
 		myMapSelect = 3;
+		break;
+	case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+		myMapSelect = 0;
+		break;
+	default:
+		break;
+	}
+}
+
+void Room::m_checkBoxCallback4(cocos2d::Ref * ref, CheckBox::EventType type)
+{
+	switch (type)
+	{
+	case cocos2d::ui::CheckBox::EventType::SELECTED:
+		m_checkbox1->setSelectedState(false);
+		m_checkbox2->setSelectedState(false);
+		m_checkbox3->setSelectedState(false);
+		m_checkbox5->setSelectedState(false);
+		m_thumbnail = ImageView::create("RoomScene/map4.png");
+		m_thumbnail->setAnchorPoint(Vec2(0, 0));
+		m_thumbnail->setPosition(ccp(0, 0));
+		m_blank->addChild(m_thumbnail);
+		map_tag = 4;
+		myMapSelect = 4;
+		break;
+	case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+		myMapSelect = 0;
+		break;
+	default:
+		break;
+	}
+}
+
+void Room::m_checkBoxCallback5(cocos2d::Ref * ref, CheckBox::EventType type)
+{
+	switch (type)
+	{
+	case cocos2d::ui::CheckBox::EventType::SELECTED:
+		m_checkbox1->setSelectedState(false);
+		m_checkbox2->setSelectedState(false);
+		m_checkbox3->setSelectedState(false);
+		m_checkbox4->setSelectedState(false);
+		m_thumbnail = ImageView::create("RoomScene/map5.png");
+		m_thumbnail->setAnchorPoint(Vec2(0, 0));
+		m_thumbnail->setPosition(ccp(0, 0));
+		m_blank->addChild(m_thumbnail);
+		map_tag = 5;
+		myMapSelect = 5;
 		break;
 	case cocos2d::ui::CheckBox::EventType::UNSELECTED:
 		myMapSelect = 0;

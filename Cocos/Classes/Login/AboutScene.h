@@ -21,6 +21,7 @@ public:
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(AboutUs);
+	Node* _cursor;
 	void onEnter();
 	void onExit();
 	void cleanup();

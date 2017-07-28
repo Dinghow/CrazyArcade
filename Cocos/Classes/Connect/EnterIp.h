@@ -22,6 +22,7 @@ public:
 	void textFieldEvent(Ref* pSender, TextField::EventType type);
 	// implement the "static create()" method manually
 	CREATE_FUNC(ENTER);
+	Node* _cursor;
 	void onEnter();
 	void onExit();
 	void cleanup();

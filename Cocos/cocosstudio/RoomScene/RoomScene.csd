@@ -42,7 +42,7 @@
               <AbstractNodeData Name="m_list_view" ActionTag="-1939825862" Tag="9" IconVisible="False" LeftMargin="80.3715" RightMargin="539.6285" TopMargin="45.3940" BottomMargin="354.6060" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="0" ItemMargin="5" DirectionType="Vertical" HorizontalType="Align_HorizontalCenter" ctype="ListViewObjectData">
                 <Size X="180.0000" Y="200.0000" />
                 <Children>
-                  <AbstractNodeData Name="map_item1" ActionTag="-736100116" Tag="17" IconVisible="False" BottomMargin="160.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                  <AbstractNodeData Name="map_item1" ActionTag="-736100116" Tag="17" IconVisible="False" BottomMargin="225.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="180.0000" Y="40.0000" />
                     <Children>
                       <AbstractNodeData Name="m_text1" ActionTag="-1554236909" Tag="20" IconVisible="False" LeftMargin="1.5220" RightMargin="92.4780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Forest_1" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -71,27 +71,27 @@
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint />
-                    <Position Y="160.0000" />
+                    <Position Y="180.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition Y="0.8000" />
-                    <PreSize X="1.0000" Y="0.2000" />
+                    <PrePosition Y="0.8491" />
+                    <PreSize X="1.0000" Y="0.1509" />
                     <SingleColor A="255" R="150" G="200" B="255" />
                     <FirstColor A="255" R="150" G="200" B="255" />
                     <EndColor A="255" R="255" G="255" B="255" />
                     <ColorVector ScaleY="1.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="map_item2" ActionTag="-1146913570" ZOrder="1" Tag="24" IconVisible="False" TopMargin="45.0000" BottomMargin="115.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                  <AbstractNodeData Name="map_item2" ActionTag="-1146913570" ZOrder="1" Tag="24" IconVisible="False" TopMargin="45.0000" BottomMargin="180.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="180.0000" Y="40.0000" />
                     <Children>
-                      <AbstractNodeData Name="m_text2" ActionTag="-1096361071" Tag="25" IconVisible="False" LeftMargin="16.5220" RightMargin="107.4780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Ice_2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                        <Size X="56.0000" Y="22.0000" />
+                      <AbstractNodeData Name="m_text2" ActionTag="-1096361071" Tag="25" IconVisible="False" LeftMargin="18.5220" RightMargin="109.4780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Ice_1" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="52.0000" Y="22.0000" />
                         <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                         <Position X="44.5220" Y="21.2860" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="0" />
                         <PrePosition X="0.2473" Y="0.5321" />
-                        <PreSize X="0.3111" Y="0.5500" />
+                        <PreSize X="0.2889" Y="0.5500" />
                         <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
@@ -110,27 +110,27 @@
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint />
-                    <Position Y="115.0000" />
+                    <Position Y="135.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition Y="0.5750" />
-                    <PreSize X="1.0000" Y="0.2000" />
+                    <PrePosition Y="0.6792" />
+                    <PreSize X="1.0000" Y="0.1509" />
                     <SingleColor A="255" R="150" G="200" B="255" />
                     <FirstColor A="255" R="150" G="200" B="255" />
                     <EndColor A="255" R="255" G="255" B="255" />
                     <ColorVector ScaleY="1.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="map_item3" ActionTag="-1616163978" ZOrder="2" Tag="25" IconVisible="False" TopMargin="90.0000" BottomMargin="70.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                  <AbstractNodeData Name="map_item3" ActionTag="-1616163978" ZOrder="2" Tag="25" IconVisible="False" TopMargin="90.0000" BottomMargin="135.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="180.0000" Y="40.0000" />
                     <Children>
-                      <AbstractNodeData Name="m_text3" ActionTag="1006532283" Tag="26" IconVisible="False" LeftMargin="-7.4780" RightMargin="83.4780" TopMargin="-3.2860" BottomMargin="-0.7140" FontSize="20" LabelText="Factory_3&#xA;" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                        <Size X="104.0000" Y="44.0000" />
+                      <AbstractNodeData Name="m_text3" ActionTag="1006532283" Tag="26" IconVisible="False" LeftMargin="-5.9780" RightMargin="84.9780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Factory_1" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="101.0000" Y="22.0000" />
                         <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                         <Position X="44.5220" Y="21.2860" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="0" />
                         <PrePosition X="0.2473" Y="0.5321" />
-                        <PreSize X="0.5778" Y="1.1000" />
+                        <PreSize X="0.5611" Y="0.5500" />
                         <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
@@ -149,11 +149,89 @@
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint />
-                    <Position Y="70.0000" />
+                    <Position Y="90.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition Y="0.3500" />
-                    <PreSize X="1.0000" Y="0.2000" />
+                    <PrePosition Y="0.5094" />
+                    <PreSize X="1.0000" Y="0.1509" />
+                    <SingleColor A="255" R="150" G="200" B="255" />
+                    <FirstColor A="255" R="150" G="200" B="255" />
+                    <EndColor A="255" R="255" G="255" B="255" />
+                    <ColorVector ScaleY="1.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="map_item4" ActionTag="-2067619944" ZOrder="3" Tag="30" IconVisible="False" TopMargin="135.0000" BottomMargin="90.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                    <Size X="180.0000" Y="40.0000" />
+                    <Children>
+                      <AbstractNodeData Name="m_text4" ActionTag="1153273096" Tag="31" IconVisible="False" LeftMargin="-3.4780" RightMargin="87.4780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Village_1" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="96.0000" Y="22.0000" />
+                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                        <Position X="44.5220" Y="21.2860" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="0" />
+                        <PrePosition X="0.2473" Y="0.5321" />
+                        <PreSize X="0.5333" Y="0.5500" />
+                        <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
+                        <OutlineColor A="255" R="255" G="0" B="0" />
+                        <ShadowColor A="255" R="110" G="110" B="110" />
+                      </AbstractNodeData>
+                      <AbstractNodeData Name="m_check_box4" ActionTag="-2022642997" Tag="32" IconVisible="False" LeftMargin="105.9700" RightMargin="33.0300" TopMargin="-3.9981" BottomMargin="1.9981" TouchEnable="True" ctype="CheckBoxObjectData">
+                        <Size X="41.0000" Y="42.0000" />
+                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                        <Position X="126.4700" Y="22.9981" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="255" />
+                        <PrePosition X="0.7026" Y="0.5750" />
+                        <PreSize X="0.2278" Y="1.0500" />
+                        <NormalBackFileData Type="Normal" Path="RoomScene/checkbox_upSkin.png" Plist="" />
+                        <PressedBackFileData Type="Normal" Path="RoomScene/checkbox_selectedSkin.png" Plist="" />
+                        <NodeNormalFileData Type="Normal" Path="RoomScene/checkbox_selectedSkin.png" Plist="" />
+                      </AbstractNodeData>
+                    </Children>
+                    <AnchorPoint />
+                    <Position Y="45.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition Y="0.3396" />
+                    <PreSize X="1.0000" Y="0.1509" />
+                    <SingleColor A="255" R="150" G="200" B="255" />
+                    <FirstColor A="255" R="150" G="200" B="255" />
+                    <EndColor A="255" R="255" G="255" B="255" />
+                    <ColorVector ScaleY="1.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="map_item5" ActionTag="4409925" ZOrder="4" Tag="33" IconVisible="False" TopMargin="180.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                    <Size X="180.0000" Y="40.0000" />
+                    <Children>
+                      <AbstractNodeData Name="m_text5" ActionTag="218931781" Tag="34" IconVisible="False" LeftMargin="7.5220" RightMargin="98.4780" TopMargin="7.7140" BottomMargin="10.2860" FontSize="20" LabelText="Mine_1" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="74.0000" Y="22.0000" />
+                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                        <Position X="44.5220" Y="21.2860" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="0" />
+                        <PrePosition X="0.2473" Y="0.5321" />
+                        <PreSize X="0.4111" Y="0.5500" />
+                        <FontResource Type="Normal" Path="Font/CornDog.ttf" Plist="" />
+                        <OutlineColor A="255" R="255" G="0" B="0" />
+                        <ShadowColor A="255" R="110" G="110" B="110" />
+                      </AbstractNodeData>
+                      <AbstractNodeData Name="m_check_box5" ActionTag="91782323" Tag="35" IconVisible="False" LeftMargin="105.9700" RightMargin="33.0300" TopMargin="-3.9981" BottomMargin="1.9981" TouchEnable="True" ctype="CheckBoxObjectData">
+                        <Size X="41.0000" Y="42.0000" />
+                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                        <Position X="126.4700" Y="22.9981" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="255" />
+                        <PrePosition X="0.7026" Y="0.5750" />
+                        <PreSize X="0.2278" Y="1.0500" />
+                        <NormalBackFileData Type="Normal" Path="RoomScene/checkbox_upSkin.png" Plist="" />
+                        <PressedBackFileData Type="Normal" Path="RoomScene/checkbox_selectedSkin.png" Plist="" />
+                        <NodeNormalFileData Type="Normal" Path="RoomScene/checkbox_selectedSkin.png" Plist="" />
+                      </AbstractNodeData>
+                    </Children>
+                    <AnchorPoint />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="1.0000" Y="0.1818" />
                     <SingleColor A="255" R="150" G="200" B="255" />
                     <FirstColor A="255" R="150" G="200" B="255" />
                     <EndColor A="255" R="255" G="255" B="255" />

@@ -22,6 +22,7 @@ public:
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(Login);
+	Node* _cursor;
 	void playMusic(float dt);
 	void onEnter();
 	void onExit();

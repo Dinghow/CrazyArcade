@@ -63,6 +63,7 @@ public:
 	CCSprite* shadow;
 	CCPoint startPosition;
 	Player();
+	~Player();
 	/********************* Set this player's information ****************************************/
 	bool isOpponent;
 	/********************* Set this player's role *********************************/

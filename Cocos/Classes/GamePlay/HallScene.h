@@ -23,6 +23,7 @@ public:
 
 	// implement the "statiac create()" method manually
 	CREATE_FUNC(Hall);
+	Node* _cursor;
 	void transferInspect(float dt);
 	void Close(float dt);
 private:
