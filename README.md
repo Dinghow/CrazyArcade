@@ -1,7 +1,5 @@
 # Cpp-finalproject
 
-This is a project made by **ThewildGangOfFour**
-
 It's a cocos2d-x game imitating Crazy Arcade,and also a final project of TongjiUniversity School of Software engineering.
 
 ## 1.项目分工
@@ -10,10 +8,10 @@ The list of the game's group(In no particular order ):
 
 |   学号    |  姓名  |                   分工                   |
 | :-----: | :--: | :------------------------------------: |
-|    \    | 杨丁豪  | 人物移动，碰撞检测，地图制作，动画效果,地图角色、选择，视频，音效，UI设计 |
-|    \    | 贺鹏程  |      泡泡的放置、爆炸、地图对应变化，人物对炸弹检测及相应动画      |
-|    \    | 赵洪城  |            人物属性，道具产生，拾取，使用             |
-|    \    | 李亚康  |             网络模块，房间列表，聊天功能             |
+|    \    | Dinghow | 人物移动，碰撞检测，地图制作，动画效果,地图角色、选择，视频，音效，UI设计 |
+|    \    | HPC  |      泡泡的放置、爆炸、地图对应变化，人物对炸弹检测及相应动画      |
+|    \    | ZHC  |            人物属性，道具产生，拾取，使用             |
+|    \    | THE DO  |             网络模块，房间列表，聊天功能             |
 
 如果具体任务量较大可以协同一起做，其他附加功能暂时没有分配，等以上功能完成后看情况决定
 
